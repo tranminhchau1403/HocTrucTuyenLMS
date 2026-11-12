@@ -1,0 +1,36 @@
+2026-11-12 11:02:59.997 +07:00 [INF] User profile is available. Using 'C:\Users\MINHCHAU\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-11-12 11:03:00.039 +07:00 [INF] LmsBackgroundWorker đã khởi động: sẵn sàng xử lý hàng đợi Email và dọn dẹp phiên định kỳ.
+2026-11-12 11:03:00.150 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost/api/ChungChi/XacThuc/CTLMS-2026-000001 - null null
+2026-11-12 11:03:00.258 +07:00 [INF] Executing endpoint 'API_SinhVien.Controllers.ChungChiController.XacThuc (API_SinhVien)'
+2026-11-12 11:03:00.275 +07:00 [INF] Route matched with {action = "XacThuc", controller = "ChungChi"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult XacThuc(System.String) on controller API_SinhVien.Controllers.ChungChiController (API_SinhVien).
+2026-11-12 11:03:00.345 +07:00 [INF] Executing OkObjectResult, writing value of type 'Models.ApiResponse`1[[Models.ChungChiModel, Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-11-12 11:03:00.400 +07:00 [INF] Executed action API_SinhVien.Controllers.ChungChiController.XacThuc (API_SinhVien) in 120.1028ms
+2026-11-12 11:03:00.403 +07:00 [INF] Executed endpoint 'API_SinhVien.Controllers.ChungChiController.XacThuc (API_SinhVien)'
+2026-11-12 11:03:00.406 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost/api/ChungChi/XacThuc/CTLMS-2026-000001 - 200 null application/json; charset=utf-8 258.1908ms
+2026-11-12 11:23:11.706 +07:00 [INF] User profile is available. Using 'C:\Users\MINHCHAU\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-11-12 11:23:11.747 +07:00 [INF] LmsBackgroundWorker đã khởi động: sẵn sàng xử lý hàng đợi Email và dọn dẹp phiên định kỳ.
+2026-11-12 11:23:11.844 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost/api/ChungChi/XacThuc/CTLMS-2026-000001 - null null
+2026-11-12 11:23:11.923 +07:00 [INF] Executing endpoint 'API_SinhVien.Controllers.ChungChiController.XacThuc (API_SinhVien)'
+2026-11-12 11:23:11.937 +07:00 [INF] Route matched with {action = "XacThuc", controller = "ChungChi"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult XacThuc(System.String) on controller API_SinhVien.Controllers.ChungChiController (API_SinhVien).
+2026-11-12 11:23:11.955 +07:00 [INF] Executing OkObjectResult, writing value of type 'Models.ApiResponse`1[[Models.ChungChiModel, Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-11-12 11:23:12.006 +07:00 [INF] Executed action API_SinhVien.Controllers.ChungChiController.XacThuc (API_SinhVien) in 66.5171ms
+2026-11-12 11:23:12.009 +07:00 [INF] Executed endpoint 'API_SinhVien.Controllers.ChungChiController.XacThuc (API_SinhVien)'
+2026-11-12 11:23:12.012 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost/api/ChungChi/XacThuc/CTLMS-2026-000001 - 200 null application/json; charset=utf-8 173.0618ms
+2026-11-12 11:25:16.111 +07:00 [INF] User profile is available. Using 'C:\Users\MINHCHAU\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-11-12 11:25:16.147 +07:00 [INF] LmsBackgroundWorker đã khởi động: sẵn sàng xử lý hàng đợi Email và dọn dẹp phiên định kỳ.
+2026-11-12 11:25:16.210 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost/api/ChungChi/XacThuc/CTLMS-2026-000001 - null null
+2026-11-12 11:25:16.264 +07:00 [INF] Executing endpoint 'API_SinhVien.Controllers.ChungChiController.XacThuc (API_SinhVien)'
+2026-11-12 11:25:16.275 +07:00 [INF] Route matched with {action = "XacThuc", controller = "ChungChi"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult XacThuc(System.String) on controller API_SinhVien.Controllers.ChungChiController (API_SinhVien).
+2026-11-12 11:25:16.291 +07:00 [INF] Executing OkObjectResult, writing value of type 'Models.ApiResponse`1[[Models.ChungChiModel, Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-11-12 11:25:16.331 +07:00 [INF] Executed action API_SinhVien.Controllers.ChungChiController.XacThuc (API_SinhVien) in 51.6343ms
+2026-11-12 11:25:16.334 +07:00 [INF] Executed endpoint 'API_SinhVien.Controllers.ChungChiController.XacThuc (API_SinhVien)'
+2026-11-12 11:25:16.337 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost/api/ChungChi/XacThuc/CTLMS-2026-000001 - 200 null application/json; charset=utf-8 127.1219ms
+2026-11-12 11:29:05.123 +07:00 [INF] User profile is available. Using 'C:\Users\MINHCHAU\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-11-12 11:29:05.181 +07:00 [INF] LmsBackgroundWorker đã khởi động: sẵn sàng xử lý hàng đợi Email và dọn dẹp phiên định kỳ.
+2026-11-12 11:29:05.280 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost/api/ChungChi/XacThuc/CTLMS-2026-000001 - null null
+2026-11-12 11:29:05.370 +07:00 [INF] Executing endpoint 'API_SinhVien.Controllers.ChungChiController.XacThuc (API_SinhVien)'
+2026-11-12 11:29:05.388 +07:00 [INF] Route matched with {action = "XacThuc", controller = "ChungChi"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult XacThuc(System.String) on controller API_SinhVien.Controllers.ChungChiController (API_SinhVien).
+2026-11-12 11:29:05.413 +07:00 [INF] Executing OkObjectResult, writing value of type 'Models.ApiResponse`1[[Models.ChungChiModel, Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-11-12 11:29:05.468 +07:00 [INF] Executed action API_SinhVien.Controllers.ChungChiController.XacThuc (API_SinhVien) in 74.1056ms
+2026-11-12 11:29:05.470 +07:00 [INF] Executed endpoint 'API_SinhVien.Controllers.ChungChiController.XacThuc (API_SinhVien)'
+2026-11-12 11:29:05.473 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost/api/ChungChi/XacThuc/CTLMS-2026-000001 - 200 null application/json; charset=utf-8 194.7478ms

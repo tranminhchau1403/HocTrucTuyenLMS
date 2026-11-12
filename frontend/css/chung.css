@@ -1,0 +1,342 @@
+@charset "UTF-8";
+/* ============================================================
+   chung.css — Biến CSS, reset và kiểu toàn cục
+   Hệ Thống Quản Lý Phát Hành Báo Chí & Tạp Chí
+   ============================================================ */
+
+@import url('fonts.css');
+
+/* ── Biến CSS Design System ── */
+:root {
+  /* Màu chủ đạo (Indigo & Electric Blue) */
+  --mau-chinh: #4f46e5;
+  --mau-chinh-hover: #4338ca;
+  --mau-chinh-dam: #3730a3;
+  --mau-chinh-nhat: #e0e7ff;
+  --mau-chinh-sang: #eef2ff;
+  --mau-chinh-glow: rgba(79, 70, 229, 0.25);
+
+  /* Màu bổ trợ & trạng thái hiện đại */
+  --mau-thanh-cong: #10b981;
+  --mau-thanh-cong-hover: #059669;
+  --mau-thanh-cong-nhat: #d1fae5;
+  --mau-thanh-cong-sang: #ecfdf5;
+
+  --mau-canh-bao: #f59e0b;
+  --mau-canh-bao-hover: #d97706;
+  --mau-canh-bao-nhat: #fef3c7;
+  --mau-canh-bao-sang: #fffbeb;
+
+  --mau-nguy-hiem: #f43f5e;
+  --mau-nguy-hiem-hover: #e11d48;
+  --mau-nguy-hiem-nhat: #ffe4e6;
+  --mau-nguy-hiem-sang: #fff1f2;
+
+  --mau-thong-tin: #0ea5e9;
+  --mau-thong-tin-hover: #0284c7;
+  --mau-thong-tin-nhat: #e0f2fe;
+  --mau-thong-tin-sang: #f0f9ff;
+
+  --mau-tim: #8b5cf6;
+  --mau-tim-nhat: #ede9fe;
+  --mau-tim-sang: #f5f3ff;
+
+  /* Bảng màu xám Slate trung tính cao cấp */
+  --xam-50:  #f8fafc;
+  --xam-100: #f1f5f9;
+  --xam-200: #e2e8f0;
+  --xam-300: #cbd5e1;
+  --xam-400: #94a3b8;
+  --xam-500: #64748b;
+  --xam-600: #475569;
+  --xam-700: #334155;
+  --xam-800: #1e293b;
+  --xam-900: #0f172a;
+  --xam-950: #020617;
+
+  /* Bề mặt và Văn bản */
+  --nen-trang: #ffffff;
+  --nen-chinh: #f8fafc;
+  --nen-phu: #f1f5f9;
+  --van-ban-chinh: #0f172a;
+  --van-ban-phu: #475569;
+  --van-ban-mo: #94a3b8;
+  --duong-vien: #e2e8f0;
+  --duong-vien-nhe: #f1f5f9;
+
+  /* Sidebar Dark Theme */
+  --sidebar-nen: #0b1120;
+  --sidebar-nen-phu: #0f172a;
+  --sidebar-nen-hover: rgba(255, 255, 255, 0.06);
+  --sidebar-van-ban: #94a3b8;
+  --sidebar-van-ban-active: #ffffff;
+  --sidebar-accent: #6366f1;
+  --sidebar-rong: 285px;
+  --sidebar-rong-thu: 72px;
+
+  /* Header Glassmorphism */
+  --header-cao: 68px;
+  --header-nen: rgba(255, 255, 255, 0.88);
+  --header-vien: #e2e8f0;
+
+  /* Bo góc chuẩn */
+  --bo-goc-xs: 4px;
+  --bo-goc-nho: 8px;
+  --bo-goc-vua: 12px;
+  --bo-goc-lon: 16px;
+  --bo-goc-xl: 20px;
+  --bo-goc-tron: 9999px;
+
+  /* Bóng mềm đa lớp (Layered Shadows) */
+  --bong-nhe: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+  --bong-nho: 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
+  --bong-vua: 0 4px 12px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -2px rgba(15, 23, 42, 0.04);
+  --bong-lon: 0 12px 24px -4px rgba(15, 23, 42, 0.10), 0 4px 8px -2px rgba(15, 23, 42, 0.05);
+  --bong-xl:  0 24px 38px -6px rgba(15, 23, 42, 0.16), 0 10px 16px -6px rgba(15, 23, 42, 0.08);
+  --bong-modal: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+  --bong-chinh: 0 4px 14px 0 var(--mau-chinh-glow);
+
+  /* Khoảng cách */
+  --kc-xs: 4px;
+  --kc-s:  8px;
+  --kc-m:  12px;
+  --kc-l:  16px;
+  --kc-xl: 24px;
+  --kc-xxl: 32px;
+
+  /* Cỡ chữ */
+  --font-xs: 0.7rem;
+  --font-nho: 0.8rem;
+  --font-binh: 0.875rem;
+  --font-vua: 1rem;
+  --font-lon: 1.125rem;
+  --font-xl: 1.25rem;
+  --font-xxl: 1.5rem;
+  --font-hero: 1.875rem;
+
+  /* Hiệu ứng chuyển động */
+  --chuyen-tiep: 180ms cubic-bezier(0.4, 0, 0.2, 1);
+  --chuyen-tiep-cham: 280ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Z-index phân tầng */
+  --z-sidebar: 100;
+  --z-header:  200;
+  --z-overlay: 250;
+  --z-modal:   300;
+  --z-toast:   400;
+}
+
+/* ── Reset & Khung nền ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 17.6px; /* Tăng 10% cỡ chữ toàn hệ thống (16px * 1.1) */
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+body {
+  font-family: 'Google Sans', 'Google Sans Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: var(--font-binh);
+  line-height: 1.5;
+  color: var(--van-ban-chinh);
+  background-color: var(--nen-chinh);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100%;
+}
+
+a {
+  color: var(--mau-chinh);
+  text-decoration: none;
+  transition: color var(--chuyen-tiep);
+}
+a:hover {
+  color: var(--mau-chinh-hover);
+}
+
+ul, ol { list-style: none; }
+img, svg { display: block; max-width: 100%; }
+
+/* ── Chuẩn hóa Bootstrap Icons & Căn giữa biểu tượng ── */
+i.bi, [class^="bi-"], [class*=" bi-"] {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  vertical-align: middle !important;
+  line-height: 1 !important;
+}
+
+i.bi::before, [class^="bi-"]::before, [class*=" bi-"]::before {
+  display: inline-block !important;
+  vertical-align: 0 !important; /* Xóa triệt để độ lệch -.125em mặc định kéo icon lệch xuống của Bootstrap Icons */
+  line-height: 1 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+  font-size: var(--font-binh);
+  border: none;
+  background: none;
+  outline: none;
+}
+
+input, select, textarea {
+  font-family: inherit;
+  font-size: var(--font-binh);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Google Sans Display', 'Google Sans', sans-serif;
+  line-height: 1.3;
+  color: var(--van-ban-chinh);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+/* ── Tiện ích định dạng ── */
+.an { display: none !important; }
+.an-ngam { visibility: hidden; }
+.van-ban-trung { text-align: center; }
+.van-ban-phai { text-align: right; }
+.van-ban-trai { text-align: left; }
+.chu-dam { font-weight: 600; }
+.chu-sieu-dam { font-weight: 700; }
+
+.mau-chinh      { color: var(--mau-chinh); }
+.mau-thanh-cong { color: var(--mau-thanh-cong); }
+.mau-nguy-hiem  { color: var(--mau-nguy-hiem); }
+.mau-canh-bao   { color: var(--mau-canh-bao); }
+.mau-thong-tin  { color: var(--mau-thong-tin); }
+.mau-tim        { color: var(--mau-tim); }
+.mau-phu        { color: var(--van-ban-phu); }
+.mau-mo         { color: var(--van-ban-mo); }
+
+/* ── Tinh chỉnh thanh cuộn ── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--xam-300);
+  border-radius: var(--bo-goc-tron);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--xam-400);
+}
+
+/* ── Focus rings khả dụng ── */
+:focus-visible {
+  outline: 2px solid var(--mau-chinh);
+  outline-offset: 2px;
+}
+
+/* ── Skeleton Loading ── */
+.skeleton {
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: var(--bo-goc-nho);
+}
+
+@keyframes skeleton-loading {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Badge / Thẻ trạng thái sang trọng ── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: var(--bo-goc-tron);
+  font-size: var(--font-xs);
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+.badge-xanh   { background: var(--mau-thanh-cong-sang); color: var(--mau-thanh-cong-hover); border: 1px solid var(--mau-thanh-cong-nhat); }
+.badge-do     { background: var(--mau-nguy-hiem-sang);  color: var(--mau-nguy-hiem-hover);  border: 1px solid var(--mau-nguy-hiem-nhat); }
+.badge-vang   { background: var(--mau-canh-bao-sang);   color: var(--mau-canh-bao-hover);   border: 1px solid var(--mau-canh-bao-nhat); }
+.badge-lam    { background: var(--mau-chinh-sang);      color: var(--mau-chinh-dam);        border: 1px solid var(--mau-chinh-nhat); }
+.badge-tim    { background: var(--mau-tim-sang);        color: var(--mau-tim);              border: 1px solid var(--mau-tim-nhat); }
+.badge-xam    { background: var(--xam-100);             color: var(--xam-700);              border: 1px solid var(--xam-200); }
+
+/* ── Keyframe Animations ── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.6; transform: scale(1.15); }
+}
+
+.fade-in {
+  animation: fadeIn 0.25s ease-out forwards;
+}
+
+/* ── Tiện ích chuyển hướng & bố cục bổ trợ ── */
+.can-giua-toan-man {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--kc-l);
+  background: var(--nen-chinh);
+}
+
+.the-chuyen-huong {
+  max-width: 420px;
+  width: 100%;
+  padding: var(--kc-xxl);
+  border-radius: var(--bo-goc-lon);
+  box-shadow: var(--bong-m);
+}
+
+.tieu-de-chuyen-huong {
+  font-size: var(--font-lon);
+  font-weight: 700;
+  margin: var(--kc-m) 0 var(--kc-xs);
+  color: var(--van-ban-chinh);
+}
+
+.mo-ta-chuyen-huong {
+  font-size: var(--font-binh);
+  color: var(--van-ban-phu);
+  margin: 0;
+}
+
+.can-giua {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.nen-xam-nhe {
+  background-color: var(--xam-50);
+}
+
+.pad-l {
+  padding: var(--kc-l);
+}
+
+.dam-lon {
+  font-weight: 700;
+}
+

@@ -1,0 +1,197 @@
+/**
+ * tong-quan.css — CSS riêng trang Tổng quan (Dashboard)
+ */
+
+.tong-quan-khung {
+  display: flex;
+  flex-direction: column;
+  gap: var(--kc-xl);
+}
+
+.tong-quan-chao-mung {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--kc-m);
+  background: var(--nen-the);
+  padding: var(--kc-xl);
+  border-radius: var(--bo-goc-lon);
+  border: 1px solid var(--duong-vien);
+  box-shadow: var(--bong-nho);
+}
+
+.tong-quan-tieu-de-hop {
+  display: flex;
+  align-items: center;
+  gap: var(--kc-s);
+  margin-bottom: 4px;
+}
+
+.tong-quan-tieu-de {
+  font-size: var(--font-xl);
+  font-weight: 800;
+  color: var(--van-ban-chinh);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.tong-quan-mo-ta {
+  color: var(--van-ban-phu);
+  font-size: var(--font-binh);
+  margin: 0;
+}
+
+.tong-quan-thoi-gian {
+  display: flex;
+  align-items: center;
+  gap: var(--kc-s);
+  font-size: var(--font-nho);
+  color: var(--van-ban-phu);
+  background: var(--xam-100);
+  padding: 8px 16px;
+  border-radius: var(--bo-goc-tron);
+  border: 1px solid var(--xam-200);
+}
+
+.tong-quan-chi-tiet-luoi {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--kc-l);
+}
+
+.loi-tat-danh-sach {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--kc-m);
+}
+
+.loi-tat-muc {
+  padding: 8px 14px;
+  text-decoration: none;
+}
+
+/* Lưới thống kê & Thẻ KPI */
+.luoi-thong-ke {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--kc-l);
+}
+
+.o-thong-ke {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: var(--bo-goc-lon);
+  box-shadow: var(--bong-nho);
+  border: 1px solid var(--duong-vien);
+}
+
+.o-thong-ke-bieu-tuong {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.o-thong-ke-gia-tri {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--van-ban-chinh);
+  line-height: 1.2;
+}
+
+.o-thong-ke-nhan {
+  font-size: var(--font-nho);
+  color: var(--van-ban-mo);
+  margin-top: 2px;
+}
+
+.o-thong-ke-loading {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Khu vực lối tắt chức năng */
+.tong-quan-loi-tat {
+  margin-top: 24px;
+}
+
+.loi-tat-tieu-de {
+  font-size: var(--font-lon);
+  margin-bottom: 14px;
+  color: var(--van-ban-chinh);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.loi-tat-tieu-de-icon {
+  color: var(--mau-chinh);
+}
+
+.loi-tat-luoi-toan-bo {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.loi-tat-nhom-khung {
+  width: 100%;
+}
+
+.loi-tat-nhom-ten {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--van-ban-mo);
+  margin: 8px 0;
+  letter-spacing: 0.05em;
+}
+
+.loi-tat-luoi-muc {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.loi-tat-the {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  background: #ffffff;
+  border-radius: var(--bo-goc-vua);
+  border: 1px solid var(--duong-vien);
+  text-decoration: none;
+  color: var(--van-ban-chinh);
+  box-shadow: var(--bong-nho);
+  transition: all 0.2s ease;
+}
+
+.loi-tat-the:hover {
+  border-color: var(--mau-chinh);
+  transform: translateY(-2px);
+  box-shadow: var(--bong-vua);
+  color: var(--mau-chinh);
+}
+
+.loi-tat-icon {
+  font-size: 22px;
+  color: var(--mau-chinh);
+  flex-shrink: 0;
+}
+
+.loi-tat-ten {
+  font-size: 14px;
+  font-weight: 600;
+}
+

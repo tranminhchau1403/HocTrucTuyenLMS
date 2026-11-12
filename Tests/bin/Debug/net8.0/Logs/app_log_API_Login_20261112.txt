@@ -1,0 +1,88 @@
+2026-11-12 11:03:00.560 +07:00 [INF] User profile is available. Using 'C:\Users\MINHCHAU\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-11-12 11:03:00.570 +07:00 [INF] LmsBackgroundWorker đã khởi động: sẵn sàng xử lý hàng đợi Email và dọn dẹp phiên định kỳ.
+2026-11-12 11:03:00.600 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost/health/live - null null
+2026-11-12 11:03:00.630 +07:00 [INF] Executing endpoint 'Health checks'
+2026-11-12 11:03:00.644 +07:00 [INF] Executed endpoint 'Health checks'
+2026-11-12 11:03:00.646 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost/health/live - 200 null text/plain 46.1942ms
+2026-11-12 11:03:01.460 +07:00 [INF] User profile is available. Using 'C:\Users\MINHCHAU\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-11-12 11:03:01.466 +07:00 [INF] LmsBackgroundWorker đã khởi động: sẵn sàng xử lý hàng đợi Email và dọn dẹp phiên định kỳ.
+2026-11-12 11:03:01.473 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost/api/XacThuc/DangNhap - application/json; charset=utf-8 42
+2026-11-12 11:03:01.481 +07:00 [INF] Executing endpoint 'API_Login.Controllers.XacThucController.DangNhap (API_Login)'
+2026-11-12 11:03:01.483 +07:00 [INF] Route matched with {action = "DangNhap", controller = "XacThuc"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult DangNhap(Models.LoginRequest) on controller API_Login.Controllers.XacThucController (API_Login).
+2026-11-12 11:03:01.807 +07:00 [INF] Executing OkObjectResult, writing value of type 'Models.ApiResponse`1[[Models.AuthResponse, Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-11-12 11:03:01.814 +07:00 [INF] Executed action API_Login.Controllers.XacThucController.DangNhap (API_Login) in 330.3435ms
+2026-11-12 11:03:01.814 +07:00 [INF] Executed endpoint 'API_Login.Controllers.XacThucController.DangNhap (API_Login)'
+2026-11-12 11:03:01.814 +07:00 [INF] Request finished HTTP/1.1 POST http://localhost/api/XacThuc/DangNhap - 200 null application/json; charset=utf-8 340.9658ms
+2026-11-12 11:03:01.860 +07:00 [INF] User profile is available. Using 'C:\Users\MINHCHAU\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-11-12 11:03:01.865 +07:00 [INF] LmsBackgroundWorker đã khởi động: sẵn sàng xử lý hàng đợi Email và dọn dẹp phiên định kỳ.
+2026-11-12 11:03:01.871 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost/api/XacThuc/LayThongTin - null null
+2026-11-12 11:03:01.874 +07:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2026-11-12 11:03:01.878 +07:00 [INF] AuthenticationScheme: Bearer was challenged.
+2026-11-12 11:03:01.878 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost/api/XacThuc/LayThongTin - 401 null application/json; charset=utf-8 7.7451ms
+2026-11-12 11:23:12.070 +07:00 [INF] User profile is available. Using 'C:\Users\MINHCHAU\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-11-12 11:23:12.079 +07:00 [INF] LmsBackgroundWorker đã khởi động: sẵn sàng xử lý hàng đợi Email và dọn dẹp phiên định kỳ.
+2026-11-12 11:23:12.103 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost/health/live - null null
+2026-11-12 11:23:12.120 +07:00 [INF] Executing endpoint 'Health checks'
+2026-11-12 11:23:12.130 +07:00 [INF] Executed endpoint 'Health checks'
+2026-11-12 11:23:12.132 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost/health/live - 200 null text/plain 29.0066ms
+2026-11-12 11:23:12.640 +07:00 [INF] User profile is available. Using 'C:\Users\MINHCHAU\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-11-12 11:23:12.647 +07:00 [INF] LmsBackgroundWorker đã khởi động: sẵn sàng xử lý hàng đợi Email và dọn dẹp phiên định kỳ.
+2026-11-12 11:23:12.658 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost/api/XacThuc/DangNhap - application/json; charset=utf-8 42
+2026-11-12 11:23:12.669 +07:00 [INF] Executing endpoint 'API_Login.Controllers.XacThucController.DangNhap (API_Login)'
+2026-11-12 11:23:12.671 +07:00 [INF] Route matched with {action = "DangNhap", controller = "XacThuc"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult DangNhap(Models.LoginRequest) on controller API_Login.Controllers.XacThucController (API_Login).
+2026-11-12 11:23:12.894 +07:00 [INF] Executing OkObjectResult, writing value of type 'Models.ApiResponse`1[[Models.AuthResponse, Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-11-12 11:23:12.903 +07:00 [INF] Executed action API_Login.Controllers.XacThucController.DangNhap (API_Login) in 231.2337ms
+2026-11-12 11:23:12.903 +07:00 [INF] Executed endpoint 'API_Login.Controllers.XacThucController.DangNhap (API_Login)'
+2026-11-12 11:23:12.903 +07:00 [INF] Request finished HTTP/1.1 POST http://localhost/api/XacThuc/DangNhap - 200 null application/json; charset=utf-8 246.5811ms
+2026-11-12 11:23:12.921 +07:00 [INF] User profile is available. Using 'C:\Users\MINHCHAU\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-11-12 11:23:12.927 +07:00 [INF] LmsBackgroundWorker đã khởi động: sẵn sàng xử lý hàng đợi Email và dọn dẹp phiên định kỳ.
+2026-11-12 11:23:12.958 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost/api/XacThuc/LayThongTin - null null
+2026-11-12 11:23:12.962 +07:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2026-11-12 11:23:12.967 +07:00 [INF] AuthenticationScheme: Bearer was challenged.
+2026-11-12 11:23:12.967 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost/api/XacThuc/LayThongTin - 401 null application/json; charset=utf-8 9.2061ms
+2026-11-12 11:25:16.388 +07:00 [INF] User profile is available. Using 'C:\Users\MINHCHAU\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-11-12 11:25:16.395 +07:00 [INF] LmsBackgroundWorker đã khởi động: sẵn sàng xử lý hàng đợi Email và dọn dẹp phiên định kỳ.
+2026-11-12 11:25:16.417 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost/health/live - null null
+2026-11-12 11:25:16.430 +07:00 [INF] Executing endpoint 'Health checks'
+2026-11-12 11:25:16.439 +07:00 [INF] Executed endpoint 'Health checks'
+2026-11-12 11:25:16.441 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost/health/live - 200 null text/plain 23.7495ms
+2026-11-12 11:25:16.934 +07:00 [INF] User profile is available. Using 'C:\Users\MINHCHAU\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-11-12 11:25:16.939 +07:00 [INF] LmsBackgroundWorker đã khởi động: sẵn sàng xử lý hàng đợi Email và dọn dẹp phiên định kỳ.
+2026-11-12 11:25:16.946 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost/api/XacThuc/DangNhap - application/json; charset=utf-8 42
+2026-11-12 11:25:16.954 +07:00 [INF] Executing endpoint 'API_Login.Controllers.XacThucController.DangNhap (API_Login)'
+2026-11-12 11:25:16.955 +07:00 [INF] Route matched with {action = "DangNhap", controller = "XacThuc"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult DangNhap(Models.LoginRequest) on controller API_Login.Controllers.XacThucController (API_Login).
+2026-11-12 11:25:17.136 +07:00 [INF] Executing OkObjectResult, writing value of type 'Models.ApiResponse`1[[Models.AuthResponse, Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-11-12 11:25:17.142 +07:00 [INF] Executed action API_Login.Controllers.XacThucController.DangNhap (API_Login) in 186.9919ms
+2026-11-12 11:25:17.143 +07:00 [INF] Executed endpoint 'API_Login.Controllers.XacThucController.DangNhap (API_Login)'
+2026-11-12 11:25:17.143 +07:00 [INF] Request finished HTTP/1.1 POST http://localhost/api/XacThuc/DangNhap - 200 null application/json; charset=utf-8 196.4212ms
+2026-11-12 11:25:17.160 +07:00 [INF] User profile is available. Using 'C:\Users\MINHCHAU\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-11-12 11:25:17.187 +07:00 [INF] LmsBackgroundWorker đã khởi động: sẵn sàng xử lý hàng đợi Email và dọn dẹp phiên định kỳ.
+2026-11-12 11:25:17.192 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost/api/XacThuc/LayThongTin - null null
+2026-11-12 11:25:17.195 +07:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2026-11-12 11:25:17.200 +07:00 [INF] AuthenticationScheme: Bearer was challenged.
+2026-11-12 11:25:17.200 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost/api/XacThuc/LayThongTin - 401 null application/json; charset=utf-8 7.9806ms
+2026-11-12 11:29:05.528 +07:00 [INF] User profile is available. Using 'C:\Users\MINHCHAU\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-11-12 11:29:05.536 +07:00 [INF] LmsBackgroundWorker đã khởi động: sẵn sàng xử lý hàng đợi Email và dọn dẹp phiên định kỳ.
+2026-11-12 11:29:05.561 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost/health/live - null null
+2026-11-12 11:29:05.586 +07:00 [INF] Executing endpoint 'Health checks'
+2026-11-12 11:29:05.596 +07:00 [INF] Executed endpoint 'Health checks'
+2026-11-12 11:29:05.598 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost/health/live - 200 null text/plain 36.6724ms
+2026-11-12 11:29:06.196 +07:00 [INF] User profile is available. Using 'C:\Users\MINHCHAU\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-11-12 11:29:06.205 +07:00 [INF] LmsBackgroundWorker đã khởi động: sẵn sàng xử lý hàng đợi Email và dọn dẹp phiên định kỳ.
+2026-11-12 11:29:06.219 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost/api/XacThuc/DangNhap - application/json; charset=utf-8 42
+2026-11-12 11:29:06.226 +07:00 [INF] Executing endpoint 'API_Login.Controllers.XacThucController.DangNhap (API_Login)'
+2026-11-12 11:29:06.227 +07:00 [INF] Route matched with {action = "DangNhap", controller = "XacThuc"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult DangNhap(Models.LoginRequest) on controller API_Login.Controllers.XacThucController (API_Login).
+2026-11-12 11:29:06.441 +07:00 [INF] Executing OkObjectResult, writing value of type 'Models.ApiResponse`1[[Models.AuthResponse, Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-11-12 11:29:06.447 +07:00 [INF] Executed action API_Login.Controllers.XacThucController.DangNhap (API_Login) in 219.83ms
+2026-11-12 11:29:06.448 +07:00 [INF] Executed endpoint 'API_Login.Controllers.XacThucController.DangNhap (API_Login)'
+2026-11-12 11:29:06.449 +07:00 [INF] Request finished HTTP/1.1 POST http://localhost/api/XacThuc/DangNhap - 200 null application/json; charset=utf-8 230.1057ms
+2026-11-12 11:29:06.463 +07:00 [INF] User profile is available. Using 'C:\Users\MINHCHAU\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-11-12 11:29:06.469 +07:00 [INF] LmsBackgroundWorker đã khởi động: sẵn sàng xử lý hàng đợi Email và dọn dẹp phiên định kỳ.
+2026-11-12 11:29:06.500 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost/api/XacThuc/LayThongTin - null null
+2026-11-12 11:29:06.503 +07:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2026-11-12 11:29:06.507 +07:00 [INF] AuthenticationScheme: Bearer was challenged.
+2026-11-12 11:29:06.507 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost/api/XacThuc/LayThongTin - 401 null application/json; charset=utf-8 7.5327ms

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>API_GiangVien</name>
+    </assembly>
+    <members>
+        <member name="M:API_GiangVien.Controllers.KhoaHocController.GuiDuyet(System.Int32)">
+            <summary>Luồng 5: Giảng viên gửi khóa học chờ Admin phê duyệt</summary>
+        </member>
+        <member name="M:API_GiangVien.Controllers.BaiGiangController.TaiLenTep(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>Tải lên tệp tài liệu bài giảng (PDF, Video, Slide) an toàn (Bài 16 Giáo trình)</summary>
+        </member>
+        <member name="M:API_GiangVien.Controllers.BangDiemController.XuatExcel(System.Int32)">
+            <summary>Xuất bảng điểm sinh viên theo từng khóa học ra file Excel (.xlsx)</summary>
+        </member>
+    </members>
+</doc>

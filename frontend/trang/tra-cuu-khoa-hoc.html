@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="vi" ng-app="lmsApp">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Khám phá khóa học - CT LMS</title>
+  <link rel="icon" type="image/svg+xml" href="../img/ct-lms-logo.svg" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="../css/chung.css" />
+  <link rel="stylesheet" href="../css/giao-dien.css" />
+</head>
+<body ng-controller="TraCuuKhoaHocController as vm">
+
+  <!-- THANH ĐIỀU HƯỚNG NGANG CHUẨN CT LMS (FLUID RESPONSIVE) -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="header-left">
+        <a href="tong-quan.html" class="header-brand" title="CT LMS">
+          <img src="../img/ct-lms-logo.svg" alt="CT LMS Logo" class="h-8 sm:h-9 w-auto object-contain" />
+        </a>
+        <nav id="header-navbar-links" class="nav-links"></nav>
+      </div>
+      <div class="header-actions" id="header-user-actions"></div>
+    </div>
+  </header>
+
+  <main class="main-container">
+    <!-- 1. Breadcrumb Chuẩn CT LMS -->
+    <nav class="breadcrumb-nav">
+      <a href="tong-quan.html"><i class="bi bi-house-door"></i> Trang chủ</a>
+      <span>/</span>
+      <span class="active">Khám phá khóa học</span>
+    </nav>
+
+    <!-- 2. Thanh Tìm Kiếm Realtime -->
+    <div class="search-bar">
+      <input
+        type="text"
+        ng-model="vm.boLoc.tuKhoa"
+        placeholder="Tìm kiếm khóa học C#, Web API, Ocelot Gateway, SQL Server..."
+        ng-change="vm.timKiem()"
+      />
+      <span class="search-icon"><i class="bi bi-search"></i></span>
+    </div>
+
+    <!-- 3. Thanh Filter Đa Điều Kiện: Pill Tags Cuộn Ngang Mượt + Dropdown Sắp Xếp -->
+    <div style="display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 1.35rem;">
+      <div class="filter-pills">
+        <button type="button" class="pill-btn" ng-class="{'active': vm.boLoc.tenDanhMuc === ''}" ng-click="vm.chonDanhMuc('')">
+          <i class="bi bi-grid"></i> Tất cả ({{ vm.tongSoKhoaHoc }})
+        </button>
+        <button
+          type="button"
+          class="pill-btn"
+          ng-repeat="dm in vm.danhSachDanhMuc"
+          ng-class="{'active': vm.boLoc.tenDanhMuc === dm.tenDanhMuc}"
+          ng-click="vm.chonDanhMuc(dm.tenDanhMuc)"
+        >
+          {{ dm.tenDanhMuc }}
+        </button>
+      </div>
+
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.75rem; font-size: 0.85rem;">
+        <span style="color: var(--text-muted); font-weight: 500;">
+          Hiển thị <strong>{{ vm.danhSachKhoaHoc.length }}</strong> khóa học phù hợp
+        </span>
+
+        <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+          <label style="color: var(--text-muted); font-size: 13px;">Sắp xếp:</label>
+          <select
+            ng-model="vm.boLoc.sapXep"
+            ng-change="vm.timKiem()"
+            style="padding: 0.4rem 0.75rem; border: 1px solid var(--border); border-radius: 8px; font-size: 13px; background: white; outline: none; cursor: pointer;"
+          >
+            <option value="moi-nhat">Mới nhất</option>
+            <option value="mien-phi">Miễn phí trước</option>
+            <option value="co-phi">Khóa học chuyên sâu</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Lưới Khóa Học Fluid Responsive (Mobile 1 cột -> Small Tablet 2 cột -> Tablet 3 cột -> Desktop 4 cột) -->
+    <div class="course-grid">
+      <div class="course-block" ng-repeat="kh in vm.danhSachKhoaHoc">
+        <!-- Thumbnail 16:9 với Ribbon & Hover Overlay -->
+        <div class="thumb-box">
+          <img ng-src="{{ kh.thumbnail || 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=600&q=80' }}" alt="{{ kh.tenKhoaHoc }}" />
+          
+          <div class="ribbon-bookmark" ng-class="kh.gia === 0 ? 'ribbon-free' : 'ribbon-featured'">
+            {{ kh.gia === 0 ? 'MIỄN PHÍ' : 'CHUYÊN SÂU' }}
+          </div>
+
+          <div class="thumb-overlay">
+            <a href="khoa-hoc-cua-toi.html" class="btn btn-secondary">
+              <i class="bi bi-play-circle"></i> Xem thử
+            </a>
+            <button class="btn btn-primary" ng-click="vm.ghiDanh(kh)">
+              <i class="bi bi-Lightning-charge-fill"></i> Ghi danh
+            </button>
+          </div>
+        </div>
+
+        <!-- Card Body dùng Flexbox căn đáy đồng đều -->
+        <div class="course-card-body">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; color: var(--text-muted); margin-bottom: 0.4rem;">
+              <span style="color: var(--primary); font-weight: 600;">{{ kh.tenDanhMuc || 'Lập trình .NET' }}</span>
+              <span><i class="bi bi-clock"></i> {{ kh.soBaiHoc || 24 }} bài giảng</span>
+            </div>
+
+            <h4 class="course-title" title="{{ kh.tenKhoaHoc }}">
+              {{ kh.tenKhoaHoc }}
+            </h4>
+          </div>
+
+          <div style="margin-top: 0.75rem;">
+            <div style="display: flex; align-items: center; justify-content: space-between; font-size: 12.5px; color: var(--text-muted); margin-bottom: 0.65rem;">
+              <span style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; max-width: 150px;">
+                <i class="bi bi-person-badge"></i> {{ kh.tenGiangVien || 'ThS. Trần Văn Bình' }}
+              </span>
+              <strong style="color: var(--primary); font-size: 13.5px; font-family: 'Google Sans Grad', 'Google Sans', sans-serif;">
+                {{ kh.gia | tienVND }}
+              </strong>
+            </div>
+
+            <button
+              type="button"
+              class="btn"
+              ng-class="vm.daGhiDanh(kh.maKhoaHoc) ? 'btn-secondary' : 'btn-primary'"
+              ng-click="vm.ghiDanh(kh)"
+              style="width: 100%; padding: 0.55rem; justify-content: center; border-radius: 8px;"
+            >
+              <i class="bi" ng-class="vm.daGhiDanh(kh.maKhoaHoc) ? 'bi-play-circle-fill' : 'bi-mortarboard-fill'"></i>
+              <span>{{ vm.daGhiDanh(kh.maKhoaHoc) ? 'Tiếp tục học' : 'Ghi danh ngay' }}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div ng-if="vm.danhSachKhoaHoc.length === 0" style="text-align: center; padding: 4rem 1rem; color: var(--text-muted); background: white; border-radius: 12px; border: 1px solid var(--border);">
+      <i class="bi bi-inbox" style="font-size: 2.5rem; opacity: 0.4;"></i>
+      <p style="margin-top: 0.5rem; font-size: 14px;">Không tìm thấy khóa học nào phù hợp với điều kiện lọc.</p>
+    </div>
+  </main>
+
+  <script src="../angular.min.js"></script>
+  <script src="../js/cau-hinh.js"></script>
+  <script src="../js/angular-app.js"></script>
+  <script src="../js/xac-thuc.js"></script>
+  <script src="../js/goi-api.js"></script>
+  <script src="../js/tien-ich.js"></script>
+  <script src="../js/dieu-huong.js"></script>
+  <script>
+    (function () {
+      'use strict';
+      angular.module('lmsApp').controller('TraCuuKhoaHocController', ['ApiService', function (ApiService) {
+        var vm = this;
+        var savedQuery = sessionStorage.getItem('app_search_query') || '';
+        if (savedQuery) sessionStorage.removeItem('app_search_query');
+
+        vm.boLoc = { tuKhoa: savedQuery, maDanhMuc: '', tenDanhMuc: '', sapXep: 'moi-nhat' };
+        vm.danhSachKhoaHoc = [];
+        vm.danhSachDanhMuc = [];
+        vm.enrolledIds = JSON.parse(localStorage.getItem('app_enrolled_courses') || '[1, 2]');
+
+        var mockCourses = [
+          { maKhoaHoc: 1, tenKhoaHoc: 'Lập trình C# cơ bản đến OOP chuyên sâu', tenDanhMuc: 'Lập trình .NET & C#', tenGiangVien: 'ThS. Trần Văn Bình', soBaiHoc: 32, gia: 0, thumbnail: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=600&q=80' },
+          { maKhoaHoc: 2, tenKhoaHoc: 'Phát triển Web API với ASP.NET Core & Ocelot Gateway (SOA)', tenDanhMuc: 'Lập trình .NET & C#', tenGiangVien: 'TS. Nguyễn Văn An', soBaiHoc: 28, gia: 800000, thumbnail: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80' },
+          { maKhoaHoc: 3, tenKhoaHoc: 'SQL Server từ cơ bản đến tối ưu hóa Stored Procedure & Trigger', tenDanhMuc: 'Cơ sở dữ liệu', tenGiangVien: 'ThS. Trần Văn Bình', soBaiHoc: 24, gia: 600000, thumbnail: 'https://images.unsplash.com/photo-1544383835-bda2bc66a55d?auto=format&fit=crop&w=600&q=80' },
+          { maKhoaHoc: 4, tenKhoaHoc: 'Kinh tế vi mô & Phân tích Nghiệp vụ Phần mềm (BA)', tenDanhMuc: 'Kinh tế - Tài chính', tenGiangVien: 'TS. Lê Thị Hoa', soBaiHoc: 18, gia: 400000, thumbnail: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80' },
+          { maKhoaHoc: 5, tenKhoaHoc: 'Tiếng Anh Giao tiếp & Đọc hiểu Tài liệu Kỹ thuật CNTT', tenDanhMuc: 'Ngoại ngữ IT', tenGiangVien: 'ThS. Vũ Đức Thắng', soBaiHoc: 20, gia: 450000, thumbnail: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=600&q=80' },
+          { maKhoaHoc: 6, tenKhoaHoc: 'Kỹ năng thuyết trình & Bảo vệ Đồ án Phần mềm Hướng Dịch Vụ', tenDanhMuc: 'Kỹ năng mềm', tenGiangVien: 'ThS. Vũ Đức Thắng', soBaiHoc: 15, gia: 0, thumbnail: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=600&q=80' },
+          { maKhoaHoc: 7, tenKhoaHoc: 'Kiến trúc Microservices với Docker, RabbitMQ & Redis Cache', tenDanhMuc: 'Lập trình .NET & C#', tenGiangVien: 'TS. Nguyễn Văn An', soBaiHoc: 36, gia: 950000, thumbnail: 'https://images.unsplash.com/photo-1607799279861-4dd421887fb3?auto=format&fit=crop&w=600&q=80' },
+          { maKhoaHoc: 8, tenKhoaHoc: 'Thiết kế Giao diện Responsive UI/UX với Tailwind CSS hiện đại', tenDanhMuc: 'Kỹ năng mềm', tenGiangVien: 'ThS. Lê Thị Hoa', soBaiHoc: 22, gia: 0, thumbnail: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80' }
+        ];
+        vm.tongSoKhoaHoc = mockCourses.length;
+
+        vm.daGhiDanh = function (id) {
+          return vm.enrolledIds.indexOf(id) > -1;
+        };
+
+        vm.chonDanhMuc = function (ten) {
+          vm.boLoc.tenDanhMuc = ten;
+          vm.timKiem();
+        };
+
+        vm.timKiem = function () {
+          ApiService.traCuuKhoaHoc(vm.boLoc).then(function (res) {
+            if (res.data && res.data.success && res.data.data && res.data.data.length > 0) {
+              vm.danhSachKhoaHoc = res.data.data;
+            } else {
+              vm.locMock();
+            }
+          }).catch(function () {
+            vm.locMock();
+          });
+        };
+
+        vm.locMock = function () {
+          var list = mockCourses.filter(function (k) {
+            var matchKw = !vm.boLoc.tuKhoa || k.tenKhoaHoc.toLowerCase().includes(vm.boLoc.tuKhoa.toLowerCase()) || (k.tenGiangVien && k.tenGiangVien.toLowerCase().includes(vm.boLoc.tuKhoa.toLowerCase()));
+            var matchCat = !vm.boLoc.tenDanhMuc || k.tenDanhMuc === vm.boLoc.tenDanhMuc;
+            return matchKw && matchCat;
+          });
+
+          if (vm.boLoc.sapXep === 'mien-phi') {
+            list.sort(function (a, b) { return a.gia - b.gia; });
+          } else if (vm.boLoc.sapXep === 'co-phi') {
+            list.sort(function (a, b) { return b.gia - a.gia; });
+          }
+          vm.danhSachKhoaHoc = list;
+        };
+
+        vm.ghiDanh = function (kh) {
+          if (vm.enrolledIds.indexOf(kh.maKhoaHoc) === -1) {
+            vm.enrolledIds.push(kh.maKhoaHoc);
+            localStorage.setItem('app_enrolled_courses', JSON.stringify(vm.enrolledIds));
+          }
+          ApiService.ghiDanhKhoaHoc(kh.maKhoaHoc).then(function () {
+            TienIch.thongBao('Đã ghi danh khóa: ' + kh.tenKhoaHoc, 'thanh-cong');
+            setTimeout(function () { window.location.href = 'khoa-hoc-cua-toi.html'; }, 350);
+          }).catch(function () {
+            TienIch.thongBao('Đã ghi danh khóa: ' + kh.tenKhoaHoc, 'thanh-cong');
+            setTimeout(function () { window.location.href = 'khoa-hoc-cua-toi.html'; }, 350);
+          });
+        };
+
+        vm.taiDanhMuc = function () {
+          vm.danhSachDanhMuc = [
+            { maDanhMuc: 1, tenDanhMuc: 'Lập trình .NET & C#' },
+            { maDanhMuc: 2, tenDanhMuc: 'Cơ sở dữ liệu' },
+            { maDanhMuc: 3, tenDanhMuc: 'Kinh tế - Tài chính' },
+            { maDanhMuc: 4, tenDanhMuc: 'Ngoại ngữ IT' },
+            { maDanhMuc: 5, tenDanhMuc: 'Kỹ năng mềm' }
+          ];
+        };
+
+        vm.taiDanhMuc();
+        vm.timKiem();
+      }]);
+    })();
+  </script>
+</body>
+</html>

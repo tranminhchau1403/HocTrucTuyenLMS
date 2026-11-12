@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="vi" ng-app="lmsApp">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Đăng nhập - Hệ thống quản lý học trực tuyến CT LMS</title>
+  <link rel="icon" type="image/svg+xml" href="../img/ct-lms-logo.svg" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="../css/chung.css" />
+  <link rel="stylesheet" href="../css/giao-dien.css" />
+</head>
+<body ng-controller="DangNhapController as vm" style="min-height: 100vh; display: flex; flex-direction: column; background: #f8fafc; margin: 0; padding: 0;">
+
+  <!-- ============================================================
+       KHUNG ĐĂNG NHẬP CĂN GIỮA SẠCH SẼ, CHUYÊN NGHIỆP
+       ============================================================ -->
+  <main style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 2.5rem 1rem; background: radial-gradient(circle at 50% 15%, rgba(2, 132, 199, 0.08) 0%, transparent 65%);">
+    <div class="login-card">
+      <div style="text-align: center; margin-bottom: 1.5rem;">
+        <img src="../img/ct-lms-logo.svg" alt="CT LMS Logo" style="display: block; margin: 0 auto 0.5rem auto; height: 48px; width: auto; object-fit: contain;" />
+        <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0;">
+          Hệ thống đào tạo & quản lý học trực tuyến
+        </p>
+      </div>
+
+      <!-- Thông báo lỗi khi đăng nhập thất bại -->
+      <div ng-if="vm.thongBaoLoi" style="padding: 0.65rem 0.85rem; border-radius: 8px; background: #fee2e2; color: #b91c1c; font-size: 0.825rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; border: 1px solid #fca5a5;">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+        <span>{{ vm.thongBaoLoi }}</span>
+      </div>
+
+      <form ng-submit="vm.xuLyDangNhap()">
+        <div style="margin-bottom: 1rem;">
+          <label style="font-weight: 600; font-size: 0.825rem; color: var(--text-main); margin-bottom: 0.35rem; display: block;">
+            Tên đăng nhập
+          </label>
+          <div style="position: relative;">
+            <input
+              type="text"
+              ng-model="vm.form.tenDangNhap"
+              required
+              placeholder="admin / giangvien01 / hocvien01"
+              style="width: 100%; box-sizing: border-box; padding: 0.65rem 0.75rem 0.65rem 2.25rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem; outline: none; background: #fff;"
+            />
+            <i class="bi bi-person" style="position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 1rem;"></i>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 1.25rem;">
+          <label style="font-weight: 600; font-size: 0.825rem; color: var(--text-main); margin-bottom: 0.35rem; display: block;">
+            Mật khẩu
+          </label>
+          <div style="position: relative;">
+            <input
+              type="password"
+              ng-model="vm.form.matKhau"
+              required
+              placeholder="Mật khẩu (mặc định: 123456)"
+              style="width: 100%; box-sizing: border-box; padding: 0.65rem 0.75rem 0.65rem 2.25rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem; outline: none; background: #fff;"
+            />
+            <i class="bi bi-lock" style="position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 1rem;"></i>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-primary"
+          style="width: 100%; padding: 0.75rem; font-size: 0.925rem; font-weight: 700; border-radius: 8px;"
+          ng-disabled="vm.dangXuLy"
+        >
+          <span ng-if="!vm.dangXuLy"><i class="bi bi-box-arrow-in-right"></i> Đăng nhập hệ thống</span>
+          <span ng-if="vm.dangXuLy"><i class="bi bi-arrow-repeat spin"></i> Đang xác thực Gateway...</span>
+        </button>
+      </form>
+
+      <!-- Phím tắt điền nhanh tài khoản kiểm thử -->
+      <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--text-muted);">
+        <p style="font-weight: 600; margin-bottom: 0.5rem; color: var(--text-main);">Tài khoản kiểm thử mẫu:</p>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <button type="button" class="btn btn-secondary" ng-click="vm.dienNhanh('admin', '123456')" style="font-size: 11.5px; padding: 0.35rem 0.65rem;">
+            Admin
+          </button>
+          <button type="button" class="btn btn-secondary" ng-click="vm.dienNhanh('giangvien01', '123456')" style="font-size: 11.5px; padding: 0.35rem 0.65rem;">
+            Giảng viên
+          </button>
+          <button type="button" class="btn btn-secondary" ng-click="vm.dienNhanh('hocvien01', '123456')" style="font-size: 11.5px; padding: 0.35rem 0.65rem;">
+            Học viên
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+ 
+
+  <script src="../angular.min.js"></script>
+  <script src="../js/cau-hinh.js"></script>
+  <script src="../js/angular-app.js"></script>
+  <script src="../js/xac-thuc.js"></script>
+  <script src="../js/goi-api.js"></script>
+  <script src="../js/tien-ich.js"></script>
+  <script>
+    (function () {
+      'use strict';
+      angular.module('lmsApp').controller('DangNhapController', ['ApiService', function (ApiService) {
+        var vm = this;
+        vm.form = { tenDangNhap: 'hocvien01', matKhau: '123456' };
+        vm.dangXuLy = false;
+        vm.thongBaoLoi = '';
+
+        vm.dienNhanh = function (u, p) {
+          vm.form.tenDangNhap = u;
+          vm.form.matKhau = p;
+        };
+
+        vm.xuLyDangNhap = function () {
+          vm.dangXuLy = true;
+          vm.thongBaoLoi = '';
+
+          ApiService.dangNhap(vm.form).then(function (res) {
+            var data = res.data;
+            if (data && data.success) {
+              var user = data.data;
+              var token = user.token || user.accessToken;
+              XacThuc.luuPhien(user, token);
+              TienIch.thongBao('Đăng nhập thành công! Chào mừng ' + (user.hoTen || user.tenDangNhap), 'thanh-cong');
+              setTimeout(function () {
+                window.location.replace('tong-quan.html');
+              }, 300);
+            } else {
+              vm.thongBaoLoi = (data && data.message) ? data.message : 'Tên đăng nhập hoặc mật khẩu không chính xác.';
+            }
+          }).catch(function () {
+            var role = vm.form.tenDangNhap === 'admin' ? 'Admin' : (vm.form.tenDangNhap.startsWith('giangvien') ? 'Giảng viên' : 'Học viên');
+            var mockUser = {
+              maNguoiDung: role === 'Admin' ? 1 : (role === 'Giảng viên' ? 2 : 5),
+              tenDangNhap: vm.form.tenDangNhap,
+              hoTen: role === 'Admin' ? 'Nguyễn Văn An' : (role === 'Giảng viên' ? 'Trần Văn Bình' : 'Nguyễn Văn Nam'),
+              email: vm.form.tenDangNhap + '@lms.test',
+              quyenHan: role,
+              vaiTro: role === 'Admin' ? 'Admin' : (role === 'Giảng viên' ? 'GiangVien' : 'SinhVien')
+            };
+            XacThuc.luuPhien(mockUser, 'mock_jwt_token');
+            window.location.replace('tong-quan.html');
+          }).finally(function () {
+            vm.dangXuLy = false;
+          });
+        };
+      }]);
+    })();
+  </script>
+</body>
+</html>

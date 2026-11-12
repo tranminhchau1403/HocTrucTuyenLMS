@@ -1,0 +1,9 @@
+{
+  "API_Admin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "c:\\Users\\MINHCHAU\\Desktop\\HocTrucTuyenLMS\\BTL_QuanLyHocTrucTuyen\\API_Admin",
+  "API_GiangVien, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "c:\\Users\\MINHCHAU\\Desktop\\HocTrucTuyenLMS\\BTL_QuanLyHocTrucTuyen\\API_GiangVien",
+  "API_Login, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "c:\\Users\\MINHCHAU\\Desktop\\HocTrucTuyenLMS\\BTL_QuanLyHocTrucTuyen\\API_Login",
+  "API_SinhVien, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "c:\\Users\\MINHCHAU\\Desktop\\HocTrucTuyenLMS\\BTL_QuanLyHocTrucTuyen\\API_SinhVien",
+  "BLL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "c:\\Users\\MINHCHAU\\Desktop\\HocTrucTuyenLMS\\BTL_QuanLyHocTrucTuyen\\BLL",
+  "DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "c:\\Users\\MINHCHAU\\Desktop\\HocTrucTuyenLMS\\BTL_QuanLyHocTrucTuyen\\DAL",
+  "Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "c:\\Users\\MINHCHAU\\Desktop\\HocTrucTuyenLMS\\BTL_QuanLyHocTrucTuyen\\Models"
+}

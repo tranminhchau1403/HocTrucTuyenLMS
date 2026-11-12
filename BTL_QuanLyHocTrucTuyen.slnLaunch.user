@@ -1,0 +1,27 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "API_Admin\\API_Admin.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "API_Login\\API_Login.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "API_GiangVien\\API_GiangVien.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "API_SinhVien\\API_SinhVien.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "API_GateWay\\API_GateWay.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

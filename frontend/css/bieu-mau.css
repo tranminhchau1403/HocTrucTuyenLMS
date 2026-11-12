@@ -1,0 +1,219 @@
+/* ============================================================
+   bieu-mau.css — Biểu mẫu, Trường nhập liệu, Chọn lựa, Validation
+   ============================================================ */
+
+/* ── Container Form ── */
+.bieu-mau {
+  display: flex;
+  flex-direction: column;
+  gap: var(--kc-l);
+}
+
+/* ── Form group (Nhóm trường) ── */
+.nhom-truong, .bieu-mau-nhom {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.nhan-truong, .bieu-mau-nhan {
+  font-size: var(--font-binh);
+  font-weight: 600;
+  color: var(--van-ban-chinh);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nhan-truong .bat-buoc, .bieu-mau-nhan span {
+  color: var(--mau-nguy-hiem);
+  font-weight: 700;
+}
+
+/* ── Ô nhập liệu (Input, Select, Textarea) ── */
+.o-nhap,
+.o-chon,
+.o-nhap-nhieu-dong,
+.bieu-mau-dieu-khien {
+  padding: 10px 14px;
+  border: 1.5px solid var(--xam-300);
+  border-radius: var(--bo-goc-vua);
+  background: var(--nen-trang);
+  color: var(--van-ban-chinh);
+  font-size: var(--font-binh);
+  font-family: inherit;
+  width: 100%;
+  transition: all var(--chuyen-tiep);
+  outline: none;
+}
+
+.o-nhap:focus,
+.o-chon:focus,
+.o-nhap-nhieu-dong:focus,
+.bieu-mau-dieu-khien:focus {
+  border-color: var(--mau-chinh);
+  box-shadow: 0 0 0 3.5px var(--mau-chinh-glow);
+  background: #ffffff;
+}
+
+.o-nhap:disabled,
+.o-chon:disabled,
+.o-nhap-nhieu-dong:disabled,
+.bieu-mau-dieu-khien:disabled {
+  background: var(--xam-100);
+  color: var(--van-ban-mo);
+  cursor: not-allowed;
+  border-color: var(--xam-200);
+}
+
+.o-nhap.loi,
+.o-chon.loi,
+.o-nhap-nhieu-dong.loi {
+  border-color: var(--mau-nguy-hiem);
+  box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.15);
+}
+
+.o-nhap-nhieu-dong,
+textarea.bieu-mau-dieu-khien {
+  resize: vertical;
+  min-height: 85px;
+  line-height: 1.5;
+}
+
+.o-chon,
+select.bieu-mau-dieu-khien {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%2364748b'%3E%3Cpath d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 18px;
+  padding-right: 38px;
+}
+
+/* ── Chú thích & Thông báo lỗi ── */
+.loi-truong {
+  font-size: var(--font-nho);
+  color: var(--mau-nguy-hiem);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 3px;
+}
+
+.mo-ta-truong, .bieu-mau-tro-giup {
+  font-size: var(--font-xs);
+  color: var(--van-ban-mo);
+  margin-top: 2px;
+}
+
+/* ── Lưới bố cục biểu mẫu ── */
+.luoi-bieu-mau {
+  display: grid;
+  gap: var(--kc-l);
+}
+
+.luoi-bieu-mau.hai-cot {
+  grid-template-columns: 1fr 1fr;
+}
+
+.luoi-bieu-mau.ba-cot {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+@media (max-width: 640px) {
+  .luoi-bieu-mau.hai-cot,
+  .luoi-bieu-mau.ba-cot {
+    grid-template-columns: 1fr;
+  }
+}
+
+.phan-cach-bieu-mau {
+  border: none;
+  border-top: 1px solid var(--duong-vien);
+  margin: var(--kc-xs) 0;
+}
+
+/* ── Input group (Ô nhập có icon bên trong) ── */
+.nhom-o-nhap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.nhom-o-nhap .o-nhap {
+  padding-left: 40px;
+}
+
+.nhom-o-nhap .bieu-tuong-nhap {
+  position: absolute;
+  left: 14px;
+  color: var(--van-ban-mo);
+  font-size: 16px;
+  pointer-events: none;
+  transition: color var(--chuyen-tiep);
+}
+
+.nhom-o-nhap:focus-within .bieu-tuong-nhap {
+  color: var(--mau-chinh);
+}
+
+.nhom-o-nhap .nut-mat-khau {
+  position: absolute;
+  right: 12px;
+  color: var(--van-ban-mo);
+  padding: 4px;
+  border-radius: var(--bo-goc-nho);
+  transition: color var(--chuyen-tiep);
+  cursor: pointer;
+}
+
+.nhom-o-nhap .nut-mat-khau:hover {
+  color: var(--van-ban-chinh);
+}
+
+/* ── Bảng chi tiết lồng trong biểu mẫu ── */
+.bang-chi-tiet {
+  background: var(--xam-50);
+  border-radius: var(--bo-goc-vua);
+  border: 1px solid var(--duong-vien);
+  overflow: hidden;
+}
+
+.bang-chi-tiet-dau {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--kc-m) var(--kc-l);
+  border-bottom: 1px solid var(--duong-vien);
+  background: var(--xam-100);
+}
+
+.bang-chi-tiet-dau-ten {
+  font-weight: 700;
+  color: var(--van-ban-chinh);
+  font-size: var(--font-binh);
+}
+
+.bang-chi-tiet-noi-dung {
+  padding: var(--kc-l);
+}
+
+/* ── Dòng tổng tiền ── */
+.dong-tong {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: var(--font-binh);
+}
+
+.dong-tong.vien-tren {
+  border-top: 1px dashed var(--xam-300);
+  padding-top: 12px;
+  margin-top: 6px;
+}
+
+.dong-tong-nhan { color: var(--van-ban-phu); }
+.dong-tong-gia-tri { font-weight: 700; font-size: var(--font-lon); color: var(--van-ban-chinh); }
+.dong-tong-gia-tri.chinh { color: var(--mau-chinh); font-size: 1.4rem; }

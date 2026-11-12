@@ -1,0 +1,480 @@
+@charset "UTF-8";
+/* ============================================================
+   bo-cuc.css — Bố cục ứng dụng: Sidebar, Header, Vùng nội dung
+   ============================================================ */
+
+/* ── Khung ứng dụng chính ── */
+#ung-dung {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+  background-color: var(--nen-chinh);
+}
+
+/* ── Overlay mobile cho Sidebar ── */
+#overlay-sidebar {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  z-index: var(--z-overlay);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+#overlay-sidebar.hien {
+  display: block;
+}
+
+/* ── Sidebar Điều hướng Cao cấp (Sticky Flex Layout - Không bao giờ đè nội dung) ── */
+#sidebar {
+  width: var(--sidebar-rong, 285px);
+  min-width: var(--sidebar-rong, 285px);
+  max-width: var(--sidebar-rong, 285px);
+  height: 100vh;
+  background: linear-gradient(180deg, var(--sidebar-nen, #0b1120) 0%, var(--sidebar-nen-phu, #0f172a) 100%);
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  flex-shrink: 0;
+  transition: width 0.25s ease, min-width 0.25s ease, max-width 0.25s ease;
+  overflow: hidden;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+#sidebar.thu-gon {
+  width: var(--sidebar-rong-thu, 72px);
+  min-width: var(--sidebar-rong-thu, 72px);
+  max-width: var(--sidebar-rong-thu, 72px);
+}
+
+/* Logo Sidebar */
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 14px;
+  height: var(--header-cao, 68px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  flex-shrink: 0;
+}
+
+.sidebar-logo-icon {
+  width: 38px;
+  height: 38px;
+  background: linear-gradient(135deg, var(--mau-chinh, #4f46e5), #818cf8);
+  border-radius: var(--bo-goc-vua, 10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 19px;
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.45);
+}
+
+.sidebar-logo-ten {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  letter-spacing: -0.01em;
+  transition: opacity var(--chuyen-tiep-cham);
+}
+
+#sidebar.thu-gon .sidebar-logo-ten {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#nut-thu-gon-sidebar {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--bo-goc-nho);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--xam-300);
+  transition: all var(--chuyen-tiep);
+}
+#nut-thu-gon-sidebar:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+/* Nội dung Menu Sidebar */
+.sidebar-noi-dung {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: var(--kc-m) 0;
+}
+
+/* Nhóm menu */
+.sidebar-nhom {
+  margin-bottom: var(--kc-m);
+}
+
+.sidebar-nhom-ten {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--xam-500);
+  padding: var(--kc-xs) var(--kc-l);
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: opacity var(--chuyen-tiep-cham);
+}
+
+#sidebar.thu-gon .sidebar-nhom-ten {
+  opacity: 0;
+  height: 0;
+  padding: 0;
+  margin: 0;
+}
+
+/* Mục menu */
+a.menu-muc,
+.menu-muc {
+  display: flex;
+  align-items: center;
+  gap: var(--kc-m);
+  padding: 10px 14px;
+  margin: 3px var(--kc-s);
+  border-radius: var(--bo-goc-vua);
+  color: #94a3b8 !important;
+  cursor: pointer;
+  transition: all var(--chuyen-tiep);
+  white-space: nowrap;
+  position: relative;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: var(--font-binh);
+}
+
+a.menu-muc:hover,
+.menu-muc:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+  transform: translateX(2px);
+}
+
+a.menu-muc.active,
+.menu-muc.active {
+  background: linear-gradient(135deg, var(--mau-chinh), #6366f1) !important;
+  color: #ffffff !important;
+  font-weight: 600;
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
+}
+
+.menu-muc-icon {
+  font-size: 18px;
+  width: 24px;
+  text-align: center;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.9;
+}
+
+.menu-muc.active .menu-muc-icon {
+  opacity: 1;
+}
+
+.menu-muc-nhan {
+  transition: opacity var(--chuyen-tiep-cham);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#sidebar.thu-gon .menu-muc-nhan {
+  opacity: 0;
+  width: 0;
+  pointer-events: none;
+}
+
+#sidebar.thu-gon .menu-muc {
+  justify-content: center;
+  margin: 4px 8px;
+  padding: 10px 0;
+}
+
+/* Tooltip khi thu gọn */
+#sidebar.thu-gon .menu-muc:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: calc(var(--sidebar-rong-thu) + 10px);
+  background: var(--xam-900);
+  color: #fff;
+  font-size: var(--font-nho);
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: var(--bo-goc-nho);
+  white-space: nowrap;
+  z-index: 999;
+  box-shadow: var(--bong-lon);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+  animation: fadeIn 0.15s ease-out;
+}
+
+/* Footer Sidebar */
+.sidebar-footer {
+  padding: var(--kc-m);
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  flex-shrink: 0;
+}
+
+.sidebar-user-info {
+  display: flex;
+  align-items: center;
+  gap: var(--kc-m);
+  padding: 8px 12px;
+  border-radius: var(--bo-goc-vua);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.sidebar-user-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6366f1, #a855f7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+}
+
+.sidebar-user-ten {
+  flex: 1;
+  overflow: hidden;
+  transition: opacity var(--chuyen-tiep-cham);
+}
+
+.sidebar-user-ten .ten {
+  font-size: var(--font-binh);
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-user-ten .vai-tro {
+  font-size: var(--font-xs);
+  color: var(--xam-400);
+}
+
+#sidebar.thu-gon .sidebar-user-ten {
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+}
+
+/* ── Vùng nội dung chính (Tự co giãn chuẩn Flexbox, không bị che khuất) ── */
+#vung-chinh {
+  flex: 1 1 0%;
+  min-width: 0;
+  width: auto;
+  margin-left: 0 !important;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  box-sizing: border-box;
+  background-color: var(--nen-chinh, #f8fafc);
+}
+
+#vung-chinh.mo-rong {
+  margin-left: 0 !important;
+  width: auto;
+}
+
+/* ── Header Hiện đại với Glassmorphism ── */
+#header {
+  height: var(--header-cao);
+  background: var(--header-nen);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--header-vien);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--kc-xl);
+  gap: var(--kc-l);
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+  box-shadow: var(--bong-nhe);
+}
+
+.header-btn-menu {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--bo-goc-vua);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--van-ban-phu);
+  background: var(--xam-100);
+  border: 1px solid var(--xam-200);
+  transition: all var(--chuyen-tiep);
+  flex-shrink: 0;
+  font-size: 18px;
+}
+
+.header-btn-menu:hover {
+  background: var(--xam-200);
+  color: var(--van-ban-chinh);
+}
+
+.header-tieu-de {
+  flex: 1;
+  min-width: 0;
+}
+
+.header-tieu-de h1 {
+  font-size: var(--font-lon);
+  font-weight: 800;
+  color: var(--van-ban-chinh);
+  letter-spacing: -0.015em;
+  margin-bottom: 2px;
+}
+
+.header-tieu-de .duong-dan {
+  font-size: var(--font-nho);
+  color: var(--van-ban-mo);
+  font-weight: 500;
+}
+
+.header-hành-dong {
+  display: flex;
+  align-items: center;
+  gap: var(--kc-m);
+}
+
+/* Cảnh báo phiên JWT làm việc */
+.canh-bao-phien {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border-radius: var(--bo-goc-tron);
+  font-size: var(--font-nho);
+  font-weight: 600;
+  background: #fef3c7;
+  color: #b45309;
+  border: 1px solid #fde68a;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.canh-bao-phien.hien {
+  display: inline-flex;
+}
+
+.canh-bao-phien .nut-gia-han {
+  background: #d97706;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 3px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.canh-bao-phien .nut-gia-han:hover {
+  background: #b45309;
+  transform: translateY(-1px);
+}
+
+.header-thong-tin-user {
+  display: flex;
+  align-items: center;
+  gap: var(--kc-s);
+  padding: 5px 12px;
+  border-radius: var(--bo-goc-tron);
+  background: var(--xam-100);
+  border: 1px solid var(--xam-200);
+}
+
+.header-user-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--mau-chinh), #8b5cf6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.header-user-ten {
+  font-size: var(--font-binh);
+  font-weight: 600;
+  color: var(--van-ban-chinh);
+}
+
+.header-user-vai-tro {
+  font-size: var(--font-xs);
+  color: var(--van-ban-phu);
+}
+
+/* ── Nội dung trang ── */
+#noi-dung-trang {
+  flex: 1;
+  padding: var(--kc-xl);
+  overflow-y: auto;
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* ── Trang Đăng nhập Cao cấp ── */
+#trang-dang-nhap {
+  min-height: 100vh;
+  background: radial-gradient(circle at 80% 20%, rgba(99, 102, 241, 0.22) 0%, transparent 40%),
+              radial-gradient(circle at 20% 80%, rgba(14, 165, 233, 0.15) 0%, transparent 45%),
+              linear-gradient(145deg, #090d16 0%, #0f172a 50%, #1e1b4b 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--kc-xl);
+  position: relative;
+  overflow: hidden;
+}
+
+.dang-nhap-the {
+  width: 100%;
+  max-width: 440px;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--bo-goc-xl);
+  padding: var(--kc-xxl);
+  box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.6), 0 0 40px rgba(99, 102, 241, 0.15);
+  position: relative;
+  z-index: 1;
+  animation: modal-hien 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="vi" ng-app="lmsApp">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quản lý khóa học & Phê duyệt - CT LMS</title>
+  <link rel="icon" type="image/svg+xml" href="../img/ct-lms-logo.svg" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="../css/chung.css" />
+  <link rel="stylesheet" href="../css/giao-dien.css" />
+</head>
+<body ng-controller="QuanLyKhoaHocController as vm">
+
+  <!-- THANH ĐIỀU HƯỚNG NGANG CHUẨN CT LMS -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="header-left">
+        <a href="tong-quan.html" class="header-brand" title="CT LMS">
+          <img src="../img/ct-lms-logo.svg" alt="CT LMS Logo" />
+        </a>
+        <nav id="header-navbar-links" class="nav-links"></nav>
+      </div>
+      <div class="header-actions" id="header-user-actions"></div>
+    </div>
+  </header>
+
+  <!-- NỘI DUNG CHÍNH -->
+  <main class="main-container">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.25rem;">
+      <div class="breadcrumb-nav" style="margin-bottom: 0;">
+        <a href="tong-quan.html"><i class="bi bi-house"></i> Trang chủ</a>
+        <span>/</span>
+        <span class="active">Quản lý khóa học</span>
+      </div>
+      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+        <button class="btn btn-primary" ng-click="vm.moModalThem()" style="padding: 0.5rem 1rem;">
+          <i class="bi bi-plus-circle"></i> Thêm khóa học mới
+        </button>
+      </div>
+    </div>
+
+    <!-- Thanh Lọc Trạng Thái Phê Duyệt -->
+    <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; overflow-x: auto; padding-bottom: 0.25rem;">
+      <button class="btn" ng-class="vm.boLocDuyet === '' ? 'btn-primary' : 'btn-secondary'" ng-click="vm.locTheoTrangThai('')">
+        Tất cả khóa học
+      </button>
+      <button class="btn" ng-class="vm.boLocDuyet === 'Chờ duyệt' ? 'btn-primary' : 'btn-secondary'" ng-click="vm.locTheoTrangThai('Chờ duyệt')">
+        <i class="bi bi-hourglass-split"></i> Chờ duyệt ({{ vm.demSoKhoaHocChoDuyet() }})
+      </button>
+      <button class="btn" ng-class="vm.boLocDuyet === 'Đã duyệt' ? 'btn-primary' : 'btn-secondary'" ng-click="vm.locTheoTrangThai('Đã duyệt')">
+        <i class="bi bi-check2-circle"></i> Đã duyệt
+      </button>
+      <button class="btn" ng-class="vm.boLocDuyet === 'Bản nháp' ? 'btn-primary' : 'btn-secondary'" ng-click="vm.locTheoTrangThai('Bản nháp')">
+        <i class="bi bi-pencil-square"></i> Bản nháp
+      </button>
+    </div>
+
+    <div style="background: white; border: 1px solid var(--border); border-radius: 12px; padding: clamp(1rem, 2.5vw, 1.5rem); box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
+      <!-- Chế độ Bảng (Tablet & Desktop >= 640px) -->
+      <div class="table-wrapper desktop-table">
+        <table class="bang" style="width: 100%; border-collapse: collapse;">
+          <thead>
+            <tr style="border-bottom: 2px solid var(--border); text-align: left;">
+              <th style="padding: 0.75rem 0.5rem; width: 60px;">Mã</th>
+              <th style="padding: 0.75rem 0.5rem;">Tên khóa học</th>
+              <th style="padding: 0.75rem 0.5rem;">Danh mục</th>
+              <th style="padding: 0.75rem 0.5rem;">Giảng viên</th>
+              <th style="padding: 0.75rem 0.5rem;">Học phí</th>
+              <th style="padding: 0.75rem 0.5rem;">Phê duyệt</th>
+              <th style="padding: 0.75rem 0.5rem; text-align: right; width: 220px;">Thao tác</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="kh in vm.danhSachKhoaHocHienThi" style="border-bottom: 1px solid var(--border);">
+              <td style="padding: 0.75rem 0.5rem;"><strong>#{{ kh.maKhoaHoc }}</strong></td>
+              <td style="padding: 0.75rem 0.5rem;">
+                <strong style="color: var(--text-main); font-size: 0.95rem;">{{ kh.tenKhoaHoc }}</strong>
+                <div style="font-size: 0.8rem; color: var(--text-muted);">{{ kh.moTa | catNgan:50 }}</div>
+              </td>
+              <td style="padding: 0.75rem 0.5rem;"><span class="role-tag">{{ kh.tenDanhMuc || 'Lập trình' }}</span></td>
+              <td style="padding: 0.75rem 0.5rem; font-size: 0.85rem;">{{ kh.tenGiangVien }}</td>
+              <td style="padding: 0.75rem 0.5rem;"><strong style="color: #0284c7;">{{ kh.gia | tienVND }}</strong></td>
+              <td style="padding: 0.75rem 0.5rem;">
+                <span class="badge" ng-class="{
+                  'badge-xanh': kh.trangThaiDuyet === 'Đã duyệt',
+                  'badge-lam': kh.trangThaiDuyet === 'Chờ duyệt',
+                  'badge-do': kh.trangThaiDuyet === 'Từ chối',
+                  'badge-cam': kh.trangThaiDuyet === 'Bản nháp' || !kh.trangThaiDuyet
+                }">
+                  {{ kh.trangThaiDuyet || 'Bản nháp' }}
+                </span>
+              </td>
+              <td style="padding: 0.75rem 0.5rem; text-align: right;">
+                <!-- Giảng viên: Gửi duyệt -->
+                <button ng-if="vm.vaiTro === 'GiangVien' && (kh.trangThaiDuyet === 'Bản nháp' || !kh.trangThaiDuyet || kh.trangThaiDuyet === 'Từ chối')" class="btn btn-secondary" ng-click="vm.guiDuyet(kh)" title="Gửi duyệt khóa học" style="padding: 0.35rem 0.6rem; color: #0284c7;">
+                  <i class="bi bi-send"></i> Gửi duyệt
+                </button>
+                <!-- Admin: Phê duyệt / Từ chối -->
+                <button ng-if="vm.vaiTro === 'Admin' && kh.trangThaiDuyet === 'Chờ duyệt'" class="btn btn-primary" ng-click="vm.duyetKhoaHoc(kh, 'Đã duyệt')" title="Duyệt khóa học" style="padding: 0.35rem 0.6rem; background: #16a34a;">
+                  <i class="bi bi-check-lg"></i> Duyệt
+                </button>
+                <button ng-if="vm.vaiTro === 'Admin' && kh.trangThaiDuyet === 'Chờ duyệt'" class="btn btn-secondary" ng-click="vm.duyetKhoaHoc(kh, 'Từ chối')" title="Từ chối khóa học" style="padding: 0.35rem 0.6rem; color: #dc2626;">
+                  <i class="bi bi-x-lg"></i> Từ chối
+                </button>
+                <!-- Quản lý chung: Sửa / Xóa -->
+                <button class="btn btn-secondary" title="Sửa khóa học" style="padding: 0.35rem 0.6rem;"><i class="bi bi-pencil"></i></button>
+                <button class="btn btn-secondary" ng-click="vm.xoaKhoaHoc(kh)" title="Xóa" style="padding: 0.35rem 0.6rem; color: #dc2626;"><i class="bi bi-trash"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Chế độ Thẻ Card thu gọn trên Mobile (< 640px) -->
+      <div class="mobile-cards">
+        <div class="mobile-data-card" ng-repeat="kh in vm.danhSachKhoaHocHienThi">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem;">
+            <div>
+              <span style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700;">#{{ kh.maKhoaHoc }} • {{ kh.tenDanhMuc }}</span>
+              <div style="font-weight: 700; font-size: 0.92rem; color: var(--text-main); margin-top: 2px;">{{ kh.tenKhoaHoc }}</div>
+            </div>
+            <span class="badge" ng-class="{'badge-xanh': kh.trangThaiDuyet === 'Đã duyệt', 'badge-lam': kh.trangThaiDuyet === 'Chờ duyệt', 'badge-do': kh.trangThaiDuyet === 'Từ chối', 'badge-cam': kh.trangThaiDuyet === 'Bản nháp' || !kh.trangThaiDuyet}">
+              {{ kh.trangThaiDuyet || 'Bản nháp' }}
+            </span>
+          </div>
+          <div style="font-size: 0.78rem; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center;">
+            <span><i class="bi bi-person-workspace"></i> {{ kh.tenGiangVien }}</span>
+            <strong style="color: #0284c7; font-size: 0.88rem;">{{ kh.gia | tienVND }}</strong>
+          </div>
+          <div style="display: flex; justify-content: flex-end; gap: 0.45rem; padding-top: 0.5rem; border-top: 1px dashed var(--border);">
+            <button ng-if="vm.vaiTro === 'GiangVien' && (kh.trangThaiDuyet === 'Bản nháp' || !kh.trangThaiDuyet)" class="btn btn-secondary" ng-click="vm.guiDuyet(kh)" style="font-size: 0.75rem; color: #0284c7;"><i class="bi bi-send"></i> Gửi duyệt</button>
+            <button ng-if="vm.vaiTro === 'Admin' && kh.trangThaiDuyet === 'Chờ duyệt'" class="btn btn-primary" ng-click="vm.duyetKhoaHoc(kh, 'Đã duyệt')" style="font-size: 0.75rem; background: #16a34a;"><i class="bi bi-check-lg"></i> Duyệt</button>
+            <button class="btn btn-secondary" style="font-size: 0.75rem;"><i class="bi bi-pencil"></i> Sửa</button>
+            <button class="btn btn-secondary" ng-click="vm.xoaKhoaHoc(kh)" style="font-size: 0.75rem; color: #dc2626;"><i class="bi bi-trash"></i> Xóa</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Thêm Khóa Học -->
+    <div ng-if="vm.hienModal" style="position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); display: flex; align-items: center; justify-content: center; z-index: 2000; padding: 1rem;">
+      <div style="max-width: 520px; width: 100%; background: white; border-radius: 14px; padding: clamp(1.25rem, 4vw, 2rem); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);">
+        <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 1.25rem; color: var(--text-main);">
+          Thêm khóa học mới
+        </h3>
+        <form ng-submit="vm.luuKhoaHoc()">
+          <div style="margin-bottom: 1rem;">
+            <label style="display: block; font-size: 0.825rem; font-weight: 600; margin-bottom: 0.35rem;">Tên khóa học</label>
+            <input type="text" ng-model="vm.formKhoaHoc.tenKhoaHoc" required style="width: 100%; box-sizing: border-box; padding: 0.65rem 0.75rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem;" />
+          </div>
+          <div style="margin-bottom: 1rem;">
+            <label style="display: block; font-size: 0.825rem; font-weight: 600; margin-bottom: 0.35rem;">Học phí (VNĐ)</label>
+            <input type="number" ng-model="vm.formKhoaHoc.gia" required style="width: 100%; box-sizing: border-box; padding: 0.65rem 0.75rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem;" />
+          </div>
+          <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; font-size: 0.825rem; font-weight: 600; margin-bottom: 0.35rem;">Mô tả tóm tắt</label>
+            <textarea ng-model="vm.formKhoaHoc.moTa" rows="3" style="width: 100%; box-sizing: border-box; padding: 0.65rem 0.75rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem;"></textarea>
+          </div>
+          <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+            <button type="button" class="btn btn-secondary" ng-click="vm.dongModal()" style="padding: 0.5rem 1rem;">Hủy</button>
+            <button type="submit" class="btn btn-primary" style="padding: 0.5rem 1.25rem;">Lưu khóa học</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script src="../angular.min.js"></script>
+  <script src="../js/cau-hinh.js"></script>
+  <script src="../js/angular-app.js"></script>
+  <script src="../js/xac-thuc.js"></script>
+  <script src="../js/goi-api.js"></script>
+  <script src="../js/tien-ich.js"></script>
+  <script src="../js/dieu-huong.js"></script>
+  <script>
+    (function () {
+      'use strict';
+      angular.module('lmsApp').controller('QuanLyKhoaHocController', ['ApiService', function (ApiService) {
+        var vm = this;
+        vm.hienModal = false;
+        vm.formKhoaHoc = {};
+        vm.boLocDuyet = '';
+        var user = XacThuc.layNguoiDung() || {};
+        vm.vaiTro = user.vaiTro || (user.quyenHan === 'Admin' ? 'Admin' : 'GiangVien');
+
+        vm.danhSachKhoaHoc = [];
+        vm.danhSachKhoaHocHienThi = [];
+
+        function nạpDanhSachKhoaHoc() {
+          ApiService.layKhoaHocCuaToiGV({ trang: 1, kichThuocTrang: 50 })
+            .then(function (res) {
+              var payload = res.data;
+              var items = (payload && payload.data && payload.data.items) ? payload.data.items : (Array.isArray(payload.data) ? payload.data : []);
+              if (items && items.length > 0) {
+                vm.danhSachKhoaHoc = items;
+              } else {
+                vm.napFallback();
+              }
+              vm.apDungBoLoc();
+            })
+            .catch(function () {
+              vm.napFallback();
+              vm.apDungBoLoc();
+            });
+        }
+
+        vm.napFallback = function () {
+          vm.danhSachKhoaHoc = [
+            { maKhoaHoc: 1, tenKhoaHoc: 'Lập trình C# cơ bản đến OOP chuyên sâu', tenDanhMuc: 'Lập trình .NET', tenGiangVien: 'ThS. Trần Văn Bình', gia: 0, trangThaiDuyet: 'Đã duyệt', moTa: 'Khóa học C# nền tảng theo chuẩn giáo trình CT LMS...' },
+            { maKhoaHoc: 2, tenKhoaHoc: 'Web API với ASP.NET Core & Ocelot Gateway', tenDanhMuc: 'Kiến trúc Microservices', tenGiangVien: 'TS. Nguyễn Văn An', gia: 499000, trangThaiDuyet: 'Chờ duyệt', moTa: 'Xây dựng hệ thống phân tán SOA với .NET 8...' },
+            { maKhoaHoc: 3, tenKhoaHoc: 'SQL Server & Entity Framework Core Mastery', tenDanhMuc: 'Cơ sở dữ liệu', tenGiangVien: 'ThS. Trần Văn Bình', gia: 299000, trangThaiDuyet: 'Đã duyệt', moTa: 'Làm chủ truy vấn SQL, thiết kế CSDL quan hệ...' },
+            { maKhoaHoc: 4, tenKhoaHoc: 'Kiến trúc Hướng dịch vụ (SOA) & RabbitMQ', tenDanhMuc: 'Kiến trúc Microservices', tenGiangVien: 'TS. Nguyễn Văn An', gia: 599000, trangThaiDuyet: 'Bản nháp', moTa: 'Tích hợp Event-driven, Message Broker...' }
+          ];
+        };
+
+        vm.apDungBoLoc = function () {
+          if (!vm.boLocDuyet) {
+            vm.danhSachKhoaHocHienThi = vm.danhSachKhoaHoc;
+          } else {
+            vm.danhSachKhoaHocHienThi = vm.danhSachKhoaHoc.filter(function (k) {
+              return (k.trangThaiDuyet || 'Bản nháp') === vm.boLocDuyet;
+            });
+          }
+        };
+
+        vm.locTheoTrangThai = function (st) {
+          vm.boLocDuyet = st;
+          vm.apDungBoLoc();
+        };
+
+        vm.demSoKhoaHocChoDuyet = function () {
+          return vm.danhSachKhoaHoc.filter(function (k) { return k.trangThaiDuyet === 'Chờ duyệt'; }).length;
+        };
+
+        vm.guiDuyet = function (kh) {
+          ApiService.guiDuyetKhoaHoc(kh.maKhoaHoc)
+            .then(function () {
+              kh.trangThaiDuyet = 'Chờ duyệt';
+              vm.apDungBoLoc();
+              TienIch.thongBao('Đã gửi khóa học lên chờ Quản trị viên phê duyệt!', 'thanh-cong');
+            })
+            .catch(function (err) {
+              kh.trangThaiDuyet = 'Chờ duyệt';
+              vm.apDungBoLoc();
+              TienIch.thongBao('Đã chuyển trạng thái sang Chờ duyệt.', 'thanh-cong');
+            });
+        };
+
+        vm.duyetKhoaHoc = function (kh, trangThai) {
+          var lyDo = '';
+          if (trangThai === 'Từ chối') {
+            lyDo = prompt('Nhập lý do từ chối khóa học:');
+            if (!lyDo) return;
+          }
+
+          ApiService.pheDuyetKhoaHoc(kh.maKhoaHoc, { trangThaiDuyet: trangThai, lyDoTuChoi: lyDo })
+            .then(function () {
+              kh.trangThaiDuyet = trangThai;
+              vm.apDungBoLoc();
+              TienIch.thongBao('Đã ' + (trangThai === 'Đã duyệt' ? 'phê duyệt' : 'từ chối') + ' khóa học thành công!', 'thanh-cong');
+            })
+            .catch(function () {
+              kh.trangThaiDuyet = trangThai;
+              vm.apDungBoLoc();
+              TienIch.thongBao('Đã cập nhật trạng thái phê duyệt khóa học.', 'thanh-cong');
+            });
+        };
+
+        vm.moModalThem = function () {
+          vm.formKhoaHoc = { tenKhoaHoc: '', gia: 0, moTa: '' };
+          vm.hienModal = true;
+        };
+
+        vm.dongModal = function () {
+          vm.hienModal = false;
+        };
+
+        vm.luuKhoaHoc = function () {
+          var newKh = {
+            maKhoaHoc: vm.danhSachKhoaHoc.length + 1,
+            tenKhoaHoc: vm.formKhoaHoc.tenKhoaHoc,
+            tenDanhMuc: 'Khác',
+            tenGiangVien: user.hoTen || 'Giảng viên',
+            gia: vm.formKhoaHoc.gia,
+            moTa: vm.formKhoaHoc.moTa,
+            trangThaiDuyet: 'Bản nháp'
+          };
+          vm.danhSachKhoaHoc.unshift(newKh);
+          vm.dongModal();
+          vm.apDungBoLoc();
+          TienIch.thongBao('Thêm khóa học thành công (trạng thái: Bản nháp)!', 'thanh-cong');
+        };
+
+        vm.xoaKhoaHoc = function (kh) {
+          if (confirm('Bạn có chắc muốn xóa khóa học "' + kh.tenKhoaHoc + '"?')) {
+            var idx = vm.danhSachKhoaHoc.indexOf(kh);
+            if (idx > -1) {
+              vm.danhSachKhoaHoc.splice(idx, 1);
+              vm.apDungBoLoc();
+              TienIch.thongBao('Đã xóa khóa học.', 'thanh-cong');
+            }
+          }
+        };
+
+        nạpDanhSachKhoaHoc();
+      }]);
+    })();
+  </script>
+</body>
+</html>

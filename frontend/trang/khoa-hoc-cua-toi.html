@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="vi" ng-app="lmsApp">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Khóa học của tôi - CT LMS</title>
+  <link rel="icon" type="image/svg+xml" href="../img/ct-lms-logo.svg" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="../css/chung.css" />
+  <link rel="stylesheet" href="../css/giao-dien.css" />
+</head>
+<body ng-controller="KhoaHocCuaToiController as vm">
+
+  <!-- THANH ĐIỀU HƯỚNG NGANG CHUẨN CT LMS -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="header-left">
+        <a href="tong-quan.html" class="header-brand" title="CT LMS">
+          <img src="../img/ct-lms-logo.svg" alt="CT LMS Logo" class="h-8 sm:h-9 w-auto object-contain" />
+        </a>
+        <nav id="header-navbar-links" class="nav-links"></nav>
+      </div>
+      <div class="header-actions" id="header-user-actions"></div>
+    </div>
+  </header>
+
+  <main class="main-container">
+    <!-- Breadcrumb CT LMS -->
+    <nav class="breadcrumb-nav">
+      <a href="tong-quan.html"><i class="bi bi-house-door"></i> Trang chủ</a>
+      <span>/</span>
+      <a href="tra-cuu-khoa-hoc.html">Khóa học của tôi</a>
+      <span>/</span>
+      <span class="active">{{ vm.baiHocHienTai.tieuDe }}</span>
+    </nav>
+
+    <!-- Bố Cục 12 Cột Tự Co Giãn: lg:col-span-8 (Video Player + Tabs) | lg:col-span-4 (Mục lục bài học) -->
+    <div class="player-layout">
+      <!-- Cột Trái: Khung Video Aspect-Video & Tabs Nội Dung -->
+      <div class="player-main">
+        <div style="background: #0f172a; border-radius: 14px; overflow: hidden; margin-bottom: 1.25rem; border: 1px solid #1e293b; box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.25);">
+          <div style="aspect-ratio: 16 / 9; display: flex; flex-direction: column; justify-content: space-between; padding: clamp(0.85rem, 2.5vw, 1.75rem); color: white; position: relative;">
+            <div style="display: flex; justify-content: space-between; align-items: center; z-index: 2;">
+              <span style="background: #0284c7; color: white; font-size: 12px; font-weight: 600; padding: 0.25rem 0.65rem; border-radius: 6px;">
+                <i class="bi bi-play-fill"></i> Đang học trực tuyến
+              </span>
+              <span style="font-family: monospace; font-size: 12px; color: #94a3b8;">FHD 1080p • 1.0x</span>
+            </div>
+
+            <div style="text-align: center; z-index: 2; padding: 0.5rem;">
+              <div
+                style="width: clamp(48px, 8vw, 64px); height: clamp(48px, 8vw, 64px); border-radius: 50%; background: #0284c7; color: white; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 0.75rem auto; cursor: pointer; box-shadow: 0 0 0 8px rgba(2, 132, 199, 0.25); transition: transform 0.2s;"
+                ng-click="vm.chuyenTrangThaiPhat()"
+              >
+                <i class="bi" ng-class="vm.dangPhat ? 'bi-pause-fill' : 'bi-play-fill'"></i>
+              </div>
+              <h2 style="font-size: clamp(0.95rem, 2.2vw, 1.2rem); font-weight: 700; margin-bottom: 0.25rem; color: white;">
+                {{ vm.baiHocHienTai.tieuDe }}
+              </h2>
+              <p style="color: #94a3b8; font-size: 12px; margin: 0;">
+                Thời lượng: {{ vm.baiHocHienTai.thoiLuong }} phút • Giảng viên: ThS. Trần Văn Bình
+              </p>
+            </div>
+
+            <div style="z-index: 2;">
+              <div style="height: 5px; background: rgba(255,255,255,0.2); border-radius: 9999px; overflow: hidden; margin-bottom: 0.45rem;">
+                <div style="height: 100%; background: #38bdf8; width: 65%;"></div>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 11.5px; color: #94a3b8;">
+                <span>12:40 / {{ vm.baiHocHienTai.thoiLuong }}:00</span>
+                <span>CT LMS Player</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabs: Nội dung bài học | Tài liệu đính kèm (PDF) | Bình Luận & Thảo luận -->
+        <div style="background: white; padding: clamp(1rem, 2vw, 1.5rem); border-radius: 14px; border: 1px solid var(--border);">
+          <div style="display: flex; gap: 0.5rem; overflow-x: auto; border-bottom: 1px solid var(--border); padding-bottom: 0.75rem; margin-bottom: 1rem;">
+            <button type="button" class="btn" ng-class="vm.tabHienTai === 'noi-dung' ? 'btn-primary' : 'btn-secondary'" ng-click="vm.tabHienTai = 'noi-dung'">
+              <i class="bi bi-file-earmark-text"></i> Nội dung bài học
+            </button>
+            <button type="button" class="btn" ng-class="vm.tabHienTai === 'tai-lieu' ? 'btn-primary' : 'btn-secondary'" ng-click="vm.tabHienTai = 'tai-lieu'">
+              <i class="bi bi-file-earmark-pdf"></i> Tài liệu (PDF/Slide)
+            </button>
+            <button type="button" class="btn" ng-class="vm.tabHienTai === 'thao-luan' ? 'btn-primary' : 'btn-secondary'" ng-click="vm.tabHienTai = 'thao-luan'">
+              <i class="bi bi-chat-square-text"></i> Thảo luận ({{ vm.danhSachBinhLuan.length }})
+            </button>
+          </div>
+
+          <!-- Tab 1: Nội dung bài học -->
+          <div ng-if="vm.tabHienTai === 'noi-dung'" style="line-height: 1.65; font-size: 13.5px; color: var(--text-main);">
+            <p style="font-weight: 700; margin-bottom: 0.4rem; font-size: 14.5px;">Tóm tắt kiến thức cốt lõi:</p>
+            <p style="color: var(--text-muted); margin-bottom: 0.75rem;">
+              Bài giảng hướng dẫn chi tiết cách cấu hình Ocelot API Gateway, phân tách các dịch vụ Microservices (Xác thực, Quản trị, Giảng viên, Sinh viên) và bảo vệ route bằng JWT Bearer Token.
+            </p>
+            <pre style="background: #0f172a; color: #e2e8f0; padding: 0.95rem 1.1rem; border-radius: 10px; font-family: monospace; font-size: 12px; overflow-x: auto; margin-top: 0.5rem;"><code>// Cấu hình Upstream & Downstream trên Ocelot API Gateway
+{
+  "DownstreamPathTemplate": "/api/SinhVien/{everything}",
+  "UpstreamPathTemplate": "/gateway/SinhVien/{everything}",
+  "AuthenticationOptions": { "AuthenticationProviderKey": "Bearer" }
+}</code></pre>
+          </div>
+
+          <!-- Tab 2: Tài liệu đính kèm -->
+          <div ng-if="vm.tabHienTai === 'tai-lieu'" style="display: flex; flex-direction: column; gap: 0.65rem;">
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 1rem; border: 1px solid var(--border); border-radius: 10px; background: #f8fafc;">
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <i class="bi bi-file-earmark-pdf-fill" style="font-size: 1.5rem; color: #dc2626;"></i>
+                <div>
+                  <strong style="display: block; font-size: 13.5px;">Slide_BaiGiang_SOA_DotNet8.pdf</strong>
+                  <small style="color: var(--text-muted);">Dung lượng: 4.2 MB • Cập nhật mới nhất</small>
+                </div>
+              </div>
+              <button type="button" class="btn btn-secondary" ng-click="vm.taiTaiLieu('Slide_BaiGiang_SOA_DotNet8.pdf')">
+                <i class="bi bi-download"></i> Tải về
+              </button>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 1rem; border: 1px solid var(--border); border-radius: 10px; background: #f8fafc;">
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <i class="bi bi-file-earmark-zip-fill" style="font-size: 1.5rem; color: #0284c7;"></i>
+                <div>
+                  <strong style="display: block; font-size: 13.5px;">SourceCode_OcelotGateway_Demo.zip</strong>
+                  <small style="color: var(--text-muted);">Dung lượng: 12.8 MB • Visual Studio Solution</small>
+                </div>
+              </div>
+              <button type="button" class="btn btn-secondary" ng-click="vm.taiTaiLieu('SourceCode_OcelotGateway_Demo.zip')">
+                <i class="bi bi-download"></i> Tải về
+              </button>
+            </div>
+          </div>
+
+          <!-- Tab 3: Thảo luận -->
+          <div ng-if="vm.tabHienTai === 'thao-luan'">
+            <form ng-submit="vm.guiBinhLuan()" style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+              <input type="text" ng-model="vm.binhLuanMoi" placeholder="Đặt câu hỏi hoặc thảo luận về bài học..." style="flex: 1; padding: 0.55rem 0.85rem; border: 1px solid var(--border); border-radius: 8px; font-size: 13.5px; outline: none;" />
+              <button type="submit" class="btn btn-primary">Gửi</button>
+            </form>
+            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+              <div ng-repeat="bl in vm.danhSachBinhLuan" style="padding: 0.75rem 1rem; border-radius: 10px; background: #f8fafc; border: 1px solid var(--border);">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem; font-size: 12.5px;">
+                  <strong style="color: var(--primary);">{{ bl.nguoiGui }}</strong>
+                  <span style="color: var(--text-muted);">{{ bl.thoiGian }}</span>
+                </div>
+                <p style="margin: 0; font-size: 13.5px; color: var(--text-main);">{{ bl.noiDung }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cột Phải: Giáo trình bài học (Scroll Độc Lập Trên Desktop, Accordion Gập Mở Trên Mobile) -->
+      <div class="player-sidebar" style="background: white; padding: 1.15rem; border-radius: 14px; border: 1px solid var(--border);">
+        <div style="margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.85rem;">
+          <label style="font-weight: 700; font-size: 12px; color: var(--text-muted); margin-bottom: 0.4rem; display: block; text-transform: uppercase;">
+            Khóa học đang theo học
+          </label>
+          <select ng-model="vm.maKhoaHocHienTai" ng-change="vm.chonKhoaHoc()" style="width: 100%; font-size: 13.5px; padding: 0.55rem 0.75rem; border: 1px solid var(--border); border-radius: 8px; outline: none; background: #f8fafc; font-weight: 600;">
+            <option ng-repeat="dk in vm.danhSachDangKy" ng-value="dk.maKhoaHoc">
+              {{ dk.tenKhoaHoc }} ({{ dk.tienDoPhanTram }}%)
+            </option>
+          </select>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem;">
+          <button
+            type="button"
+            ng-click="vm.moRongMucLuc = !vm.moRongMucLuc"
+            style="background: none; border: none; padding: 0; font-weight: 700; font-size: 13.5px; color: var(--text-main); cursor: pointer; display: flex; align-items: center; gap: 0.35rem;"
+          >
+            <i class="bi" ng-class="vm.moRongMucLuc ? 'bi-chevron-down' : 'bi-chevron-right'"></i>
+            <span>Nội dung giáo trình ({{ vm.danhSachBaiHoc.length }} bài)</span>
+          </button>
+          <span style="font-size: 11.5px; font-weight: 700; color: #16a34a; background: #dcfce7; padding: 0.18rem 0.55rem; border-radius: 6px;">
+            {{ vm.tienDoHienTai }}% Hoàn thành
+          </span>
+        </div>
+
+        <!-- Thanh tiến độ khóa học -->
+        <div style="height: 6px; background: #e2e8f0; border-radius: 9999px; overflow: hidden; margin-bottom: 0.9rem;">
+          <div style="height: 100%; background: #16a34a; transition: width 0.3s;" ng-style="{'width': vm.tienDoHienTai + '%'}"></div>
+        </div>
+
+        <div ng-show="vm.moRongMucLuc" style="display: flex; flex-direction: column; gap: 0.45rem;">
+          <div
+            ng-repeat="b in vm.danhSachBaiHoc"
+            ng-click="vm.chonBaiHoc(b)"
+            style="padding: 0.65rem 0.8rem; border-radius: 8px; border: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; font-size: 13px; transition: all 0.15s;"
+            ng-style="{'background': b.maBaiGiang === vm.baiHocHienTai.maBaiGiang ? '#f0f9ff' : (b.duocMoKhoa === false ? '#f1f5f9' : 'white'), 'border-color': b.maBaiGiang === vm.baiHocHienTai.maBaiGiang ? '#0284c7' : 'var(--border)', 'cursor': b.duocMoKhoa === false ? 'not-allowed' : 'pointer', 'opacity': b.duocMoKhoa === false ? 0.75 : 1}"
+          >
+            <div style="display: flex; align-items: center; gap: 0.5rem; flex: 1; min-width: 0;">
+              <i class="bi" ng-class="b.duocMoKhoa === false ? 'bi-lock-fill text-muted' : (b.daHoanThanh || b.daHoc ? 'bi-check-circle-fill text-success' : 'bi-play-circle-fill text-primary')"></i>
+              <span style="font-weight: 600; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">{{ b.tieuDe }}</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.35rem; flex-shrink: 0;">
+              <span ng-if="b.duocMoKhoa === false" class="badge" style="background: #e2e8f0; color: #64748b; font-size: 10px; padding: 2px 6px; border-radius: 4px;">Khóa</span>
+              <small style="color: var(--text-muted); font-size: 11.5px;">{{ b.thoiLuong }}p</small>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 1.25rem; padding-top: 0.9rem; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 0.5rem;">
+          <button class="btn btn-primary" ng-click="vm.hoanThanhBai()" style="width: 100%; background: #16a34a; padding: 0.6rem;">
+            <i class="bi bi-check2-circle"></i> Đánh dấu hoàn thành bài
+          </button>
+          <a href="lam-bai-test.html" class="btn btn-secondary" style="width: 100%; padding: 0.6rem;">
+            <i class="bi bi-pencil-square"></i> Làm bài kiểm tra cuối khóa
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="../angular.min.js"></script>
+  <script src="../js/cau-hinh.js"></script>
+  <script src="../js/angular-app.js"></script>
+  <script src="../js/xac-thuc.js"></script>
+  <script src="../js/goi-api.js"></script>
+  <script src="../js/tien-ich.js"></script>
+  <script src="../js/dieu-huong.js"></script>
+  <script>
+    (function () {
+      'use strict';
+      angular.module('lmsApp').controller('KhoaHocCuaToiController', ['ApiService', function (ApiService) {
+        var vm = this;
+        vm.tabHienTai = 'noi-dung';
+        vm.moRongMucLuc = true;
+
+        vm.danhSachDangKy = [];
+        vm.maKhoaHocHienTai = 1;
+        vm.maDangKyHienTai = 0;
+        vm.tienDoHienTai = 0;
+        vm.dangPhat = false;
+        vm.danhSachBaiHoc = [];
+        vm.baiHocHienTai = {};
+
+        vm.danhSachBinhLuan = [
+          { nguoiGui: 'Nguyễn Văn Nam (Học viên)', thoiGian: '10 phút trước', noiDung: 'Kiến thức về Microservices và Ocelot Gateway rất trực quan!' },
+          { nguoiGui: 'ThS. Trần Văn Bình (Giảng viên)', thoiGian: '5 phút trước', noiDung: 'Các em chú ý hoàn thành tuần tự từng bài giảng để hệ thống tự động mở khóa các bài tiếp theo nhé.' }
+        ];
+        vm.binhLuanMoi = '';
+
+        function nạpDanhSachKhoaHoc() {
+          ApiService.layKhoaHocCuaToiHV({ trang: 1, kichThuocTrang: 50 })
+            .then(function (res) {
+              var payload = res.data;
+              var items = (payload && payload.data && payload.data.items) ? payload.data.items : (Array.isArray(payload.data) ? payload.data : []);
+              if (items && items.length > 0) {
+                vm.danhSachDangKy = items;
+                var current = items[0];
+                vm.maKhoaHocHienTai = current.maKhoaHoc;
+                vm.maDangKyHienTai = current.maDangKy;
+                vm.tienDoHienTai = Math.round(current.tienDoPhanTram || 0);
+                vm.napBaiGiang(current.maKhoaHoc, current.maDangKy);
+              }
+            })
+            .catch(function () {
+              // Dữ liệu fallback
+              vm.danhSachDangKy = [
+                { maDangKy: 1, maKhoaHoc: 1, tenKhoaHoc: 'Lập trình C# cơ bản đến OOP chuyên sâu', tienDoPhanTram: 100 },
+                { maDangKy: 2, maKhoaHoc: 2, tenKhoaHoc: 'Phát triển Web API với ASP.NET Core & Ocelot Gateway', tienDoPhanTram: 60 }
+              ];
+              vm.maKhoaHocHienTai = 1;
+              vm.maDangKyHienTai = 1;
+              vm.tienDoHienTai = 100;
+              vm.napBaiGiang(1, 1);
+            });
+        }
+
+        vm.napBaiGiang = function (maKh, maDk) {
+          ApiService.layBaiGiangTheoKhoaHoc(maKh, maDk)
+            .then(function (res) {
+              var list = res.data && res.data.data ? res.data.data : [];
+              if (list.length > 0) {
+                vm.danhSachBaiHoc = list;
+                vm.baiHocHienTai = list[0];
+              }
+            })
+            .catch(function () {
+              vm.danhSachBaiHoc = [
+                { maBaiGiang: 101, tieuDe: 'Bài 1: Giới thiệu .NET 8 & Cấu trúc Solution', thoiLuong: 20, daHoanThanh: true, duocMoKhoa: true },
+                { maBaiGiang: 102, tieuDe: 'Bài 2: Kiểu dữ liệu, Stack & Heap trong C#', thoiLuong: 25, daHoanThanh: true, duocMoKhoa: true },
+                { maBaiGiang: 103, tieuDe: 'Bài 3: 4 Tính chất hướng đối tượng OOP', thoiLuong: 35, daHoanThanh: false, duocMoKhoa: true },
+                { maBaiGiang: 104, tieuDe: 'Bài 4: Truy vấn dữ liệu LINQ & Lambda', thoiLuong: 30, daHoanThanh: false, duocMoKhoa: false }
+              ];
+              vm.baiHocHienTai = vm.danhSachBaiHoc[0];
+            });
+        };
+
+        vm.chonKhoaHoc = function () {
+          var sel = vm.danhSachDangKy.find(function (d) { return d.maKhoaHoc === vm.maKhoaHocHienTai; });
+          if (sel) {
+            vm.maDangKyHienTai = sel.maDangKy;
+            vm.tienDoHienTai = Math.round(sel.tienDoPhanTram || 0);
+            vm.napBaiGiang(sel.maKhoaHoc, sel.maDangKy);
+          }
+        };
+
+        vm.chonBaiHoc = function (b) {
+          if (b.duocMoKhoa === false) {
+            TienIch.thongBao('Bài giảng này đang bị khóa. Bạn cần hoàn thành các bài học tiên quyết trước!', 'canh-bao');
+            return;
+          }
+          vm.baiHocHienTai = b;
+          vm.dangPhat = true;
+        };
+
+        vm.chuyenTrangThaiPhat = function () {
+          vm.dangPhat = !vm.dangPhat;
+        };
+
+        vm.hoanThanhBai = function () {
+          if (!vm.baiHocHienTai || !vm.baiHocHienTai.maBaiGiang) return;
+
+          ApiService.hoanThanhBaiGiangTuanTu({
+            maDangKy: vm.maDangKyHienTai || 1,
+            maBaiGiang: vm.baiHocHienTai.maBaiGiang,
+            thoiLuongDaXem: (vm.baiHocHienTai.thoiLuong || 15) * 60
+          })
+          .then(function (res) {
+            TienIch.thongBao('Đã hoàn thành bài học! Hệ thống đã tự động mở khóa bài giảng tiếp theo.', 'thanh-cong');
+            vm.napBaiGiang(vm.maKhoaHocHienTai, vm.maDangKyHienTai);
+            if (res.data && res.data.data) {
+              vm.tienDoHienTai = Math.round(res.data.data.tienDoPhanTram || vm.tienDoHienTai);
+            }
+          })
+          .catch(function (err) {
+            var msg = err.data && err.data.message ? err.data.message : 'Chưa thể cập nhật tiến độ.';
+            TienIch.thongBao(msg, 'loi');
+          });
+        };
+
+        vm.taiTaiLieu = function (tenFile) {
+          TienIch.thongBao('Đang tải tài liệu: ' + tenFile, 'thanh-cong');
+        };
+
+        vm.guiBinhLuan = function () {
+          if (!vm.binhLuanMoi.trim()) return;
+          vm.danhSachBinhLuan.unshift({
+            nguoiGui: 'Bạn (Học viên)',
+            thoiGian: 'Vừa xong',
+            noiDung: vm.binhLuanMoi
+          });
+          vm.binhLuanMoi = '';
+        };
+
+        nạpDanhSachKhoaHoc();
+      }]);
+    })();
+  </script>
+</body>
+</html>

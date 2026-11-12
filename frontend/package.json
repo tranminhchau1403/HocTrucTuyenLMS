@@ -1,0 +1,16 @@
+{
+  "name": "frontend-quanlybaochi",
+  "version": "1.0.0",
+  "description": "Giao diện AngularJS cho Hệ Thống Quản Lý Phát Hành Báo Chí",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server -p 4200 -c-1 ."
+  },
+  "keywords": [
+    "angularjs",
+    "microservices",
+    "gateway"
+  ],
+  "author": "",
+  "license": "ISC"
+}

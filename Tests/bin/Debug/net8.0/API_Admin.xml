@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>API_Admin</name>
+    </assembly>
+    <members>
+        <member name="M:API_Admin.Controllers.BaoCaoController.XuatExcel">
+            <summary>Xuất báo cáo tổng quan ra file Excel (.xlsx) chuẩn Phụ lục B</summary>
+        </member>
+        <member name="M:API_Admin.Controllers.BaoCaoController.PheDuyetKhoaHoc(System.Int32,Models.PheDuyetKhoaHocRequest)">
+            <summary>Luồng 5: Admin phê duyệt hoặc từ chối khóa học (Course Approval Workflow)</summary>
+        </member>
+        <member name="M:API_Admin.Controllers.BaoCaoController.NhatKyKiemToan(System.Int32,System.Int32,System.String)">
+            <summary>Truy xuất nhật ký kiểm toán hệ thống (Audit Logs - Bài 17 Giáo trình)</summary>
+        </member>
+        <member name="T:API_Admin.Controllers.NguoiDungController">
+            <summary>Admin quản lý người dùng: danh sách phân trang, tìm kiếm, sắp xếp, khóa/mở khóa, xóa mềm.</summary>
+        </member>
+    </members>
+</doc>

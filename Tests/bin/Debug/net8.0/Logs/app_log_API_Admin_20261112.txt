@@ -1,0 +1,144 @@
+2026-11-12 11:03:00.747 +07:00 [INF] User profile is available. Using 'C:\Users\MINHCHAU\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-11-12 11:03:00.754 +07:00 [INF] LmsBackgroundWorker đã khởi động: sẵn sàng xử lý hàng đợi Email và dọn dẹp phiên định kỳ.
+2026-11-12 11:03:00.791 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost/api/NguoiDung/LayDanhSach - null null
+2026-11-12 11:03:00.858 +07:00 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (Admin)
+2026-11-12 11:03:00.865 +07:00 [INF] AuthenticationScheme: Bearer was forbidden.
+2026-11-12 11:03:00.865 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost/api/NguoiDung/LayDanhSach - 403 null application/json; charset=utf-8 74.0421ms
+2026-11-12 11:03:00.888 +07:00 [INF] User profile is available. Using 'C:\Users\MINHCHAU\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-11-12 11:03:00.896 +07:00 [INF] LmsBackgroundWorker đã khởi động: sẵn sàng xử lý hàng đợi Email và dọn dẹp phiên định kỳ.
+2026-11-12 11:03:00.929 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost/api/DanhMuc/Them - application/json; charset=utf-8 148
+2026-11-12 11:03:00.935 +07:00 [INF] Executing endpoint 'API_Admin.Controllers.DanhMucController.Them (API_Admin)'
+2026-11-12 11:03:00.938 +07:00 [INF] Route matched with {action = "Them", controller = "DanhMuc"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Them(Models.DanhMucModel) on controller API_Admin.Controllers.DanhMucController (API_Admin).
+2026-11-12 11:03:00.955 +07:00 [INF] Executed action API_Admin.Controllers.DanhMucController.Them (API_Admin) in 16.4676ms
+2026-11-12 11:03:00.955 +07:00 [INF] Executed endpoint 'API_Admin.Controllers.DanhMucController.Them (API_Admin)'
+2026-11-12 11:03:00.967 +07:00 [ERR] GlobalExceptionMiddleware bắt ngoại lệ tại POST /api/DanhMuc/Them [TraceId: 73f0118f5f9b402abef43abc75bc2b98] -> HTTP 400: Tên danh mục không được để trống.
+System.ArgumentException: Tên danh mục không được để trống.
+   at BLL.DanhMucBLL.Insert(DanhMucModel model) in c:\Users\MINHCHAU\Desktop\HocTrucTuyenLMS\BTL_QuanLyHocTrucTuyen\BLL\LmsBusinessBLL.cs:line 39
+   at API_Admin.Controllers.DanhMucController.Them(DanhMucModel model) in c:\Users\MINHCHAU\Desktop\HocTrucTuyenLMS\BTL_QuanLyHocTrucTuyen\API_Admin\Controllers\DanhMucController.cs:line 47
+   at lambda_method98(Closure, Object, Object[])
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at BLL.Infrastructure.GlobalExceptionMiddleware.InvokeAsync(HttpContext context) in c:\Users\MINHCHAU\Desktop\HocTrucTuyenLMS\BTL_QuanLyHocTrucTuyen\BLL\Infrastructure\LmsMiddlewareAndDi.cs:line 84
+2026-11-12 11:03:00.989 +07:00 [INF] Request finished HTTP/1.1 POST http://localhost/api/DanhMuc/Them - 400 null application/problem+json; charset=utf-8 60.2989ms
+2026-11-12 11:23:12.152 +07:00 [INF] User profile is available. Using 'C:\Users\MINHCHAU\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-11-12 11:23:12.156 +07:00 [INF] LmsBackgroundWorker đã khởi động: sẵn sàng xử lý hàng đợi Email và dọn dẹp phiên định kỳ.
+2026-11-12 11:23:12.180 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost/api/NguoiDung/LayDanhSach - null null
+2026-11-12 11:23:12.239 +07:00 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (Admin)
+2026-11-12 11:23:12.248 +07:00 [INF] AuthenticationScheme: Bearer was forbidden.
+2026-11-12 11:23:12.248 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost/api/NguoiDung/LayDanhSach - 403 null application/json; charset=utf-8 67.8269ms
+2026-11-12 11:23:12.267 +07:00 [INF] User profile is available. Using 'C:\Users\MINHCHAU\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-11-12 11:23:12.271 +07:00 [INF] LmsBackgroundWorker đã khởi động: sẵn sàng xử lý hàng đợi Email và dọn dẹp phiên định kỳ.
+2026-11-12 11:23:12.300 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost/api/DanhMuc/Them - application/json; charset=utf-8 148
+2026-11-12 11:23:12.305 +07:00 [INF] Executing endpoint 'API_Admin.Controllers.DanhMucController.Them (API_Admin)'
+2026-11-12 11:23:12.308 +07:00 [INF] Route matched with {action = "Them", controller = "DanhMuc"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Them(Models.DanhMucModel) on controller API_Admin.Controllers.DanhMucController (API_Admin).
+2026-11-12 11:23:12.328 +07:00 [INF] Executed action API_Admin.Controllers.DanhMucController.Them (API_Admin) in 18.9746ms
+2026-11-12 11:23:12.328 +07:00 [INF] Executed endpoint 'API_Admin.Controllers.DanhMucController.Them (API_Admin)'
+2026-11-12 11:23:12.333 +07:00 [ERR] GlobalExceptionMiddleware bắt ngoại lệ tại POST /api/DanhMuc/Them [TraceId: 5bf469e2fd054906b2e31bbbb81fd761] -> HTTP 400: Tên danh mục không được để trống.
+System.ArgumentException: Tên danh mục không được để trống.
+   at BLL.DanhMucBLL.Insert(DanhMucModel model) in c:\Users\MINHCHAU\Desktop\HocTrucTuyenLMS\BTL_QuanLyHocTrucTuyen\BLL\LmsBusinessBLL.cs:line 39
+   at API_Admin.Controllers.DanhMucController.Them(DanhMucModel model) in c:\Users\MINHCHAU\Desktop\HocTrucTuyenLMS\BTL_QuanLyHocTrucTuyen\API_Admin\Controllers\DanhMucController.cs:line 47
+   at lambda_method107(Closure, Object, Object[])
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at BLL.Infrastructure.GlobalExceptionMiddleware.InvokeAsync(HttpContext context) in c:\Users\MINHCHAU\Desktop\HocTrucTuyenLMS\BTL_QuanLyHocTrucTuyen\BLL\Infrastructure\LmsMiddlewareAndDi.cs:line 84
+2026-11-12 11:23:12.339 +07:00 [INF] Request finished HTTP/1.1 POST http://localhost/api/DanhMuc/Them - 400 null application/problem+json; charset=utf-8 39.2766ms
+2026-11-12 11:25:16.461 +07:00 [INF] User profile is available. Using 'C:\Users\MINHCHAU\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-11-12 11:25:16.466 +07:00 [INF] LmsBackgroundWorker đã khởi động: sẵn sàng xử lý hàng đợi Email và dọn dẹp phiên định kỳ.
+2026-11-12 11:25:16.489 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost/api/NguoiDung/LayDanhSach - null null
+2026-11-12 11:25:16.539 +07:00 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (Admin)
+2026-11-12 11:25:16.543 +07:00 [INF] AuthenticationScheme: Bearer was forbidden.
+2026-11-12 11:25:16.543 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost/api/NguoiDung/LayDanhSach - 403 null application/json; charset=utf-8 54.4983ms
+2026-11-12 11:25:16.557 +07:00 [INF] User profile is available. Using 'C:\Users\MINHCHAU\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-11-12 11:25:16.561 +07:00 [INF] LmsBackgroundWorker đã khởi động: sẵn sàng xử lý hàng đợi Email và dọn dẹp phiên định kỳ.
+2026-11-12 11:25:16.584 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost/api/DanhMuc/Them - application/json; charset=utf-8 148
+2026-11-12 11:25:16.589 +07:00 [INF] Executing endpoint 'API_Admin.Controllers.DanhMucController.Them (API_Admin)'
+2026-11-12 11:25:16.591 +07:00 [INF] Route matched with {action = "Them", controller = "DanhMuc"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Them(Models.DanhMucModel) on controller API_Admin.Controllers.DanhMucController (API_Admin).
+2026-11-12 11:25:16.604 +07:00 [INF] Executed action API_Admin.Controllers.DanhMucController.Them (API_Admin) in 13.248ms
+2026-11-12 11:25:16.605 +07:00 [INF] Executed endpoint 'API_Admin.Controllers.DanhMucController.Them (API_Admin)'
+2026-11-12 11:25:16.607 +07:00 [ERR] GlobalExceptionMiddleware bắt ngoại lệ tại POST /api/DanhMuc/Them [TraceId: 305b80dd07404aa8bae942afe6d8e755] -> HTTP 400: Tên danh mục không được để trống.
+System.ArgumentException: Tên danh mục không được để trống.
+   at BLL.DanhMucBLL.Insert(DanhMucModel model) in c:\Users\MINHCHAU\Desktop\HocTrucTuyenLMS\BTL_QuanLyHocTrucTuyen\BLL\LmsBusinessBLL.cs:line 39
+   at API_Admin.Controllers.DanhMucController.Them(DanhMucModel model) in c:\Users\MINHCHAU\Desktop\HocTrucTuyenLMS\BTL_QuanLyHocTrucTuyen\API_Admin\Controllers\DanhMucController.cs:line 47
+   at lambda_method109(Closure, Object, Object[])
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at BLL.Infrastructure.GlobalExceptionMiddleware.InvokeAsync(HttpContext context) in c:\Users\MINHCHAU\Desktop\HocTrucTuyenLMS\BTL_QuanLyHocTrucTuyen\BLL\Infrastructure\LmsMiddlewareAndDi.cs:line 84
+2026-11-12 11:25:16.611 +07:00 [INF] Request finished HTTP/1.1 POST http://localhost/api/DanhMuc/Them - 400 null application/problem+json; charset=utf-8 27.3651ms
+2026-11-12 11:29:05.620 +07:00 [INF] User profile is available. Using 'C:\Users\MINHCHAU\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-11-12 11:29:05.625 +07:00 [INF] LmsBackgroundWorker đã khởi động: sẵn sàng xử lý hàng đợi Email và dọn dẹp phiên định kỳ.
+2026-11-12 11:29:05.650 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost/api/NguoiDung/LayDanhSach - null null
+2026-11-12 11:29:05.721 +07:00 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (Admin)
+2026-11-12 11:29:05.728 +07:00 [INF] AuthenticationScheme: Bearer was forbidden.
+2026-11-12 11:29:05.728 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost/api/NguoiDung/LayDanhSach - 403 null application/json; charset=utf-8 78.7558ms
+2026-11-12 11:29:05.742 +07:00 [INF] User profile is available. Using 'C:\Users\MINHCHAU\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-11-12 11:29:05.747 +07:00 [INF] LmsBackgroundWorker đã khởi động: sẵn sàng xử lý hàng đợi Email và dọn dẹp phiên định kỳ.
+2026-11-12 11:29:05.795 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost/api/DanhMuc/Them - application/json; charset=utf-8 148
+2026-11-12 11:29:05.801 +07:00 [INF] Executing endpoint 'API_Admin.Controllers.DanhMucController.Them (API_Admin)'
+2026-11-12 11:29:05.803 +07:00 [INF] Route matched with {action = "Them", controller = "DanhMuc"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Them(Models.DanhMucModel) on controller API_Admin.Controllers.DanhMucController (API_Admin).
+2026-11-12 11:29:05.817 +07:00 [INF] Executed action API_Admin.Controllers.DanhMucController.Them (API_Admin) in 13.2921ms
+2026-11-12 11:29:05.817 +07:00 [INF] Executed endpoint 'API_Admin.Controllers.DanhMucController.Them (API_Admin)'
+2026-11-12 11:29:05.820 +07:00 [ERR] GlobalExceptionMiddleware bắt ngoại lệ tại POST /api/DanhMuc/Them [TraceId: 321fdc5900934b3e981234dc451f2c30] -> HTTP 400: Tên danh mục không được để trống.
+System.ArgumentException: Tên danh mục không được để trống.
+   at BLL.DanhMucBLL.Insert(DanhMucModel model) in c:\Users\MINHCHAU\Desktop\HocTrucTuyenLMS\BTL_QuanLyHocTrucTuyen\BLL\LmsBusinessBLL.cs:line 39
+   at API_Admin.Controllers.DanhMucController.Them(DanhMucModel model) in c:\Users\MINHCHAU\Desktop\HocTrucTuyenLMS\BTL_QuanLyHocTrucTuyen\API_Admin\Controllers\DanhMucController.cs:line 47
+   at lambda_method109(Closure, Object, Object[])
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at BLL.Infrastructure.GlobalExceptionMiddleware.InvokeAsync(HttpContext context) in c:\Users\MINHCHAU\Desktop\HocTrucTuyenLMS\BTL_QuanLyHocTrucTuyen\BLL\Infrastructure\LmsMiddlewareAndDi.cs:line 84
+2026-11-12 11:29:05.825 +07:00 [INF] Request finished HTTP/1.1 POST http://localhost/api/DanhMuc/Them - 400 null application/problem+json; charset=utf-8 29.9703ms

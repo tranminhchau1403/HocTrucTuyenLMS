@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="vi" ng-app="lmsApp">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thông tin cá nhân - CT LMS</title>
+  <link rel="icon" type="image/svg+xml" href="../img/ct-lms-logo.svg" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="../css/chung.css" />
+  <link rel="stylesheet" href="../css/giao-dien.css" />
+</head>
+<body ng-controller="ThongTinCaNhanController as vm">
+
+  <!-- THANH ĐIỀU HƯỚNG NGANG CHUẨN CT LMS -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="header-left">
+        <a href="tong-quan.html" class="header-brand" title="CT LMS">
+          <img src="../img/ct-lms-logo.svg" alt="CT LMS Logo" />
+        </a>
+        <nav id="header-navbar-links" class="nav-links"></nav>
+      </div>
+      <div class="header-actions" id="header-user-actions"></div>
+    </div>
+  </header>
+
+  <!-- NỘI DUNG CHÍNH -->
+  <main class="main-container">
+    <div class="breadcrumb-nav">
+      <a href="tong-quan.html"><i class="bi bi-house"></i> Trang chủ</a>
+      <span>/</span>
+      <span class="active">Hồ sơ cá nhân</span>
+    </div>
+
+    <div style="max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem;">
+      <!-- Thẻ thông tin tài khoản -->
+      <div style="background: white; border: 1px solid var(--border); border-radius: 12px; padding: clamp(1.25rem, 3vw, 2rem); box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
+        <div style="display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 1.25rem;">
+          <div style="width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, #0284c7, #0369a1); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.75rem; font-weight: 800; flex-shrink: 0;">
+            {{ (vm.nguoiDung.hoTen || 'U').charAt(0).toUpperCase() }}
+          </div>
+          <div>
+            <h2 style="font-size: 1.25rem; font-weight: 800; color: var(--text-main); margin: 0 0 0.25rem 0;">
+              {{ vm.nguoiDung.hoTen }}
+            </h2>
+            <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+              <span class="role-tag">{{ vm.nguoiDung.quyenHan }}</span>
+              <span style="font-size: 0.85rem; color: var(--text-muted);">@{{ vm.nguoiDung.tenDangNhap }}</span>
+            </div>
+          </div>
+        </div>
+
+        <form ng-submit="vm.capNhatHoSo()">
+          <div class="form-grid-2" style="margin-bottom: 1rem;">
+            <div>
+              <label style="display: block; font-size: 0.825rem; font-weight: 600; margin-bottom: 0.35rem; color: var(--text-main);">Họ và tên</label>
+              <input type="text" ng-model="vm.nguoiDung.hoTen" required style="width: 100%; box-sizing: border-box; padding: 0.65rem 0.75rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem;" />
+            </div>
+            <div>
+              <label style="display: block; font-size: 0.825rem; font-weight: 600; margin-bottom: 0.35rem; color: var(--text-main);">Email</label>
+              <input type="email" ng-model="vm.nguoiDung.email" required style="width: 100%; box-sizing: border-box; padding: 0.65rem 0.75rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem;" />
+            </div>
+          </div>
+
+          <div class="form-grid-2" style="margin-bottom: 1.5rem;">
+            <div>
+              <label style="display: block; font-size: 0.825rem; font-weight: 600; margin-bottom: 0.35rem; color: var(--text-main);">Số điện thoại</label>
+              <input type="text" ng-model="vm.nguoiDung.soDienThoai" style="width: 100%; box-sizing: border-box; padding: 0.65rem 0.75rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem;" />
+            </div>
+            <div>
+              <label style="display: block; font-size: 0.825rem; font-weight: 600; margin-bottom: 0.35rem; color: var(--text-main);">Vai trò phân quyền</label>
+              <input type="text" ng-model="vm.nguoiDung.quyenHan" disabled style="width: 100%; box-sizing: border-box; padding: 0.65rem 0.75rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem; background: #f1f5f9; color: var(--text-muted);" />
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="padding: 0.65rem 1.25rem;">
+            <i class="bi bi-save"></i> Lưu thông tin
+          </button>
+        </form>
+      </div>
+
+      <!-- Đổi mật khẩu -->
+      <div style="background: white; border: 1px solid var(--border); border-radius: 12px; padding: clamp(1.25rem, 3vw, 2rem); box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
+        <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--text-main); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem;">
+          <i class="bi bi-shield-lock text-primary"></i> Bảo mật & đổi mật khẩu
+        </h3>
+        <form ng-submit="vm.doiMatKhau()">
+          <div class="form-grid-2" style="margin-bottom: 1.25rem;">
+            <div>
+              <label style="display: block; font-size: 0.825rem; font-weight: 600; margin-bottom: 0.35rem; color: var(--text-main);">Mật khẩu mới</label>
+              <input type="password" ng-model="vm.matKhauMoi" required style="width: 100%; box-sizing: border-box; padding: 0.65rem 0.75rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem;" />
+            </div>
+            <div>
+              <label style="display: block; font-size: 0.825rem; font-weight: 600; margin-bottom: 0.35rem; color: var(--text-main);">Xác nhận mật khẩu mới</label>
+              <input type="password" ng-model="vm.xacNhanMatKhau" required style="width: 100%; box-sizing: border-box; padding: 0.65rem 0.75rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem;" />
+            </div>
+          </div>
+          <button type="submit" class="btn btn-secondary" style="padding: 0.65rem 1.25rem;">
+            <i class="bi bi-key"></i> Cập nhật mật khẩu
+          </button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script src="../angular.min.js"></script>
+  <script src="../js/cau-hinh.js"></script>
+  <script src="../js/angular-app.js"></script>
+  <script src="../js/xac-thuc.js"></script>
+  <script src="../js/goi-api.js"></script>
+  <script src="../js/tien-ich.js"></script>
+  <script src="../js/dieu-huong.js"></script>
+  <script>
+    (function () {
+      'use strict';
+      angular.module('lmsApp').controller('ThongTinCaNhanController', function () {
+        var vm = this;
+        vm.nguoiDung = XacThuc.layNguoiDung() || {
+          hoTen: 'Nguyễn Văn Nam',
+          tenDangNhap: 'hocvien01',
+          email: 'hocvien01@lms.test',
+          soDienThoai: '0901234567',
+          quyenHan: 'Học viên'
+        };
+        vm.matKhauMoi = '';
+        vm.xacNhanMatKhau = '';
+
+        vm.capNhatHoSo = function () {
+          XacThuc.luuPhien(vm.nguoiDung, XacThuc.layToken());
+          TienIch.thongBao('Cập nhật thông tin hồ sơ thành công!', 'thanh-cong');
+        };
+
+        vm.doiMatKhau = function () {
+          if (vm.matKhauMoi !== vm.xacNhanMatKhau) {
+            TienIch.thongBao('Mật khẩu xác nhận không khớp!', 'nguy-hiem');
+            return;
+          }
+          vm.matKhauMoi = '';
+          vm.xacNhanMatKhau = '';
+          TienIch.thongBao('Đổi mật khẩu thành công!', 'thanh-cong');
+        };
+      });
+    })();
+  </script>
+</body>
+</html>

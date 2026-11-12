@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="vi" ng-app="lmsApp">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Làm bài kiểm tra (Quiz & Anti-Cheat) - CT LMS</title>
+  <link rel="icon" type="image/svg+xml" href="../img/ct-lms-logo.svg" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="../css/chung.css" />
+  <link rel="stylesheet" href="../css/giao-dien.css" />
+</head>
+<body ng-controller="LamBaiTestController as vm">
+
+  <!-- THANH ĐIỀU HƯỚNG NGANG CHUẨN CT LMS -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="header-left">
+        <a href="tong-quan.html" class="header-brand" title="CT LMS">
+          <img src="../img/ct-lms-logo.svg" alt="CT LMS Logo" />
+        </a>
+        <nav id="header-navbar-links" class="nav-links"></nav>
+      </div>
+
+      <div class="header-actions" id="header-user-actions"></div>
+    </div>
+  </header>
+
+  <main class="main-container">
+    <!-- Breadcrumb CT LMS -->
+    <nav class="breadcrumb-nav">
+      <a href="tong-quan.html"><i class="bi bi-house-door"></i> Trang chủ</a>
+      <span>/</span>
+      <a href="khoa-hoc-cua-toi.html">Khóa học của tôi</a>
+      <span>/</span>
+      <span class="active">Bài kiểm tra trắc nghiệm & Giám sát thi</span>
+    </nav>
+
+    <!-- THANH COUNTDOWN TIMER GHIM CỐ ĐỊNH TRÊN MOBILE/TABLET (STICKY BAR) -->
+    <div class="quiz-sticky-bar">
+      <div style="display: flex; align-items: center; gap: 0.65rem; flex-wrap: wrap;">
+        <div class="quiz-timer-badge">
+          <i class="bi bi-stopwatch"></i> {{ vm.thoiGianConLai }}
+        </div>
+        <span style="background: rgba(239, 68, 68, 0.2); color: #fca5a5; font-size: 0.72rem; font-weight: 700; padding: 0.25rem 0.55rem; border-radius: 6px; border: 1px solid rgba(239, 68, 68, 0.35);">
+          <i class="bi bi-eye"></i> Anti-Cheat: {{ vm.soLanRoiTab }}/3
+        </span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 0.45rem;">
+        <button type="button" class="btn btn-secondary" ng-click="vm.hienPaletteMobile = true" style="background: #1e293b; color: #f8fafc; border-color: #334155; font-size: 0.75rem; padding: 0.35rem 0.65rem;">
+          <i class="bi bi-grid-3x3-gap"></i> Bảng câu ({{ vm.demSoCauDaLam() }}/{{ vm.danhSachCauHoi.length }})
+        </button>
+        <button type="button" class="btn btn-primary" ng-click="vm.xacNhanNopBai()" style="background: #16a34a; font-size: 0.75rem; padding: 0.35rem 0.65rem;">
+          Nộp bài
+        </button>
+      </div>
+    </div>
+
+    <!-- BỐ CỤC 12 CỘT: CÂU HỎI (8 CỘT) + QUESTION PALETTE SIDEBAR (4 CỘT) -->
+    <div class="quiz-layout">
+      <!-- Cột Trái: Khung Câu Hỏi -->
+      <div class="quiz-main">
+        <div class="the" style="padding: clamp(1rem, 2.5vw, 1.5rem); border-radius: 12px; border: 1px solid var(--border); background: white;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; border-bottom: 1px solid var(--border); padding-bottom: 0.85rem; margin-bottom: 1.25rem;">
+            <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+              <span class="badge badge-lam">Câu hỏi {{ vm.cauHienTai + 1 }} / {{ vm.danhSachCauHoi.length }}</span>
+              <span style="font-size: 0.82rem; color: var(--text-muted);">Chọn 01 đáp án đúng nhất</span>
+            </div>
+            <button type="button" class="btn btn-secondary" ng-click="vm.danhDauCau()" style="font-size: 0.75rem;">
+              <i class="bi" ng-class="vm.cauHoiDuocDanhDau[vm.cauHienTai] ? 'bi-flag-fill text-warning' : 'bi-flag'"></i>
+              {{ vm.cauHoiDuocDanhDau[vm.cauHienTai] ? 'Đã đánh dấu xem lại' : 'Đánh dấu xem lại' }}
+            </button>
+          </div>
+
+          <div style="font-size: clamp(0.95rem, 1.5vw, 1.1rem); font-weight: 700; color: var(--text-main); line-height: 1.55; margin-bottom: 1.25rem;">
+            {{ vm.danhSachCauHoi[vm.cauHienTai].noiDung }}
+          </div>
+
+          <!-- Các phương án -->
+          <div style="display: flex; flex-direction: column; gap: 0.65rem; margin-bottom: 1.5rem;">
+            <div
+              ng-repeat="(idx, opt) in vm.danhSachCauHoi[vm.cauHienTai].options"
+              ng-click="vm.chonDapAn(idx)"
+              style="padding: 0.85rem 1rem; border-radius: 10px; border: 1.5px solid var(--border); cursor: pointer; display: flex; align-items: center; gap: 0.75rem; transition: all 0.15s;"
+              ng-style="{'border-color': vm.dapAnDaChon[vm.cauHienTai] === idx ? '#0284c7' : 'var(--border)', 'background': vm.dapAnDaChon[vm.cauHienTai] === idx ? '#f0f9ff' : 'white'}"
+            >
+              <span style="width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.78rem; flex-shrink: 0;" ng-style="{'background': vm.dapAnDaChon[vm.cauHienTai] === idx ? '#0284c7' : '#f1f5f9', 'color': vm.dapAnDaChon[vm.cauHienTai] === idx ? 'white' : 'var(--text-muted)'}">
+                {{ ['A', 'B', 'C', 'D'][idx] }}
+              </span>
+              <span style="font-size: 0.875rem; font-weight: 500; color: var(--text-main); line-height: 1.4;">{{ opt }}</span>
+            </div>
+          </div>
+
+          <!-- Thanh Cuộn Ngang Câu Hỏi Nhanh Trên Mobile/Tablet -->
+          <div style="margin-bottom: 1.25rem; padding-top: 0.75rem; border-top: 1px dashed var(--border);">
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.45rem; font-weight: 600;">
+              Chuyển nhanh câu hỏi:
+            </div>
+            <div style="display: flex; gap: 0.4rem; overflow-x: auto; padding-bottom: 0.25rem; scrollbar-width: none;">
+              <button
+                type="button"
+                ng-repeat="(i, q) in vm.danhSachCauHoi"
+                ng-click="vm.chuyenCau(i)"
+                class="btn"
+                style="min-width: 36px; height: 36px; padding: 0; justify-content: center; font-weight: 700; position: relative; flex-shrink: 0;"
+                ng-style="{'background': i === vm.cauHienTai ? '#0284c7' : (vm.dapAnDaChon[i] !== undefined ? '#dcfce7' : '#f1f5f9'), 'color': i === vm.cauHienTai ? 'white' : (vm.dapAnDaChon[i] !== undefined ? '#16a34a' : 'var(--text-main)'), 'border': '1px solid', 'border-color': i === vm.cauHienTai ? '#0284c7' : 'var(--border)'}"
+              >
+                {{ i + 1 }}
+                <span ng-if="vm.cauHoiDuocDanhDau[i]" style="position: absolute; top: -3px; right: -3px; width: 8px; height: 8px; border-radius: 50%; background: #f59e0b;"></span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Điều Hướng Câu trước / Câu tiếp -->
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; border-top: 1px solid var(--border); padding-top: 1rem;">
+            <button type="button" class="btn btn-secondary" ng-click="vm.cauTruoc()" ng-disabled="vm.cauHienTai === 0">
+              <i class="bi bi-chevron-left"></i> Câu trước
+            </button>
+            <button type="button" class="btn btn-primary" ng-click="vm.cauTiep()" ng-if="vm.cauHienTai < vm.danhSachCauHoi.length - 1">
+              Câu tiếp theo <i class="bi bi-chevron-right"></i>
+            </button>
+            <button type="button" class="btn btn-primary" ng-click="vm.xacNhanNopBai()" ng-if="vm.cauHienTai === vm.danhSachCauHoi.length - 1" style="background: #16a34a;">
+              <i class="bi bi-send-check"></i> Nộp bài kiểm tra
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cột Phải: Đồng Hồ Sticky & Question Palette Trên Desktop -->
+      <aside class="quiz-sidebar">
+        <div style="display: flex; flex-direction: column; gap: 1rem; position: sticky; top: 82px;">
+          <div style="padding: 1.25rem; text-align: center; background: #0f172a; color: white; border-radius: 12px; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);">
+            <div style="font-size: 0.7rem; color: #94a3b8; margin-bottom: 0.25rem; font-weight: 700; letter-spacing: 0.05em;">THỜI GIAN CÒN LẠI</div>
+            <div style="font-size: 2rem; font-weight: 800; font-family: monospace; color: #38bdf8;">
+              {{ vm.thoiGianConLai }}
+            </div>
+            <div style="margin-top: 0.5rem; display: inline-flex; align-items: center; gap: 0.35rem; background: rgba(239, 68, 68, 0.18); color: #fca5a5; font-size: 0.72rem; font-weight: 600; padding: 0.25rem 0.65rem; border-radius: 999px;">
+              <i class="bi bi-eye"></i> Giám sát Anti-Cheat: {{ vm.soLanRoiTab }}/3
+            </div>
+          </div>
+
+          <div class="the" style="padding: 1.25rem; border-radius: 12px; border: 1px solid var(--border); background: white;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+              <span style="font-weight: 700; font-size: 0.85rem; color: var(--text-main);">
+                Bảng câu hỏi (Question palette)
+              </span>
+              <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">
+                Đã làm: {{ vm.demSoCauDaLam() }}/{{ vm.danhSachCauHoi.length }}
+              </span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.45rem; margin-bottom: 1rem;">
+              <button
+                type="button"
+                ng-repeat="(i, q) in vm.danhSachCauHoi"
+                ng-click="vm.chuyenCau(i)"
+                class="btn"
+                style="padding: 0.5rem 0; justify-content: center; font-weight: 700; position: relative;"
+                ng-style="{'background': i === vm.cauHienTai ? '#0284c7' : (vm.dapAnDaChon[i] !== undefined ? '#dcfce7' : '#f1f5f9'), 'color': i === vm.cauHienTai ? 'white' : (vm.dapAnDaChon[i] !== undefined ? '#16a34a' : 'var(--text-main)'), 'border': '1px solid', 'border-color': i === vm.cauHienTai ? '#0284c7' : 'var(--border)'}"
+              >
+                {{ i + 1 }}
+                <span ng-if="vm.cauHoiDuocDanhDau[i]" style="position: absolute; top: -3px; right: -3px; width: 7px; height: 7px; border-radius: 50%; background: #f59e0b;"></span>
+              </button>
+            </div>
+
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; font-size: 0.72rem; color: var(--text-muted); margin-bottom: 1rem; padding-top: 0.5rem; border-top: 1px solid var(--border);">
+              <span style="display: flex; align-items: center; gap: 4px;"><span style="width: 10px; height: 10px; border-radius: 3px; background: #0284c7; display: inline-block;"></span> Đang chọn</span>
+              <span style="display: flex; align-items: center; gap: 4px;"><span style="width: 10px; height: 10px; border-radius: 3px; background: #dcfce7; border: 1px solid #16a34a; display: inline-block;"></span> Đã trả lời</span>
+              <span style="display: flex; align-items: center; gap: 4px;"><span style="width: 8px; height: 8px; border-radius: 50%; background: #f59e0b; display: inline-block;"></span> Xem lại</span>
+            </div>
+
+            <button type="button" class="btn btn-primary" ng-click="vm.xacNhanNopBai()" style="width: 100%; justify-content: center; background: #16a34a; padding: 0.6rem;">
+              <i class="bi bi-check2-all"></i> Nộp bài ngay
+            </button>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Bottom Sheet Question Palette Trên Mobile -->
+    <div ng-if="vm.hienPaletteMobile" style="position: fixed; inset: 0; background: rgba(15, 23, 42, 0.55); z-index: 2050; display: flex; align-items: flex-end; justify-content: center;" ng-click="vm.hienPaletteMobile = false">
+      <div style="background: white; width: 100%; max-width: 540px; border-radius: 16px 16px 0 0; padding: 1.25rem; box-shadow: 0 -10px 25px rgba(0,0,0,0.15);" ng-click="$event.stopPropagation()">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.75rem;">
+          <strong style="font-size: 0.95rem; color: var(--text-main);">Bảng câu hỏi ({{ vm.demSoCauDaLam() }}/{{ vm.danhSachCauHoi.length }} đã chọn)</strong>
+          <button type="button" class="btn btn-secondary" ng-click="vm.hienPaletteMobile = false" style="padding: 0.25rem 0.55rem;">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; margin-bottom: 1.25rem;">
+          <button
+            type="button"
+            ng-repeat="(i, q) in vm.danhSachCauHoi"
+            ng-click="vm.chuyenCau(i); vm.hienPaletteMobile = false"
+            class="btn"
+            style="padding: 0.65rem 0; justify-content: center; font-weight: 700; position: relative;"
+            ng-style="{'background': i === vm.cauHienTai ? '#0284c7' : (vm.dapAnDaChon[i] !== undefined ? '#dcfce7' : '#f1f5f9'), 'color': i === vm.cauHienTai ? 'white' : (vm.dapAnDaChon[i] !== undefined ? '#16a34a' : 'var(--text-main)'), 'border': '1px solid', 'border-color': i === vm.cauHienTai ? '#0284c7' : 'var(--border)'}"
+          >
+            {{ i + 1 }}
+            <span ng-if="vm.cauHoiDuocDanhDau[i]" style="position: absolute; top: -3px; right: -3px; width: 8px; height: 8px; border-radius: 50%; background: #f59e0b;"></span>
+          </button>
+        </div>
+        <button type="button" class="btn btn-primary" ng-click="vm.hienPaletteMobile = false; vm.xacNhanNopBai()" style="width: 100%; justify-content: center; background: #16a34a; padding: 0.65rem;">
+          <i class="bi bi-check2-all"></i> Nộp bài kiểm tra ngay
+        </button>
+      </div>
+    </div>
+
+    <!-- Popup Kết Quả Nộp Bài -->
+    <div ng-if="vm.ketQuaNopBai" class="modal-overlay" style="position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); display: flex; align-items: center; justify-content: center; z-index: 2100; padding: 1rem;">
+      <div class="the" style="max-width: 440px; width: 100%; padding: clamp(1.5rem, 4vw, 2rem); text-align: center; border-radius: 14px; border: 1px solid var(--border); background: white;">
+        <div style="width: 64px; height: 64px; border-radius: 50%; background: #dcfce7; color: #16a34a; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 0.85rem auto;">
+          <i class="bi bi-award-fill"></i>
+        </div>
+        <h2 style="font-size: 1.35rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.25rem;">
+          {{ vm.ketQuaNopBai.danhGia === 'Đạt' ? 'Chúc mừng bạn đã đạt!' : 'Chưa đạt yêu cầu' }}
+        </h2>
+        <p style="font-size: 1.85rem; font-weight: 800; color: #0284c7; margin-bottom: 0.25rem;">
+          {{ vm.ketQuaNopBai.diemSo }} / 10 Điểm
+        </p>
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+          Điểm chuẩn đạt: 5.0 (50%). Kết quả đã được lưu vào sổ điểm học viên.
+        </p>
+        <div style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;">
+          <a href="chung-chi.html" class="btn btn-primary">
+            <i class="bi bi-award"></i> Xem chứng chỉ
+          </a>
+          <button type="button" class="btn btn-secondary" ng-click="vm.dongPopup()">Đóng</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="../angular.min.js"></script>
+  <script src="../js/cau-hinh.js"></script>
+  <script src="../js/angular-app.js"></script>
+  <script src="../js/xac-thuc.js"></script>
+  <script src="../js/goi-api.js"></script>
+  <script src="../js/tien-ich.js"></script>
+  <script src="../js/dieu-huong.js"></script>
+  <script>
+    (function () {
+      'use strict';
+      angular.module('lmsApp').controller('LamBaiTestController', ['ApiService', '$interval', function (ApiService, $interval) {
+        var vm = this;
+        vm.cauHienTai = 0;
+        vm.soLanRoiTab = 0;
+        vm.gioiHanChuyenTab = 3;
+        vm.dapAnDaChon = {};
+        vm.cauHoiDuocDanhDau = {};
+        vm.giayConLai = 900;
+        vm.thoiGianConLai = '15:00';
+        vm.ketQuaNopBai = null;
+        vm.hienPaletteMobile = false;
+
+        vm.maDangKy = 1;
+        vm.maBaiKiemTra = 1;
+        vm.maPhien = null;
+        vm.danhSachCauHoi = [];
+        var timer = null;
+
+        function layThamSoUrl(name) {
+          var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+          return results !== null ? decodeURIComponent(results[1]) : null;
+        }
+
+        vm.khoiTaoPhienThi = function () {
+          var pBkt = layThamSoUrl('maBaiKiemTra');
+          var pDk = layThamSoUrl('maDangKy');
+          if (pBkt) vm.maBaiKiemTra = parseInt(pBkt, 10);
+          if (pDk) vm.maDangKy = parseInt(pDk, 10);
+
+          ApiService.batDauPhienLamBai(vm.maBaiKiemTra, vm.maDangKy)
+            .then(function (res) {
+              var session = res.data && res.data.data ? res.data.data : null;
+              if (session && session.danhSachCauHoi && session.danhSachCauHoi.length > 0) {
+                vm.maPhien = session.maPhien;
+                vm.giayConLai = session.thoiGianConLaiGiay || (session.thoiGianLamBaiPhut * 60) || 900;
+                vm.gioiHanChuyenTab = session.gioiHanChuyenTab || 3;
+
+                vm.danhSachCauHoi = session.danhSachCauHoi.map(function (q) {
+                  return {
+                    maCauHoi: q.maCauHoi,
+                    noiDung: q.noiDung,
+                    diem: q.diem,
+                    options: q.danhSachLuaChon ? q.danhSachLuaChon.map(function (o) { return o.noiDung; }) : [],
+                    rawOptions: q.danhSachLuaChon || []
+                  };
+                });
+                vm.batDauDemNguoc();
+                TienIch.thongBao('Phiên thi đã được khởi tạo và đồng bộ thời gian từ Server!', 'thanh-cong');
+              } else {
+                vm.khoiTaoFallback();
+              }
+            })
+            .catch(function () {
+              vm.khoiTaoFallback();
+            });
+        };
+
+        vm.khoiTaoFallback = function () {
+          vm.danhSachCauHoi = [
+            { maCauHoi: 1, noiDung: 'Trong kiến trúc Hướng dịch vụ (.NET 8), Ocelot API Gateway đóng vai trò gì?', options: ['Single Entry Point định tuyến request', 'Cơ sở dữ liệu lưu trữ', 'Giao diện hiển thị HTML', 'Trình biên dịch C#'], ans: 0 },
+            { maCauHoi: 2, noiDung: 'Trong bảng BaiKiemTra, cột DiemDat tự động tính bằng bao nhiêu % của DiemToiDa?', options: ['30%', '50%', '75%', '100%'], ans: 1 },
+            { maCauHoi: 3, noiDung: 'Để giới hạn Controller chỉ cho phép vai trò "Học viên", ta sử dụng Attribute nào?', options: ['[AllowAnonymous]', '[Authorize(Roles = "Học viên")]', '[Route("api/sv")]', '[HttpGet]'], ans: 1 },
+            { maCauHoi: 4, noiDung: 'Để được xuất Chứng chỉ hoàn thành, học viên cần đạt tiến độ tối thiểu bao nhiêu?', options: ['50%', '75%', '90%', '100%'], ans: 3 },
+            { maCauHoi: 5, noiDung: 'Chuẩn HTTP Header nào truyền JWT Bearer Token an toàn?', options: ['Authorization: Basic <token>', 'Authorization: Bearer <token>', 'X-Auth-Token: <token>', 'Cookie: jwt=<token>'], ans: 1 }
+          ];
+          vm.batDauDemNguoc();
+        };
+
+        vm.batDauDemNguoc = function () {
+          if (timer) $interval.cancel(timer);
+          timer = $interval(function () {
+            if (vm.giayConLai > 0) {
+              vm.giayConLai--;
+              var m = Math.floor(vm.giayConLai / 60);
+              var s = vm.giayConLai % 60;
+              vm.thoiGianConLai = ('0' + m).slice(-2) + ':' + ('0' + s).slice(-2);
+            } else {
+              $interval.cancel(timer);
+              TienIch.thongBao('Đã hết giờ làm bài! Hệ thống tự động thu bài.', 'canh-bao');
+              vm.xacNhanNopBai();
+            }
+          }, 1000);
+        };
+
+        vm.demSoCauDaLam = function () {
+          return Object.keys(vm.dapAnDaChon).length;
+        };
+
+        document.addEventListener('visibilitychange', function () {
+          if (document.hidden) {
+            vm.soLanRoiTab++;
+            if (vm.soLanRoiTab >= vm.gioiHanChuyenTab) {
+              TienIch.thongBao('CẢNH BÁO: Bạn đã chuyển tab quá số lần cho phép (' + vm.soLanRoiTab + '/' + vm.gioiHanChuyenTab + '). Bài thi sẽ bị đánh dấu vi phạm!', 'loi');
+            } else {
+              TienIch.thongBao('Cảnh báo Anti-Cheat: Phát hiện rời khỏi màn hình bài thi (' + vm.soLanRoiTab + '/' + vm.gioiHanChuyenTab + ')!', 'canh-bao');
+            }
+          }
+        });
+
+        vm.chuyenCau = function (i) { vm.cauHienTai = i; };
+        vm.cauTruoc = function () { if (vm.cauHienTai > 0) vm.cauHienTai--; };
+        vm.cauTiep = function () { if (vm.cauHienTai < vm.danhSachCauHoi.length - 1) vm.cauHienTai++; };
+        vm.chonDapAn = function (idx) { vm.dapAnDaChon[vm.cauHienTai] = idx; };
+        vm.danhDauCau = function () { vm.cauHoiDuocDanhDau[vm.cauHienTai] = !vm.cauHoiDuocDanhDau[vm.cauHienTai]; };
+
+        vm.xacNhanNopBai = function () {
+          var danhSachTraLoi = [];
+          vm.danhSachCauHoi.forEach(function (q, i) {
+            var selectedIdx = vm.dapAnDaChon[i];
+            if (selectedIdx !== undefined) {
+              var maLuaChon = (q.rawOptions && q.rawOptions[selectedIdx]) ? q.rawOptions[selectedIdx].maLuaChon : (selectedIdx + 1);
+              danhSachTraLoi.push({
+                maCauHoi: q.maCauHoi,
+                maLuaChon: maLuaChon
+              });
+            }
+          });
+
+          var payload = {
+            maDangKy: vm.maDangKy,
+            maBaiKiemTra: vm.maBaiKiemTra,
+            maPhien: vm.maPhien,
+            soLanChuyenTab: vm.soLanRoiTab,
+            danhSachTraLoi: danhSachTraLoi
+          };
+
+          ApiService.nopBaiTest(payload)
+            .then(function (res) {
+              var data = res.data && res.data.data ? res.data.data : null;
+              if (data) {
+                vm.ketQuaNopBai = {
+                  diemSo: data.diemSo,
+                  danhGia: data.danhGia || (data.diemSo >= 5.0 ? 'Đạt' : 'Không đạt')
+                };
+              } else {
+                vm.tinhDiemClientFallback();
+              }
+            })
+            .catch(function () {
+              vm.tinhDiemClientFallback();
+            })
+            .finally(function () {
+              if (timer) $interval.cancel(timer);
+            });
+        };
+
+        vm.tinhDiemClientFallback = function () {
+          var dung = 0;
+          vm.danhSachCauHoi.forEach(function (q, i) {
+            if (vm.dapAnDaChon[i] === q.ans) dung++;
+          });
+          var diem = ((dung / (vm.danhSachCauHoi.length || 1)) * 10).toFixed(1);
+          vm.ketQuaNopBai = {
+            diemSo: diem,
+            danhGia: diem >= 5.0 ? 'Đạt' : 'Không đạt'
+          };
+        };
+
+        vm.dongPopup = function () {
+          vm.ketQuaNopBai = null;
+          window.location.href = 'khoa-hoc-cua-toi.html';
+        };
+
+        vm.khoiTaoPhienThi();
+      }]);
+    })();
+  </script>
+</body>
+</html>

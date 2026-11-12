@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>API_Login</name>
+    </assembly>
+    <members>
+        <member name="T:API_Login.Controllers.XacThucController">
+            <summary>Xác thực, đăng ký, xoay vòng Refresh Token và thông tin tài khoản (JWT + RBAC 3 vai trò).</summary>
+        </member>
+        <member name="M:API_Login.Controllers.XacThucController.DangNhap(Models.LoginRequest)">
+            <summary>Đăng nhập bằng tên đăng nhập và mật khẩu, trả về JWT AccessToken kèm RefreshToken.</summary>
+        </member>
+        <member name="M:API_Login.Controllers.XacThucController.RefreshToken(Models.RefreshTokenRequest)">
+            <summary>Làm mới AccessToken bằng RefreshToken (Refresh Token Rotation - Bài 10 Giáo trình).</summary>
+        </member>
+        <member name="M:API_Login.Controllers.XacThucController.RevokeToken(Models.RevokeTokenRequest)">
+            <summary>Thu hồi RefreshToken (Revoke Token).</summary>
+        </member>
+        <member name="M:API_Login.Controllers.XacThucController.DangKyHocVien(Models.RegisterStudentRequest)">
+            <summary>Học viên tự đăng ký tài khoản (quyền Học viên, kích hoạt ngay, băm mật khẩu BCrypt).</summary>
+        </member>
+        <member name="M:API_Login.Controllers.XacThucController.DangKyGiangVien(Models.RegisterTeacherRequest)">
+            <summary>Admin tạo tài khoản giảng viên (quyền Giảng viên, kích hoạt ngay).</summary>
+        </member>
+        <member name="M:API_Login.Controllers.XacThucController.DoiMatKhau(Models.ChangePasswordRequest)">
+            <summary>Đổi mật khẩu của chính người dùng đang đăng nhập (tự động thu hồi các RefreshToken cũ).</summary>
+        </member>
+        <member name="M:API_Login.Controllers.XacThucController.LayThongTin">
+            <summary>Lấy hồ sơ của người dùng đang đăng nhập.</summary>
+        </member>
+        <member name="M:API_Login.Controllers.XacThucController.DangXuat(Models.RevokeTokenRequest)">
+            <summary>Đăng xuất và thu hồi RefreshToken nếu được gửi kèm.</summary>
+        </member>
+    </members>
+</doc>

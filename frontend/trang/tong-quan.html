@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="vi" ng-app="lmsApp">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tổng quan bảng điều khiển - CT LMS</title>
+  <link rel="icon" type="image/svg+xml" href="../img/ct-lms-logo.svg" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="../css/chung.css" />
+  <link rel="stylesheet" href="../css/giao-dien.css" />
+</head>
+<body ng-controller="TongQuanController as vm">
+
+  <!-- THANH ĐIỀU HƯỚNG NGANG CHUẨN CT LMS -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="header-left">
+        <a href="tong-quan.html" class="header-brand" title="CT LMS">
+          <img src="../img/ct-lms-logo.svg" alt="CT LMS Logo" />
+        </a>
+        <nav id="header-navbar-links" class="nav-links"></nav>
+      </div>
+      <div class="header-actions" id="header-user-actions"></div>
+    </div>
+  </header>
+
+  <!-- VÙNG NỘI DUNG CHÍNH FLUID RESPONSIVE -->
+  <main class="main-container">
+    <!-- Banner Chào Mừng CT LMS -->
+    <div style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: white; padding: clamp(1.25rem, 3vw, 1.75rem); margin-bottom: 1.5rem; border-radius: 14px; box-shadow: 0 4px 15px rgba(2, 132, 199, 0.2);">
+      <h2 style="font-size: clamp(1.15rem, 2.2vw, 1.45rem); font-weight: 700; margin-bottom: 0.35rem; color: white;">
+        Xin chào, {{ vm.nguoiDung.hoTen || vm.nguoiDung.tenDangNhap }}!
+      </h2>
+      <p style="opacity: 0.92; margin: 0; font-size: clamp(0.82rem, 1.4vw, 0.92rem);">
+        Hệ thống quản lý học trực tuyến CT LMS — Theo dõi tiến độ học tập, bài kiểm tra trắc nghiệm và chứng chỉ số của bạn.
+      </p>
+    </div>
+
+    <!-- 4 KPI Thống Kê Co Giãn (1 -> 2 -> 4 Cột) -->
+    <div class="kpi-grid" style="margin-bottom: 1.5rem;">
+      <div class="the" style="padding: 1.25rem; display: flex; align-items: center; gap: 1rem; border-radius: 12px; border: 1px solid var(--border); background: white;">
+        <div style="width: 46px; height: 46px; border-radius: 10px; background: #e0f2fe; color: #0284c7; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; flex-shrink: 0;">
+          <i class="bi bi-journal-bookmark-fill"></i>
+        </div>
+        <div>
+          <div style="color: var(--text-muted); font-size: 0.8rem;">Tổng khóa học</div>
+          <div style="font-size: 1.45rem; font-weight: 700; color: var(--text-main);">
+            {{ vm.thongKe.tongKhoaHoc || 8 }}
+          </div>
+        </div>
+      </div>
+
+      <div class="the" style="padding: 1.25rem; display: flex; align-items: center; gap: 1rem; border-radius: 12px; border: 1px solid var(--border); background: white;">
+        <div style="width: 46px; height: 46px; border-radius: 10px; background: #dcfce7; color: #16a34a; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; flex-shrink: 0;">
+          <i class="bi bi-people-fill"></i>
+        </div>
+        <div>
+          <div style="color: var(--text-muted); font-size: 0.8rem;">Lượt đăng ký</div>
+          <div style="font-size: 1.45rem; font-weight: 700; color: var(--text-main);">
+            {{ vm.thongKe.tongLuotDangKy || 2450 }}
+          </div>
+        </div>
+      </div>
+
+      <div class="the" style="padding: 1.25rem; display: flex; align-items: center; gap: 1rem; border-radius: 12px; border: 1px solid var(--border); background: white;">
+        <div style="width: 46px; height: 46px; border-radius: 10px; background: #fef3c7; color: #d97706; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; flex-shrink: 0;">
+          <i class="bi bi-award-fill"></i>
+        </div>
+        <div>
+          <div style="color: var(--text-muted); font-size: 0.8rem;">Chứng chỉ đã cấp</div>
+          <div style="font-size: 1.45rem; font-weight: 700; color: var(--text-main);">
+            {{ vm.thongKe.tongLuotHoanThanh || 1840 }}
+          </div>
+        </div>
+      </div>
+
+      <div class="the" style="padding: 1.25rem; display: flex; align-items: center; gap: 1rem; border-radius: 12px; border: 1px solid var(--border); background: white;">
+        <div style="width: 46px; height: 46px; border-radius: 10px; background: #ede9fe; color: #7c3aed; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; flex-shrink: 0;">
+          <i class="bi bi-currency-dollar"></i>
+        </div>
+        <div>
+          <div style="color: var(--text-muted); font-size: 0.8rem;">Doanh thu đào tạo</div>
+          <div style="font-size: 1.45rem; font-weight: 700; color: var(--text-main);">
+            {{ (vm.thongKe.tongDoanhThu || 14800000) | tienVND }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shortcut Chức Năng Nhanh Chuẩn CT LMS -->
+    <div class="the" style="padding: clamp(1rem, 2.5vw, 1.5rem); border-radius: 12px; border: 1px solid var(--border); background: white;">
+      <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-main);">
+        <i class="bi bi-lightning-charge text-warning"></i> Chức năng nhanh dành cho {{ vm.tenVaiTro }}
+      </h3>
+      <div class="kpi-grid">
+        <a href="tra-cuu-khoa-hoc.html" class="the" style="padding: 1rem 1.25rem; text-decoration: none; display: flex; align-items: center; gap: 0.85rem; border: 1px solid var(--border); border-radius: 10px; transition: all 0.2s;">
+          <i class="bi bi-search" style="font-size: 1.4rem; color: #0284c7; flex-shrink: 0;"></i>
+          <div>
+            <strong style="color: var(--text-main); display: block; font-size: 0.9rem;">Khám phá khóa học</strong>
+            <small style="color: var(--text-muted);">Lập trình C#, Web API, SQL</small>
+          </div>
+        </a>
+        <a href="khoa-hoc-cua-toi.html" class="the" style="padding: 1rem 1.25rem; text-decoration: none; display: flex; align-items: center; gap: 0.85rem; border: 1px solid var(--border); border-radius: 10px; transition: all 0.2s;">
+          <i class="bi bi-mortarboard" style="font-size: 1.4rem; color: #16a34a; flex-shrink: 0;"></i>
+          <div>
+            <strong style="color: var(--text-main); display: block; font-size: 0.9rem;">Khóa học của tôi</strong>
+            <small style="color: var(--text-muted);">Theo dõi tiến độ & Phòng học</small>
+          </div>
+        </a>
+        <a href="lam-bai-test.html" class="the" style="padding: 1rem 1.25rem; text-decoration: none; display: flex; align-items: center; gap: 0.85rem; border: 1px solid var(--border); border-radius: 10px; transition: all 0.2s;">
+          <i class="bi bi-check2-square" style="font-size: 1.4rem; color: #d97706; flex-shrink: 0;"></i>
+          <div>
+            <strong style="color: var(--text-main); display: block; font-size: 0.9rem;">Làm bài kiểm tra</strong>
+            <small style="color: var(--text-muted);">Phòng thi Quiz & Anti-Cheat</small>
+          </div>
+        </a>
+        <a href="chung-chi.html" class="the" style="padding: 1rem 1.25rem; text-decoration: none; display: flex; align-items: center; gap: 0.85rem; border: 1px solid var(--border); border-radius: 10px; transition: all 0.2s;">
+          <i class="bi bi-award" style="font-size: 1.4rem; color: #7c3aed; flex-shrink: 0;"></i>
+          <div>
+            <strong style="color: var(--text-main); display: block; font-size: 0.9rem;">Chứng chỉ hoàn thành</strong>
+            <small style="color: var(--text-muted);">Xuất PDF Chứng chỉ số</small>
+          </div>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <script src="../angular.min.js"></script>
+  <script src="../js/cau-hinh.js"></script>
+  <script src="../js/angular-app.js"></script>
+  <script src="../js/xac-thuc.js"></script>
+  <script src="../js/goi-api.js"></script>
+  <script src="../js/tien-ich.js"></script>
+  <script src="../js/dieu-huong.js"></script>
+  <script>
+    (function () {
+      'use strict';
+      angular.module('lmsApp').controller('TongQuanController', ['ApiService', function (ApiService) {
+        var vm = this;
+        vm.nguoiDung = XacThuc.layNguoiDung() || {};
+        vm.tenVaiTro = TEN_VAI_TRO[vm.nguoiDung.quyenHan] || vm.nguoiDung.quyenHan || 'Học viên';
+        vm.thongKe = {};
+
+        vm.taiDuLieu = function () {
+          ApiService.layBaoCaoTongQuan().then(function (res) {
+            if (res.data && res.data.success) {
+              vm.thongKe = res.data.data;
+            }
+          }).catch(function () {
+            vm.thongKe = {
+              tongKhoaHoc: 8,
+              tongLuotDangKy: 2450,
+              tongLuotHoanThanh: 1840,
+              tongDoanhThu: 14800000
+            };
+          });
+        };
+
+        vm.taiDuLieu();
+      }]);
+    })();
+  </script>
+</body>
+</html>

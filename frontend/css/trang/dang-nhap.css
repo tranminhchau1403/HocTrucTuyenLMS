@@ -1,0 +1,627 @@
+/**
+ * dang-nhap.css — Giao diện Đăng nhập Hiện đại (lấy cảm hứng từ AsmrProg-YT/Modern-Login)
+ * Hiệu ứng Sliding Curved Overlay chuyển đổi mượt mà giữa Đăng nhập & Thông tin phân quyền
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+  --mau-chinh: #4f46e5;
+  --mau-chinh-dam: #4338ca;
+  --mau-chinh-sang: #6366f1;
+  --mau-tim: #7c3aed;
+  --mau-nen-start: #e0e7ff;
+  --mau-nen-end: #f1f5f9;
+  --mau-chu-chinh: #1e293b;
+  --mau-chu-phu: #64748b;
+  --mau-vien: #e2e8f0;
+  --mau-input-nen: #f8fafc;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Plus Jakarta Sans', 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body.trang-dang-nhap-body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 45%, #f8fafc 100%);
+  position: relative;
+  overflow-x: hidden;
+  padding: 20px;
+}
+
+/* Các quả cầu ánh sáng trang trí mờ ảo phía sau */
+.nen-trang-tri {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.qua-cau-sang {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.6;
+}
+
+.qua-cau-1 {
+  width: 350px;
+  height: 350px;
+  background: rgba(99, 102, 241, 0.35);
+  top: -60px;
+  left: -80px;
+}
+
+.qua-cau-2 {
+  width: 400px;
+  height: 400px;
+  background: rgba(124, 58, 237, 0.25);
+  bottom: -100px;
+  right: -80px;
+}
+
+/* Khung Container chính (Card AsmrProg) */
+.container {
+  background-color: #ffffff;
+  border-radius: 28px;
+  box-shadow: 0 20px 40px -15px rgba(79, 70, 229, 0.2), 
+              0 10px 25px -5px rgba(0, 0, 0, 0.08),
+              0 0 0 1px rgba(226, 232, 240, 0.8);
+  position: relative;
+  overflow: hidden;
+  width: 860px;
+  max-width: 95vw;
+  min-height: 580px;
+  height: 580px;
+  z-index: 10;
+  display: flex;
+}
+
+/* Form Container chung */
+.form-container {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transition: all 0.6s cubic-bezier(0.68, -0.2, 0.265, 1.25);
+}
+
+/* Form Đăng Nhập (Bên trái) */
+.sign-in {
+  left: 0;
+  width: 50%;
+  z-index: 2;
+}
+
+.container.active .sign-in {
+  transform: translateX(100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Bảng Thông tin vai trò (Bên phải lúc active) */
+.sign-up {
+  left: 0;
+  width: 50%;
+  opacity: 0;
+  z-index: 1;
+}
+
+.container.active .sign-up {
+  transform: translateX(100%);
+  opacity: 1;
+  z-index: 5;
+  animation: hienLen 0.6s ease;
+}
+
+@keyframes hienLen {
+  0%, 49.99% {
+    opacity: 0;
+    z-index: 1;
+  }
+  50%, 100% {
+    opacity: 1;
+    z-index: 5;
+  }
+}
+
+/* Nội dung bên trong Sign In */
+.form-container form {
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 42px;
+  height: 100%;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* Nội dung bên trong Sign Up (Phân quyền vai trò) */
+.thong-tin-noi-dung {
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 24px 34px;
+  height: 100%;
+  text-align: center;
+  box-sizing: border-box;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.thong-tin-noi-dung::-webkit-scrollbar {
+  display: none;
+}
+
+.thong-tin-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.badge-icon-header {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #059669, #10b981);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 20px;
+  margin-bottom: 6px;
+  box-shadow: 0 6px 14px -3px rgba(16, 185, 129, 0.4);
+}
+
+.thong-tin-header h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--mau-chu-chinh);
+  margin-bottom: 2px;
+  letter-spacing: -0.02em;
+}
+
+.thong-tin-header .phu-de-form {
+  font-size: 0.8rem;
+  color: var(--mau-chu-phu);
+  margin-bottom: 0;
+  line-height: 1.35;
+}
+
+.sign-in h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: var(--mau-chu-chinh);
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
+}
+
+.sign-in .phu-de-form {
+  font-size: 0.85rem;
+  color: var(--mau-chu-phu);
+  margin-bottom: 22px;
+  line-height: 1.4;
+}
+
+/* Nhóm ô nhập */
+.o-nhap-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.o-nhap-hop {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.bieu-tuong-input {
+  position: absolute;
+  left: 14px;
+  color: #94a3b8;
+  font-size: 1.15rem;
+  pointer-events: none;
+  transition: color 0.2s ease;
+}
+
+.o-nhap-hop input {
+  background-color: var(--mau-input-nen);
+  border: 1.5px solid var(--mau-vien);
+  margin: 0;
+  padding: 12px 42px 12px 42px;
+  font-size: 0.925rem;
+  border-radius: 10px;
+  width: 100%;
+  outline: none;
+  color: var(--mau-chu-chinh);
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.o-nhap-hop input:focus {
+  background-color: #ffffff;
+  border-color: var(--mau-chinh);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+.o-nhap-hop input:focus + .bieu-tuong-input,
+.o-nhap-hop:focus-within .bieu-tuong-input {
+  color: var(--mau-chinh);
+}
+
+.o-nhap-hop input::placeholder {
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+/* Nút hiển thị mật khẩu */
+.nut-hien-mk {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 6px;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: color 0.2s;
+}
+
+.nut-hien-mk:hover {
+  color: var(--mau-chu-chinh);
+}
+
+/* Thông báo lỗi */
+.dang-nhap-loi {
+  display: flex;
+  width: 100%;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+  padding: 10px 14px;
+  color: #b91c1c;
+  font-size: 0.825rem;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  text-align: left;
+}
+
+.dang-nhap-loi i {
+  font-size: 1.05rem;
+  flex-shrink: 0;
+}
+
+/* Nút Submit chính */
+.nut-chinh-submit {
+  background: linear-gradient(135deg, var(--mau-chinh), var(--mau-tim));
+  color: #ffffff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.825rem;
+  padding: 12px 32px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 10px 20px -5px rgba(79, 70, 229, 0.4);
+  transition: all 0.25s ease;
+}
+
+.nut-chinh-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 24px -5px rgba(79, 70, 229, 0.5);
+  background: linear-gradient(135deg, var(--mau-chinh-dam), var(--mau-tim));
+}
+
+.nut-chinh-submit:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.nut-chinh-submit:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.lien-ket-phu {
+  margin-top: 18px;
+}
+
+.lien-ket-phu a {
+  color: var(--mau-chu-phu);
+  font-size: 0.825rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: color 0.2s ease;
+}
+
+.lien-ket-phu a:hover {
+  color: var(--mau-chinh);
+  text-decoration: underline;
+}
+
+.lien-ket-phu small {
+  color: var(--mau-chu-phu);
+  font-size: 0.775rem;
+  line-height: 1.4;
+  display: block;
+}
+
+/* Danh sách thẻ vai trò bên Sign Up */
+.danh-sach-vai-tro {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 10px;
+}
+
+.the-vai-tro {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 12px;
+  background-color: #f8fafc;
+  border: 1px solid var(--mau-vien);
+  border-radius: 9px;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.the-vai-tro:hover {
+  border-color: #c7d2fe;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.08);
+  transform: translateY(-1px);
+}
+
+.icon-vt {
+  width: 30px;
+  height: 30px;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.vai-tro-admin .icon-vt { background: #fee2e2; color: #dc2626; }
+.vai-tro-thukho .icon-vt { background: #fef3c7; color: #d97706; }
+.vai-tro-thungan .icon-vt { background: #dbeafe; color: #2563eb; }
+.vai-tro-ketoan .icon-vt { background: #d1fae5; color: #059669; }
+
+.text-vt {
+  display: flex;
+  flex-direction: column;
+}
+
+.text-vt strong {
+  font-size: 0.8rem;
+  color: var(--mau-chu-chinh);
+  margin-bottom: 1px;
+}
+
+.text-vt span {
+  font-size: 0.72rem;
+  color: var(--mau-chu-phu);
+  line-height: 1.3;
+}
+
+.thong-tin-noi-dung .lien-ket-phu {
+  margin-top: 4px;
+}
+
+.thong-tin-noi-dung .lien-ket-phu small {
+  color: var(--mau-chu-phu);
+  font-size: 0.74rem;
+  line-height: 1.35;
+}
+
+/* ==========================================================
+   SLIDING CURVED OVERLAY PANEL (ASMRPROG SIGNATURE)
+   ========================================================== */
+.toggle-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  transition: all 0.6s cubic-bezier(0.68, -0.2, 0.265, 1.25);
+  border-radius: 150px 0 0 100px;
+  z-index: 1000;
+}
+
+.container.active .toggle-container {
+  transform: translateX(-100%);
+  border-radius: 0 150px 100px 0;
+}
+
+.toggle {
+  background: linear-gradient(135deg, #4f46e5 0%, #6366f1 45%, #7c3aed 100%);
+  color: #ffffff;
+  position: relative;
+  left: -100%;
+  height: 100%;
+  width: 200%;
+  transform: translateX(0);
+  transition: all 0.6s cubic-bezier(0.68, -0.2, 0.265, 1.25);
+}
+
+.container.active .toggle {
+  transform: translateX(50%);
+}
+
+.toggle-panel {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 40px;
+  text-align: center;
+  top: 0;
+  transform: translateX(0);
+  transition: all 0.6s cubic-bezier(0.68, -0.2, 0.265, 1.25);
+  box-sizing: border-box;
+}
+
+.toggle-icon-wrap {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: #ffffff;
+  margin-bottom: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.toggle-panel h1 {
+  font-family: 'Montserrat', sans-serif;
+  color: #ffffff;
+  font-size: 1.85rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+
+.toggle-panel p {
+  font-size: 0.925rem;
+  line-height: 1.5;
+  letter-spacing: 0.2px;
+  margin-bottom: 26px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Ghost Button trên nền Gradient */
+.ghost-btn {
+  background-color: transparent;
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 11px 32px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.25s ease;
+}
+
+.ghost-btn:hover {
+  background-color: #ffffff;
+  color: var(--mau-chinh);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+}
+
+.toggle-left {
+  transform: translateX(-200%);
+}
+
+.container.active .toggle-left {
+  transform: translateX(0);
+}
+
+.toggle-right {
+  right: 0;
+  transform: translateX(0);
+}
+
+.container.active .toggle-right {
+  transform: translateX(200%);
+}
+
+/* ==========================================================
+   RESPONSIVE DESIGN CHO THIẾT BỊ DI ĐỘNG & MÀN HÌNH NHỎ
+   ========================================================== */
+@media (max-width: 768px) {
+  .container {
+    min-height: auto;
+    width: 100%;
+    border-radius: 20px;
+    flex-direction: column;
+  }
+
+  .toggle-container {
+    display: none;
+  }
+
+  .sign-in,
+  .sign-up {
+    position: relative;
+    width: 100%;
+    left: auto;
+    top: auto;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .sign-up {
+    display: none;
+  }
+
+  .container.active .sign-in {
+    display: none;
+  }
+
+  .container.active .sign-up {
+    display: block;
+    animation: none;
+  }
+
+  .form-container form,
+  .thong-tin-noi-dung {
+    padding: 36px 20px;
+  }
+
+  .nut-chinh-submit {
+    padding: 12px 20px;
+  }
+}

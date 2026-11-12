@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Hệ thống Quản lý Học trực tuyến LMS — Kiến trúc Hướng dịch vụ" />
+  <title>Đang chuyển hướng... - CT LMS</title>
+  <link rel="icon" type="image/svg+xml" href="img/ct-lms-logo.svg" />
+  <link rel="stylesheet" href="css/chung.css" />
+  <link rel="stylesheet" href="css/bo-cuc.css" />
+  <script>
+    (function() {
+      try {
+        var raw = sessionStorage.getItem('current_user') || sessionStorage.getItem('nguoi_dung_hien_tai');
+        if (raw && JSON.parse(raw)) {
+          window.location.replace('trang/tong-quan.html');
+        } else {
+          window.location.replace('trang/dang-nhap.html');
+        }
+      } catch (e) {
+        window.location.replace('trang/dang-nhap.html');
+      }
+    })();
+  </script>
+</head>
+<body>
+  <main class="can-giua-toan-man" style="display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #f8fafc; font-family: 'Google Sans', sans-serif;">
+    <div class="the the-chuyen-huong van-ban-trung" style="background: #ffffff; padding: 2.5rem 3.5rem; border-radius: 1.25rem; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.08); text-align: center; border: 1px solid #e2e8f0;">
+      <div class="quay-vong can-giua" style="width: 48px; height: 48px; border: 4px solid #e2e8f0; border-top-color: #0284c7; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 1.5rem auto;"></div>
+      <h1 class="tieu-de-chuyen-huong" style="font-size: 1.5rem; font-weight: 800; color: #0f172a; margin-bottom: 0.5rem;">HỆ THỐNG QUẢN LÝ HỌC TRỰC TUYẾN (LMS)</h1>
+      <p class="mo-ta-chuyen-huong" style="color: #64748b; font-size: 0.95rem;">Đang tải cấu hình Ocelot Gateway và chuyển hướng đến trang làm việc...</p>
+    </div>
+  </main>
+  <style>
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</body>
+</html>

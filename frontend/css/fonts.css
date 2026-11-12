@@ -1,0 +1,64 @@
+/* ==========================================================================
+   fonts.css — Khai báo font chữ Google Sans Tiếng Việt cho CT LMS
+   Tải nội bộ từ thư mục ../fonts/
+   ========================================================================== */
+
+/* 1. Google Sans - Font chính toàn hệ thống (Variable Weight: 100 - 900) */
+@font-face {
+  font-family: 'Google Sans';
+  src: url('../fonts/google-sans-vietnamese-full-normal.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Google Sans';
+  src: url('../fonts/google-sans-vietnamese-full-italic.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* 2. Google Sans Display - Dành riêng cho Tiêu đề lớn, Hero Banner, Thẻ số KPI (Optical Size) */
+@font-face {
+  font-family: 'Google Sans Display';
+  src: url('../fonts/google-sans-vietnamese-opsz-normal.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Google Sans Display';
+  src: url('../fonts/google-sans-vietnamese-opsz-italic.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* 3. Google Sans Text - Dành cho Văn bản body, mô tả khóa học, bảng biểu (Standard Text) */
+@font-face {
+  font-family: 'Google Sans Text';
+  src: url('../fonts/google-sans-vietnamese-standard-normal.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Google Sans Text';
+  src: url('../fonts/google-sans-vietnamese-standard-italic.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* 4. Google Sans High-Emphasis - Nhấn mạnh điểm số, giá tiền, badge quan trọng (Grad / Weight) */
+@font-face {
+  font-family: 'Google Sans Grad';
+  src: url('../fonts/google-sans-vietnamese-grad-normal.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}

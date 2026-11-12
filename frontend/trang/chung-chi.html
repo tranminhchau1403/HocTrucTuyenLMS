@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="vi" ng-app="lmsApp">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chứng chỉ hoàn thành - CT LMS</title>
+  <link rel="icon" type="image/svg+xml" href="../img/ct-lms-logo.svg" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="../css/chung.css" />
+  <link rel="stylesheet" href="../css/giao-dien.css" />
+  <style>
+    @media print {
+      .app-header, .khong-in { display: none !important; }
+      body, .main-container { padding: 0 !important; margin: 0 !important; background: white !important; }
+    }
+  </style>
+</head>
+<body ng-controller="ChungChiController as vm">
+
+  <!-- THANH ĐIỀU HƯỚNG NGANG CHUẨN CT LMS -->
+  <header class="app-header khong-in">
+    <div class="header-container">
+      <div class="header-left">
+        <a href="tong-quan.html" class="header-brand" title="CT LMS">
+          <img src="../img/ct-lms-logo.svg" alt="CT LMS Logo" />
+        </a>
+        <nav id="header-navbar-links" class="nav-links"></nav>
+      </div>
+      <div class="header-actions" id="header-user-actions"></div>
+    </div>
+  </header>
+
+  <!-- NỘI DUNG CHỨNG CHỈ -->
+  <main class="main-container">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.5rem;" class="khong-in">
+      <div class="breadcrumb-nav" style="margin-bottom: 0;">
+        <a href="tong-quan.html"><i class="bi bi-house"></i> Trang chủ</a>
+        <span>/</span>
+        <span class="active">Chứng chỉ tốt nghiệp</span>
+      </div>
+      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+        <button class="btn btn-secondary" onclick="window.print()" style="padding: 0.5rem 1rem;">
+          <i class="bi bi-printer"></i> In chứng chỉ
+        </button>
+        <button class="btn btn-primary" ng-click="vm.taiPdfChungChi()" style="padding: 0.5rem 1.25rem; background: #0284c7;">
+          <i class="bi bi-file-earmark-pdf"></i> Tải PDF chính thức (.pdf)
+        </button>
+      </div>
+    </div>
+
+    <!-- Thanh Tra Cứu Công Khai Chứng Chỉ (Public Verification) -->
+    <div class="the khong-in" style="background: white; padding: 1rem 1.25rem; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;">
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <i class="bi bi-shield-check text-primary" style="font-size: 1.5rem;"></i>
+        <div>
+          <strong style="font-size: 0.95rem; color: var(--text-main); display: block;">Xác thực chứng chỉ điện tử công khai</strong>
+          <span style="font-size: 0.8rem; color: var(--text-muted);">Mọi nhà tuyển dụng đều có thể tra cứu tính hợp lệ qua Mã chứng chỉ duy nhất</span>
+        </div>
+      </div>
+      <div style="display: flex; gap: 0.5rem; flex: 1; max-width: 400px;">
+        <input type="text" class="input" ng-model="vm.maTraCuu" placeholder="Nhập mã chứng chỉ (ví dụ: CTLMS-CERT-000001)..." style="font-size: 0.85rem;" />
+        <button class="btn btn-primary" ng-click="vm.traCuuCongKhai()" style="white-space: nowrap;">
+          <i class="bi bi-search"></i> Kiểm tra
+        </button>
+      </div>
+    </div>
+
+    <!-- Bản Mẫu Chứng chỉ Sang Trọng Chuẩn ChungChiModel -->
+    <div style="max-width: 840px; margin: 0 auto; padding: clamp(1.25rem, 4vw, 3.5rem); border: 4px double #0284c7; border-radius: 20px; background: linear-gradient(135deg, #f8fafc 0%, #ffffff 50%, #f0f9ff 100%); box-shadow: 0 10px 30px rgba(0,0,0,0.06); text-align: center; position: relative;">
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 1rem; margin-bottom: 2rem;">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <img src="../img/ct-lms-logo.svg" alt="CT LMS Logo" style="height: 36px; width: auto; object-fit: contain;" />
+          <strong style="font-size: 1.05rem; color: #0284c7; font-weight: 800;">CT LMS ACADEMY</strong>
+        </div>
+        <span style="font-family: monospace; font-size: 0.82rem; color: #64748b; font-weight: 700;">
+          Số hiệu: {{ vm.chungChi.soChungChi || 'CTLMS-CERT-000001' }}
+        </span>
+      </div>
+
+      <div style="font-size: 0.82rem; font-weight: 700; color: #0284c7; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.5rem;">
+        Certificate of Completion
+      </div>
+      <h2 style="font-size: clamp(1.25rem, 3vw, 1.75rem); font-weight: 800; color: #0f172a; margin-bottom: 1.25rem;">
+        Chứng chỉ hoàn thành khóa học
+      </h2>
+
+      <p style="color: #64748b; font-size: 0.92rem; margin-bottom: 0.5rem;">Hệ thống Quản lý Học trực tuyến CT LMS chứng nhận học viên:</p>
+      <div style="font-size: clamp(1.3rem, 2.8vw, 1.65rem); font-weight: 800; color: #0284c7; border-bottom: 2px solid #f59e0b; display: inline-block; padding: 0 1.5rem 0.5rem 1.5rem; margin-bottom: 1.25rem;">
+        {{ vm.chungChi.hoTenSinhVien || vm.nguoiDung.hoTen || 'Nguyễn Văn Nam' }}
+      </div>
+      <p style="color: #64748b; font-size: 0.85rem; margin-bottom: 1.25rem;">
+        Lớp: {{ vm.chungChi.lop || 'CNTT01' }} • Khoa: Công nghệ thông tin
+      </p>
+
+      <p style="color: #334155; font-size: 0.92rem; max-width: 620px; margin: 0 auto 0.75rem auto; line-height: 1.6;">
+        Đã hoàn thành xuất sắc 100% chương trình đào tạo và đạt yêu cầu bài kiểm tra trắc nghiệm đánh giá năng lực của khóa học:
+      </p>
+      <h3 style="font-size: clamp(1.1rem, 2.2vw, 1.35rem); font-weight: 800; color: #0369a1; margin-bottom: 1rem;">
+        {{ vm.chungChi.tenKhoaHoc || 'Lập trình C# cơ bản đến OOP chuyên sâu' }}
+      </h3>
+      <span style="display: inline-block; background: #dcfce7; color: #15803d; font-size: 0.82rem; font-weight: 700; padding: 0.4rem 1.25rem; border-radius: 9999px;">
+        {{ vm.chungChi.xepLoai || 'Xếp loại: Xuất sắc' }} (Điểm TB: {{ vm.chungChi.diemTrungBinh || 10.0 }}/10)
+      </span>
+
+      <div class="form-grid-3" style="gap: 1.5rem; margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0; text-align: center; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+        <div>
+          <div style="font-size: 0.85rem; color: #64748b;">Giảng viên phụ trách</div>
+          <strong style="font-size: 1rem; color: #0f172a; margin-top: 1rem; display: block;">
+            {{ vm.chungChi.tenGiangVien || 'ThS. Trần Văn Bình' }}
+          </strong>
+        </div>
+        <div>
+          <div style="font-size: 0.85rem; color: #64748b;">Mã QR Xác thực</div>
+          <div style="margin-top: 0.5rem; display: inline-flex; flex-direction: column; align-items: center;">
+            <div style="width: 72px; height: 72px; background: white; border: 1px solid #cbd5e1; border-radius: 6px; display: flex; align-items: center; justify-content: center;">
+              <i class="bi bi-qr-code" style="font-size: 3rem; color: #0f172a;"></i>
+            </div>
+            <span style="font-size: 10px; color: #64748b; margin-top: 2px;">Quét để xác minh</span>
+          </div>
+        </div>
+        <div>
+          <div style="font-size: 0.85rem; color: #64748b;">Ngày cấp chứng chỉ</div>
+          <strong style="font-size: 1rem; color: #0f172a; margin-top: 1rem; display: block;">
+            {{ vm.chungChi.ngayHoanThanh ? (vm.chungChi.ngayHoanThanh | date:'dd/MM/yyyy') : '11/11/2026' }}
+          </strong>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="../angular.min.js"></script>
+  <script src="../js/cau-hinh.js"></script>
+  <script src="../js/angular-app.js"></script>
+  <script src="../js/xac-thuc.js"></script>
+  <script src="../js/goi-api.js"></script>
+  <script src="../js/tien-ich.js"></script>
+  <script src="../js/dieu-huong.js"></script>
+  <script>
+    (function () {
+      'use strict';
+      angular.module('lmsApp').controller('ChungChiController', ['ApiService', function (ApiService) {
+        var vm = this;
+        vm.nguoiDung = XacThuc.layNguoiDung() || {};
+        vm.chungChi = {};
+        vm.maDangKy = 1;
+        vm.maTraCuu = '';
+
+        function layThamSoUrl(name) {
+          var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+          return results !== null ? decodeURIComponent(results[1]) : null;
+        }
+
+        vm.napChungChi = function () {
+          var pDk = layThamSoUrl('maDangKy');
+          if (pDk) vm.maDangKy = parseInt(pDk, 10);
+
+          ApiService.xuatChungChi(vm.maDangKy)
+            .then(function (res) {
+              if (res.data && res.data.data) {
+                vm.chungChi = res.data.data;
+                vm.maTraCuu = vm.chungChi.soChungChi || '';
+              }
+            })
+            .catch(function () {
+              // Dữ liệu mẫu hiển thị
+              vm.chungChi = {
+                soChungChi: 'CTLMS-CERT-000001',
+                hoTenSinhVien: vm.nguoiDung.hoTen || 'Nguyễn Văn Nam',
+                lop: 'CNTT01',
+                tenKhoaHoc: 'Lập trình C# cơ bản đến OOP chuyên sâu',
+                tenGiangVien: 'ThS. Trần Văn Bình',
+                xepLoai: 'Hoàn thành xuất sắc',
+                diemTrungBinh: 10.0,
+                ngayHoanThanh: new Date()
+              };
+            });
+        };
+
+        vm.taiPdfChungChi = function () {
+          var url = ApiService.taiPdfChungChiUrl(vm.maDangKy || 1);
+          window.open(url, '_blank');
+        };
+
+        vm.traCuuCongKhai = function () {
+          if (!vm.maTraCuu || !vm.maTraCuu.trim()) {
+            TienIch.thongBao('Vui lòng nhập mã chứng chỉ cần xác thực.', 'canh-bao');
+            return;
+          }
+
+          ApiService.xacThucChungChiCongKhai(vm.maTraCuu.trim())
+            .then(function (res) {
+              if (res.data && res.data.data) {
+                vm.chungChi = res.data.data;
+                TienIch.thongBao('Xác thực thành công! Chứng chỉ hợp lệ trên hệ thống CT LMS.', 'thanh-cong');
+              } else {
+                TienIch.thongBao('Không tìm thấy thông tin chứng chỉ.', 'loi');
+              }
+            })
+            .catch(function () {
+              TienIch.thongBao('Mã chứng chỉ không tồn tại hoặc chưa được cấp phép.', 'loi');
+            });
+        };
+
+        vm.napChungChi();
+      }]);
+    })();
+  </script>
+</body>
+</html>

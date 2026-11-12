@@ -1,0 +1,12 @@
+2026-11-12 12:19:30.863 +07:00 [INF] User profile is available. Using 'C:\Users\MINHCHAU\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-11-12 12:19:30.929 +07:00 [INF] LmsBackgroundWorker đã khởi động: sẵn sàng xử lý hàng đợi Email và dọn dẹp phiên định kỳ.
+2026-11-12 12:19:31.121 +07:00 [INF] Now listening on: http://localhost:5000
+2026-11-12 12:19:31.122 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-11-12 12:19:31.123 +07:00 [INF] Hosting environment: Production
+2026-11-12 12:19:31.124 +07:00 [INF] Content root path: C:\Users\MINHCHAU\Desktop\HocTrucTuyenLMS\BTL_QuanLyHocTrucTuyen\API_Admin\bin\Debug\net8.0
+2026-11-12 12:21:55.201 +07:00 [INF] User profile is available. Using 'C:\Users\MINHCHAU\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-11-12 12:21:55.235 +07:00 [INF] LmsBackgroundWorker đã khởi động: sẵn sàng xử lý hàng đợi Email và dọn dẹp phiên định kỳ.
+2026-11-12 12:21:55.286 +07:00 [INF] Now listening on: http://localhost:5000
+2026-11-12 12:21:55.289 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-11-12 12:21:55.290 +07:00 [INF] Hosting environment: Production
+2026-11-12 12:21:55.291 +07:00 [INF] Content root path: C:\Users\MINHCHAU\Desktop\HocTrucTuyenLMS\BTL_QuanLyHocTrucTuyen\API_Admin\bin\Debug\net8.0

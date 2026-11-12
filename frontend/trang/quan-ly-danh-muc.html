@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="vi" ng-app="lmsApp">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quản lý danh mục - CT LMS</title>
+  <link rel="icon" type="image/svg+xml" href="../img/ct-lms-logo.svg" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="../css/chung.css" />
+  <link rel="stylesheet" href="../css/giao-dien.css" />
+</head>
+<body ng-controller="QuanLyDanhMucController as vm">
+
+  <!-- THANH ĐIỀU HƯỚNG NGANG CHUẨN CT LMS -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="header-left">
+        <a href="tong-quan.html" class="header-brand" title="CT LMS">
+          <img src="../img/ct-lms-logo.svg" alt="CT LMS Logo" />
+        </a>
+        <nav id="header-navbar-links" class="nav-links"></nav>
+      </div>
+      <div class="header-actions" id="header-user-actions"></div>
+    </div>
+  </header>
+
+  <!-- NỘI DUNG CHÍNH -->
+  <main class="main-container">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.25rem;">
+      <div class="breadcrumb-nav" style="margin-bottom: 0;">
+        <a href="tong-quan.html"><i class="bi bi-house"></i> Trang chủ</a>
+        <span>/</span>
+        <span class="active">Danh mục khóa học</span>
+      </div>
+      <button class="btn btn-primary" ng-click="vm.moModalThem()" style="padding: 0.5rem 1rem;">
+        <i class="bi bi-plus-circle"></i> Thêm danh mục mới
+      </button>
+    </div>
+
+    <div style="background: white; border: 1px solid var(--border); border-radius: 12px; padding: clamp(1rem, 2.5vw, 1.5rem); box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
+      <!-- Chế độ Bảng (Tablet & Desktop >= 640px) -->
+      <div class="table-wrapper desktop-table">
+        <table class="bang" style="width: 100%; border-collapse: collapse;">
+          <thead>
+            <tr style="border-bottom: 2px solid var(--border); text-align: left;">
+              <th style="padding: 0.75rem 0.5rem; width: 70px;">Mã</th>
+              <th style="padding: 0.75rem 0.5rem;">Tên danh mục</th>
+              <th style="padding: 0.75rem 0.5rem;">Mô tả chi tiết</th>
+              <th style="padding: 0.75rem 0.5rem;">Trạng thái</th>
+              <th style="padding: 0.75rem 0.5rem; text-align: right; width: 120px;">Thao tác</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="dm in vm.danhSachDanhMuc" style="border-bottom: 1px solid var(--border);">
+              <td style="padding: 0.75rem 0.5rem;"><strong>#{{ dm.maDanhMuc }}</strong></td>
+              <td style="padding: 0.75rem 0.5rem;"><strong style="color: #0284c7;">{{ dm.tenDanhMuc }}</strong></td>
+              <td style="padding: 0.75rem 0.5rem; color: var(--text-muted);">{{ dm.moTa }}</td>
+              <td style="padding: 0.75rem 0.5rem;"><span style="font-size: 11px; background: #dcfce7; color: #166534; padding: 2px 8px; border-radius: 4px; font-weight: 700;">Hoạt động</span></td>
+              <td style="padding: 0.75rem 0.5rem; text-align: right;">
+                <button class="btn btn-secondary" title="Sửa" style="padding: 0.35rem 0.6rem;"><i class="bi bi-pencil"></i></button>
+                <button class="btn btn-secondary" title="Xóa" style="padding: 0.35rem 0.6rem; color: #dc2626;"><i class="bi bi-trash"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Chế độ Thẻ Card thu gọn trên Mobile (< 640px) -->
+      <div class="mobile-cards">
+        <div class="mobile-data-card" ng-repeat="dm in vm.danhSachDanhMuc">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <strong style="color: #0284c7; font-size: 0.92rem;">#{{ dm.maDanhMuc }} • {{ dm.tenDanhMuc }}</strong>
+            <span style="font-size: 0.68rem; background: #dcfce7; color: #166534; padding: 2px 8px; border-radius: 4px; font-weight: 700;">Hoạt động</span>
+          </div>
+          <div style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4;">{{ dm.moTa }}</div>
+          <div style="display: flex; justify-content: flex-end; gap: 0.45rem; padding-top: 0.4rem; border-top: 1px dashed var(--border);">
+            <button class="btn btn-secondary" style="font-size: 0.75rem;"><i class="bi bi-pencil"></i> Sửa</button>
+            <button class="btn btn-secondary" style="font-size: 0.75rem; color: #dc2626;"><i class="bi bi-trash"></i> Xóa</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Thêm Danh Mục -->
+    <div ng-if="vm.hienModal" style="position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); display: flex; align-items: center; justify-content: center; z-index: 2000; padding: 1rem;">
+      <div style="max-width: 480px; width: 100%; background: white; border-radius: 14px; padding: clamp(1.25rem, 4vw, 2rem); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);">
+        <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 1.25rem; color: var(--text-main);">
+          Thêm danh mục khóa học
+        </h3>
+        <form ng-submit="vm.luuDanhMuc()">
+          <div style="margin-bottom: 1rem;">
+            <label style="display: block; font-size: 0.825rem; font-weight: 600; margin-bottom: 0.35rem;">Tên danh mục</label>
+            <input type="text" ng-model="vm.formDanhMuc.tenDanhMuc" required style="width: 100%; box-sizing: border-box; padding: 0.65rem 0.75rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem;" />
+          </div>
+          <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; font-size: 0.825rem; font-weight: 600; margin-bottom: 0.35rem;">Mô tả</label>
+            <textarea ng-model="vm.formDanhMuc.moTa" rows="3" style="width: 100%; box-sizing: border-box; padding: 0.65rem 0.75rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem;"></textarea>
+          </div>
+          <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+            <button type="button" class="btn btn-secondary" ng-click="vm.dongModal()" style="padding: 0.5rem 1rem;">Hủy</button>
+            <button type="submit" class="btn btn-primary" style="padding: 0.5rem 1.25rem;">Lưu danh mục</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script src="../angular.min.js"></script>
+  <script src="../js/cau-hinh.js"></script>
+  <script src="../js/angular-app.js"></script>
+  <script src="../js/xac-thuc.js"></script>
+  <script src="../js/goi-api.js"></script>
+  <script src="../js/tien-ich.js"></script>
+  <script src="../js/dieu-huong.js"></script>
+  <script>
+    (function () {
+      'use strict';
+      angular.module('lmsApp').controller('QuanLyDanhMucController', function () {
+        var vm = this;
+        vm.hienModal = false;
+        vm.formDanhMuc = {};
+
+        vm.danhSachDanhMuc = [
+          { maDanhMuc: 1, tenDanhMuc: 'Lập trình .NET & C#', moTa: 'Các khóa học lập trình C#, ASP.NET Core và Microservices' },
+          { maDanhMuc: 2, tenDanhMuc: 'Cơ sở dữ liệu', moTa: 'Thiết kế, tối ưu hóa truy vấn T-SQL và quản trị SQL Server' },
+          { maDanhMuc: 3, tenDanhMuc: 'Kinh tế - Tài chính', moTa: 'Phân tích nghiệp vụ kinh tế và tài chính doanh nghiệp' },
+          { maDanhMuc: 4, tenDanhMuc: 'Ngoại ngữ IT', moTa: 'Tiếng Anh chuyên ngành CNTT và giao tiếp quốc tế' },
+          { maDanhMuc: 5, tenDanhMuc: 'Kỹ năng mềm', moTa: 'Kỹ năng thuyết trình, Agile/Scrum và làm việc nhóm' }
+        ];
+
+        vm.moModalThem = function () {
+          vm.formDanhMuc = { tenDanhMuc: '', moTa: '' };
+          vm.hienModal = true;
+        };
+
+        vm.dongModal = function () {
+          vm.hienModal = false;
+        };
+
+        vm.luuDanhMuc = function () {
+          var newId = vm.danhSachDanhMuc.length + 1;
+          vm.danhSachDanhMuc.push({
+            maDanhMuc: newId,
+            tenDanhMuc: vm.formDanhMuc.tenDanhMuc,
+            moTa: vm.formDanhMuc.moTa
+          });
+          vm.dongModal();
+          TienIch.thongBao('Thêm danh mục thành công!', 'thanh-cong');
+        };
+      });
+    })();
+  </script>
+</body>
+</html>

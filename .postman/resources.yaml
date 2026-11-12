@@ -1,0 +1,7 @@
+# Use this workspace to collaborate
+workspace:
+  id: ""
+
+localResources:
+  specs:
+    - ../API_Admin/obj/Debug/net8.0/EndpointInfo/API_Admin.json

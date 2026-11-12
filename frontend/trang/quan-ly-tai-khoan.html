@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="vi" ng-app="lmsApp">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quản lý tài khoản - CT LMS</title>
+  <link rel="icon" type="image/svg+xml" href="../img/ct-lms-logo.svg" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="../css/chung.css" />
+  <link rel="stylesheet" href="../css/giao-dien.css" />
+</head>
+<body ng-controller="QuanLyTaiKhoanController as vm">
+
+  <!-- THANH ĐIỀU HƯỚNG NGANG CHUẨN CT LMS -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="header-left">
+        <a href="tong-quan.html" class="header-brand" title="CT LMS">
+          <img src="../img/ct-lms-logo.svg" alt="CT LMS Logo" />
+        </a>
+        <nav id="header-navbar-links" class="nav-links"></nav>
+      </div>
+      <div class="header-actions" id="header-user-actions"></div>
+    </div>
+  </header>
+
+  <!-- NỘI DUNG CHÍNH -->
+  <main class="main-container">
+    <div class="breadcrumb-nav">
+      <a href="tong-quan.html"><i class="bi bi-house"></i> Trang chủ</a>
+      <span>/</span>
+      <span class="active">Quản lý người dùng & phân quyền</span>
+    </div>
+
+    <div style="background: white; border: 1px solid var(--border); border-radius: 12px; padding: clamp(1rem, 2.5vw, 1.5rem); box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
+      <!-- Chế độ Bảng (Tablet & Desktop >= 640px) -->
+      <div class="table-wrapper desktop-table">
+        <table class="bang" style="width: 100%; border-collapse: collapse;">
+          <thead>
+            <tr style="border-bottom: 2px solid var(--border); text-align: left;">
+              <th style="padding: 0.75rem 0.5rem; width: 60px;">ID</th>
+              <th style="padding: 0.75rem 0.5rem;">Tên đăng nhập</th>
+              <th style="padding: 0.75rem 0.5rem;">Họ và tên</th>
+              <th style="padding: 0.75rem 0.5rem;">Email</th>
+              <th style="padding: 0.75rem 0.5rem;">Số điện thoại</th>
+              <th style="padding: 0.75rem 0.5rem;">Quyền hạn</th>
+              <th style="padding: 0.75rem 0.5rem;">Trạng thái</th>
+              <th style="padding: 0.75rem 0.5rem; text-align: right; width: 120px;">Hành động</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="u in vm.danhSachNguoiDung" style="border-bottom: 1px solid var(--border);">
+              <td style="padding: 0.75rem 0.5rem;"><strong>#{{ u.maNguoiDung }}</strong></td>
+              <td style="padding: 0.75rem 0.5rem;"><code style="color: #0284c7; font-weight: 700; background: #e0f2fe; padding: 2px 6px; border-radius: 4px;">{{ u.tenDangNhap }}</code></td>
+              <td style="padding: 0.75rem 0.5rem;"><strong>{{ u.hoTen }}</strong></td>
+              <td style="padding: 0.75rem 0.5rem; font-size: 0.85rem; color: var(--text-muted);">{{ u.email }}</td>
+              <td style="padding: 0.75rem 0.5rem; font-size: 0.85rem;">{{ u.soDienThoai }}</td>
+              <td style="padding: 0.75rem 0.5rem;">
+                <span class="role-tag" ng-style="{'background': u.quyenHan === 'Admin' ? '#fee2e2' : (u.quyenHan === 'Giảng viên' ? '#e0f2fe' : '#f0fdf4'), 'color': u.quyenHan === 'Admin' ? '#b91c1c' : (u.quyenHan === 'Giảng viên' ? '#0369a1' : '#15803d')}">
+                  {{ u.quyenHan }}
+                </span>
+              </td>
+              <td style="padding: 0.75rem 0.5rem;">
+                <span style="font-size: 11px; padding: 2px 8px; border-radius: 4px; font-weight: 700;" ng-style="{'background': u.trangThai ? '#dcfce7' : '#fee2e2', 'color': u.trangThai ? '#166534' : '#b91c1c'}">
+                  {{ u.trangThai ? 'Hoạt động' : 'Đã khóa' }}
+                </span>
+              </td>
+              <td style="padding: 0.75rem 0.5rem; text-align: right;">
+                <button class="btn btn-secondary" ng-click="vm.doiTrangThai(u)" style="padding: 0.35rem 0.75rem; font-size: 11.5px;">
+                  {{ u.trangThai ? 'Khóa' : 'Mở' }}
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Chế độ Thẻ Card thu gọn trên Mobile (< 640px) -->
+      <div class="mobile-cards">
+        <div class="mobile-data-card" ng-repeat="u in vm.danhSachNguoiDung">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <strong style="font-size: 0.92rem; color: var(--text-main);">{{ u.hoTen }}</strong>
+              <code style="color: #0284c7; font-weight: 700; background: #e0f2fe; padding: 1px 5px; border-radius: 4px; font-size: 0.72rem; margin-left: 4px;">@{{ u.tenDangNhap }}</code>
+            </div>
+            <span class="role-tag" ng-style="{'background': u.quyenHan === 'Admin' ? '#fee2e2' : (u.quyenHan === 'Giảng viên' ? '#e0f2fe' : '#f0fdf4'), 'color': u.quyenHan === 'Admin' ? '#b91c1c' : (u.quyenHan === 'Giảng viên' ? '#0369a1' : '#15803d')}">
+              {{ u.quyenHan }}
+            </span>
+          </div>
+          <div style="font-size: 0.78rem; color: var(--text-muted); display: flex; flex-wrap: wrap; gap: 0.75rem;">
+            <span><i class="bi bi-envelope"></i> {{ u.email }}</span>
+            <span><i class="bi bi-telephone"></i> {{ u.soDienThoai }}</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 0.45rem; border-top: 1px dashed var(--border);">
+            <span style="font-size: 0.7rem; padding: 2px 8px; border-radius: 4px; font-weight: 700;" ng-style="{'background': u.trangThai ? '#dcfce7' : '#fee2e2', 'color': u.trangThai ? '#166534' : '#b91c1c'}">
+              {{ u.trangThai ? 'Hoạt động' : 'Đã khóa' }}
+            </span>
+            <button class="btn btn-secondary" ng-click="vm.doiTrangThai(u)" style="font-size: 0.75rem; padding: 0.3rem 0.75rem;">
+              {{ u.trangThai ? 'Khóa tài khoản' : 'Mở khóa' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="../angular.min.js"></script>
+  <script src="../js/cau-hinh.js"></script>
+  <script src="../js/angular-app.js"></script>
+  <script src="../js/xac-thuc.js"></script>
+  <script src="../js/goi-api.js"></script>
+  <script src="../js/tien-ich.js"></script>
+  <script src="../js/dieu-huong.js"></script>
+  <script>
+    (function () {
+      'use strict';
+      angular.module('lmsApp').controller('QuanLyTaiKhoanController', function () {
+        var vm = this;
+        vm.danhSachNguoiDung = [
+          { maNguoiDung: 1, tenDangNhap: 'admin', hoTen: 'Nguyễn Văn An', email: 'admin@lms.test', soDienThoai: '0901000001', quyenHan: 'Admin', trangThai: true },
+          { maNguoiDung: 2, tenDangNhap: 'giangvien01', hoTen: 'Trần Văn Bình', email: 'gv01@lms.test', soDienThoai: '0901000002', quyenHan: 'Giảng viên', trangThai: true },
+          { maNguoiDung: 3, tenDangNhap: 'giangvien02', hoTen: 'Lê Thị Hoa', email: 'gv02@lms.test', soDienThoai: '0901000003', quyenHan: 'Giảng viên', trangThai: true },
+          { maNguoiDung: 4, tenDangNhap: 'hocvien01', hoTen: 'Nguyễn Văn Nam', email: 'namnv@lms.test', soDienThoai: '0901000004', quyenHan: 'Học viên', trangThai: true },
+          { maNguoiDung: 5, tenDangNhap: 'hocvien02', hoTen: 'Trần Thu Trang', email: 'trangtt@lms.test', soDienThoai: '0901000005', quyenHan: 'Học viên', trangThai: true }
+        ];
+
+        vm.doiTrangThai = function (u) {
+          u.trangThai = !u.trangThai;
+          TienIch.thongBao('Đã cập nhật trạng thái tài khoản: ' + u.tenDangNhap, 'thanh-cong');
+        };
+      });
+    })();
+  </script>
+</body>
+</html>
